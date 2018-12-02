@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="GoodsType">
+	<typeAlias type="com.entity.GoodsTypeEntity" alias="goodsTypeE"/>
+	<resultMap id="goodsTypeMap" class="com.entity.GoodsTypeEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="goodsName" property="goodsName" jdbcType="VARCHAR" />
+		<result column="isUse" property="isUse" jdbcType="INT" nullValue="0"/>
+		<result column="isDelete" property="isDelete" jdbcType="INT" nullValue="0"/>
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+
+	</resultMap>
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllGoodsType" resultMap="goodsTypeMap">
+    select * from goodsType
+  </select>
+  
+   <!--  -->
+   <select id="getGoodsTypeBy" resultMap="goodsTypeMap" parameterClass="goodsTypeE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from goodsType 
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="goodsName">
+			goodsName like '%' + #goodsName# +  '%' 
+		</isNotEmpty>
+		<isGreaterThan property="isUse" compareValue="-1" prepend="AND">
+			isUse = #isUse# 
+		</isGreaterThan>
+     </dynamic>
+     ) A
+     <dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+     </dynamic>
+  </select> 
+  
+  <!--  -->
+   <select id="getGoodsTypeByCount" resultClass="String" parameterClass="goodsTypeE">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from goodsType ) A
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="goodsName">
+			goodsName like '%' + #goodsName# +  '%' 
+		</isNotEmpty>
+		<isGreaterThan property="isUse" compareValue="-1" prepend="AND">
+			isUse = #isUse# 
+		</isGreaterThan>
+     </dynamic>
+  </select>
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getGoodsTypeById" resultMap="goodsTypeMap">
+     select * from goodsType where id=#id#
+  </select> 
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertGoodsType" parameterClass="goodsTypeE">
+      insert into goodsType (goodsName,isUse,isDelete,createDate,createTime) 
+      values (#goodsName#,#isUse#,#isDelete#,#createDate#,#createTime#)
+      <selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from goodsType
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteGoodsType" parameterClass="java.util.List">
+     delete from goodsType 
+     <iterate prepend="WHERE" open="(" close=")" conjunction="OR">
+		id=#idLst[]#
+	</iterate>
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateGoodsType" parameterClass="goodsTypeE">
+      update goodsType set goodsname=#goodsName#,isUse=#isUse# where id=#id#
+   </update>
+</sqlMap>

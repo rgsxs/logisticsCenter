@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TruckSet">
+	<typeAlias type="com.entity.TruckSetEntity" alias="truckSetE"/>
+	<resultMap id="truckSetMap" class="com.entity.TruckSetEntity" >
+		<result column="pageSize" property="pageSize" jdbcType="VARCHAR" />
+		<result column="commercialDate" property="commercialDate" jdbcType="VARCHAR" />
+		<result column="compulsoryDate" property="compulsoryDate" jdbcType="VARCHAR" />
+		<result column="orderRule" property="orderRule" jdbcType="VARCHAR" />
+		<result column="preRule" property="preRule" jdbcType="VARCHAR" />
+		<result column="lastRule" property="lastRule" jdbcType="VARCHAR" />
+		<result column="reLogin" property="reLogin" jdbcType="INT" />
+	</resultMap>
+  
+  <!-- 根据id查询详细 -->
+  <select id="getTruckSet" resultMap="truckSetMap">
+    select * from truckSetting
+  </select>
+  
+   <!-- 更新用户对象 -->
+   <update id="updateTruckSet" parameterClass="truckSetE">
+      update truckSetting set pageSize=#pageSize#,commercialDate=#commercialDate#,compulsoryDate=#compulsoryDate#,orderRule=#orderRule#,preRule=#preRule#,lastRule=#lastRule#,reLogin=#reLogin#
+   </update>
+</sqlMap>

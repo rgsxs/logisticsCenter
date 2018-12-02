@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Driver">
+	<typeAlias type="com.entity.DriverInfoEntity" alias="driverE"/>
+	<resultMap id="driverMap" class="com.entity.DriverInfoEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="sex" property="sex" jdbcType="VARCHAR" />
+		<result column="nativePlace" property="nativePlace" jdbcType="VARCHAR" />
+		<result column="education" property="education" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
+		<result column="age" property="age" jdbcType="INT" nullValue="18"/>
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="contactNmuber" property="contactNmuber" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="idNumber" property="idNumber" jdbcType="VARCHAR" />
+		<result column="startWorkDate" property="startWorkDate" jdbcType="VARCHAR" />
+		<result column="driverLicense" property="driverLicense" jdbcType="VARCHAR" />
+		<result column="truckNumber" property="truckNumber" jdbcType="VARCHAR" />
+		<result column="appraise" property="appraise" jdbcType="VARCHAR" />
+		<result column="salary" property="salary" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+		<result column="job" property="job" jdbcType="VARCHAR" />
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+
+	</resultMap>
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllDriver" resultMap="driverMap">
+    select * from driverInfo order by id
+  </select>
+  
+   <!--  -->
+   <select id="getDriverBy" resultMap="driverMap" parameterClass="driverE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo 
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="name">
+			name like '%' + #name# +  '%' 
+		</isNotEmpty>
+	</dynamic>
+	) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!--  -->
+   <select id="getDriverBy2" resultMap="driverMap" parameterClass="driverE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo 
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="name">
+			name = #name# 
+		</isNotEmpty>
+	</dynamic>
+	) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+   <!--  -->
+   <select id="getDriverByCount" resultClass="String" parameterClass="driverE">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="name">
+			name like '%' + #name# +  '%' 
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!--  -->
+   <select id="getDriverBy2Count" resultClass="String" parameterClass="driverE">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="name">
+			name = #name# 
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getDriverById" resultMap="driverMap">
+     select * from driverInfo where id=#id#
+  </select> 
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertDriver" parameterClass="driverE">
+      insert into driverInfo (name,sex,nativePlace,education,birthday,age,address,contactNmuber,mobile,idNumber,startWorkDate,driverLicense,truckNumber,appraise,salary,remark,job,createDate,createTime) 
+      values (#name#,#sex#,#nativePlace#,#education#,#birthday#,#age#,#address#,#contactNmuber#,#mobile#,#idNumber#,#startWorkDate#,#driverLicense#,#truckNumber#,#appraise#,#salary#,#remark#,#job#,#createDate#,#createTime#)
+      <selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from driverInfo
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteDriver" parameterClass="java.util.List">
+	delete from driverInfo 
+	<iterate prepend="WHERE" open="(" close=")"
+	conjunction="OR">
+	id=#idLst[]#
+	</iterate>
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateDriver" parameterClass="driverE">
+      update driverInfo set 
+      name=#name#,
+      sex=#sex#,
+      nativePlace=#nativePlace#,
+      education=#education#,
+      birthday=#birthday#,
+      age=#age#,
+      address=#address#,
+      contactNmuber=#contactNmuber#,
+      mobile=#mobile#,
+      idNumber=#idNumber#,
+      startWorkDate=#startWorkDate#,
+      driverLicense=#driverLicense#,
+      truckNumber=#truckNumber#,
+      appraise=#appraise#,
+      salary=#salary#,
+      remark=#remark#,
+      job=#job#,
+      editDate=#editDate#,
+      editTime=#editTime#
+      where id=#id#
+   </update>
+</sqlMap>

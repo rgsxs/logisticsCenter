@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="ImageFile">
+	<typeAlias type="com.entity.ImageFileEntity" alias="imageFileE"/>
+	<resultMap id="imageFileMap" class="com.entity.ImageFileEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="imagefilename" property="imageFileName" jdbcType="VARCHAR" />
+		<result column="imagefiletype" property="imagefiletype" jdbcType="VARCHAR"/>
+		<result column="imagefileused" property="imagefileused" jdbcType="INT" nullValue="0"/>
+		<result column="filerealpath" property="filerealpath" jdbcType="VARCHAR" />
+		<result column="iszip" property="iszip" jdbcType="VARCHAR" />
+		<result column="downloads" property="downloads" jdbcType="INT" nullValue="0"/>
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+	</resultMap>
+  
+  <!-- 根据id获得上传文件信息 -->
+    <select id="getImageFileBy" resultMap="imageFileMap">
+     select * from imageFile where id in( $ids$ )
+  </select> 
+  
+  <!-- 插入上传文件信息 -->
+	<insert id="insertImageFile" parameterClass="imageFileE">
+		insert into imageFile (
+			imagefilename,
+			imagefiletype,
+			imagefileused,
+			filerealpath,
+			iszip,
+			downloads,
+			createDate,
+			createTime
+		)values(
+			#imageFileName#,
+			#imagefiletype#,
+			#imagefileused#,
+			#filerealpath#,
+			#iszip#,
+			#downloads#,
+			#createDate#,
+			#createTime#
+		)
+		<selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from imageFile
+		</selectKey>
+  </insert> 
+  
+</sqlMap>

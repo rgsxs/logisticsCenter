@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="TruckGoodsOrder">
+	<typeAlias type="com.entity.TruckGoodsOrderTakerEntity" alias="truckGoodsOrderTakerE"/>
+	<typeAlias type="com.entity.TruckGoodsOrderDetailEntity" alias="truckGoodsOrderDetailE"/>
+	<resultMap id="truckGoodsOrderTakerMap" class="com.entity.TruckGoodsOrderTakerEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="goodsType" property="goodsType" jdbcType="VARCHAR" nullValue=""/>
+		<result column="beginDate" property="beginDate" jdbcType="VARCHAR" nullValue=""/>
+		<result column="client" property="client" jdbcType="INT" nullValue="0"/>
+		<result column="deleteFlg" property="deleteFlg" jdbcType="INT" nullValue="0"/>
+		<result column="packageFlg" property="packageFlg" jdbcType="INT" nullValue="0"/>
+		<result column="packagePrice" property="packagePrice" jdbcType="DECIMAL" nullValue="0"/>
+		<result column="workPlace" property="workPlace" jdbcType="VARCHAR" />
+		<result column="startPlace" property="startPlace" jdbcType="VARCHAR" nullValue=""/>
+		<result column="endPlace" property="endPlace" jdbcType="VARCHAR" nullValue=""/>
+		<result column="orderStatus" property="orderStatus" jdbcType="INT" nullValue="0"/>
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" nullValue=""/>
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" nullValue=""/>
+		<result column="editDate" property="editDate" jdbcType="VARCHAR" nullValue=""/>
+		<result column="editTime" property="editTime" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	
+	<resultMap id="truckGoodsOrderDetailMap" class="com.entity.TruckGoodsOrderDetailEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="reportId" property="reportId" jdbcType="INT" />
+		<result column="goodsType" property="goodsType" jdbcType="INT" nullValue="0"/>
+		<result column="deleteFlg" property="deleteFlg" jdbcType="INT" nullValue="0"/>
+		<result column="price" property="price" jdbcType="DECIMAL" nullValue="0"/>
+		<result column="realCarry" property="realCarry" jdbcType="DECIMAL" nullValue="0"/>
+		<result column="invoiceFlg" property="invoiceFlg" jdbcType="INT" nullValue="0"/>
+		<result column="startPlace" property="startPlace" jdbcType="VARCHAR" nullValue=""/>
+		<result column="endPlace" property="endPlace" jdbcType="VARCHAR" nullValue=""/>
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" nullValue=""/>
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" nullValue=""/>
+		<result column="editDate" property="editDate" jdbcType="VARCHAR" nullValue=""/>
+		<result column="editTime" property="editTime" jdbcType="VARCHAR" nullValue=""/>
+	</resultMap>
+	
+	<!-- 新增预录出车信息 -->
+	<insert id="insertTruckGoodsOrderTaker" parameterClass="truckGoodsOrderTakerE">
+		insert into truckGoodsOrderTaker (
+			goodsType,
+			beginDate,
+			client,
+			deleteFlg,
+			packageFlg,
+			packagePrice,
+			startPlace,
+			endPlace,
+			orderStatus,
+			workPlace,
+			createDate,
+			createTime,
+			editDate,
+			editTime
+		) 
+		values 
+		(
+			#goodsType#,
+			#beginDate#,
+			#client#,
+			#deleteFlg#,
+			#packageFlg#,
+			#packagePrice#,
+			#startPlace#,
+			#endPlace#,
+			#orderStatus#,
+			#workPlace#,
+			#createDate#,
+			#createTime#,
+			#editDate#,
+			#editTime#
+		)
+		<selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from truckGoodsOrderTaker
+		</selectKey>
+	</insert>
+	
+	<!-- 新增预录出车详细信息 -->
+	<insert id="insertTruckGoodsOrderDetail" parameterClass="truckGoodsOrderDetailE">
+		insert into truckGoodsOrderDetail (
+			reportId,
+			goodsType,
+			deleteFlg,
+			price,
+			realCarry,
+			invoiceFlg,
+			startPlace,
+			endPlace,
+			createDate,
+			createTime,
+			editDate,
+			editTime
+		) 
+		values 
+		(
+			#reportId#,
+			#goodsType#,
+			#deleteFlg#,
+			#price#,
+			#realCarry#,
+			#invoiceFlg#,
+			#startPlace#,
+			#endPlace#,
+			#createDate#,
+			#createTime#,
+			#editDate#,
+			#editTime#
+		)
+		<selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from truckGoodsOrderDetail
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 根据条件查询出车预录信息 -->
+	<select id="getTruckGoodsOrderTaker" resultMap="truckGoodsOrderTakerMap" parameterClass="truckGoodsOrderTakerE">
+		select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from truckGoodsOrderTaker 
+		<dynamic prepend="WHERE ">
+			<isEqual prepend="AND" property="orderStatus" compareValue="0">
+				(orderStatus = 0 or orderStatus is null)
+			</isEqual>
+			<isGreaterThan prepend="AND" property="orderStatus" compareValue="0">
+				orderStatus = #orderStatus#
+			</isGreaterThan>
+			<isNotEmpty prepend="AND" property="beginDate">
+				beginDate &gt; #beginDate#
+			</isNotEmpty>
+			<isGreaterThan prepend="AND" property="client" compareValue="0">
+				client=#client#
+			</isGreaterThan>
+			<isGreaterThan prepend="AND" property="goodsType" compareValue="0">
+				goodsType=#goodsType#
+			</isGreaterThan>
+		</dynamic>
+		) A
+		<dynamic prepend="WHERE ">
+			<isNotEmpty prepend="AND" property="currentPage">
+				rownumber > $currentPage$
+			</isNotEmpty>
+		</dynamic>
+	</select>
+	
+	<!-- 根据条件查询出车预录详细信息 -->
+	<select id="getTruckGoodsOrderDetail" resultMap="truckGoodsOrderDetailMap" parameterClass="truckGoodsOrderDetailE">
+		select * from truckGoodsOrderDetail 
+		<dynamic prepend="WHERE ">
+			<isNotEmpty prepend="AND" property="deleteFlg">
+				deleteFlg = #deleteFlg#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="reportId">
+				reportId = #reportId#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="goodsTypes">
+				goodsType in ($goodsTypes$)
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="startPlace">
+				startPlace like '%' + #startPlace# +  '%' 
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="endPlace">
+				endPlace like '%' + #endPlace# +  '%' 
+			</isNotEmpty>
+		</dynamic>
+	</select>  
+	
+  <!-- 根据条件查询出车分页pageTotal -->
+	<select id="getTruckGoodsOrderByCount" resultClass="String" parameterClass="truckGoodsOrderTakerE">
+		select count(*) from ( select row_number() over(order by id) as rownumber,* from truckGoodsOrderTaker ) A
+		<dynamic prepend="WHERE ">
+			<isEqual prepend="AND" property="orderStatus" compareValue="0">
+				(orderStatus = 0 or orderStatus is null)
+			</isEqual>
+			<isGreaterThan prepend="AND" property="orderStatus" compareValue="0">
+				orderStatus = #orderStatus#
+			</isGreaterThan>
+			<isNotEmpty prepend="AND" property="deleteFlg">
+				deleteFlg = #deleteFlg#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property="beginDate">
+				beginDate &gt; #beginDate#
+			</isNotEmpty>
+			<isGreaterThan prepend="AND" property="client" compareValue="-1">
+				client=#client#
+			</isGreaterThan>
+			<isGreaterThan prepend="AND" property="goodsType" compareValue="-1">
+				goodsType=#goodsType#
+			</isGreaterThan>
+		</dynamic>
+	</select> 
+  
+  <!-- 根据id获得预录出车信息-->
+	<select id="getTruckGoodsOrderTakerById" resultMap="truckGoodsOrderTakerMap">
+		select * from truckGoodsOrderTaker where id=#id#
+	</select> 
+	
+	<!-- 根据reportID获得预录出车信息-->
+	<select id="getTruckGoodsOrderDetailByReprotId" resultMap="truckGoodsOrderDetailMap">
+		select * from truckGoodsOrderDetail where reportId in ($reportId$) and deleteFlg = 0 order by createdate desc,createtime desc
+	</select>
+	
+   <!-- 删除预录信息 -->
+	<update id="deleteTruckGoodsOrderTaker" parameterClass="java.util.List">
+		update truckGoodsOrderTaker set deleteFlg = 1 ,orderStatus =2
+		<iterate prepend="WHERE" open="(" close=")"
+			conjunction="OR">
+			id=#idLst[]#
+		</iterate>
+	</update>
+	
+	<!-- 删除预录详细信息 -->
+	<update id="deleteTruckGoodsOrderDetail" parameterClass="java.util.List">
+		update truckGoodsOrderDetail set deleteFlg = 1 
+		<iterate prepend="WHERE" open="(" close=")"
+			conjunction="OR">
+			reportId=#idLst[]#
+		</iterate>
+	</update>
+   
+   <!-- 更新预录出车信息 -->
+   <update id="updateTruckGoodsOrderTaker" parameterClass="truckGoodsOrderTakerE">
+		update truckGoodsOrderTaker set 
+			goodsType='$goodsType$',
+			beginDate=#beginDate#,
+			client=#client#,
+			packageFlg=#packageFlg#,
+			packagePrice=#packagePrice#,
+			startPlace=#startPlace#,
+			endPlace=#endPlace#,
+			workPlace=#workPlace#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+   
+   <!-- 更新预录出车详细信息 -->
+   <update id="updateTruckGoodsOrderDetail" parameterClass="truckGoodsOrderDetailE">
+		update truckGoodsOrderDetail set 
+			goodsType=#goodsType#,
+			price=#price#,
+			realCarry=#realCarry#,
+			invoiceFlg=#invoiceFlg#,
+			startPlace=#startPlace#,
+			endPlace=#endPlace#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+   
+   <!-- 更新预录出车详细信息 -->
+   <update id="updateTruckGoodsOrderStatus" parameterClass="truckGoodsOrderTakerE">
+		update truckGoodsOrderTaker set 
+			orderStatus=#orderStatus#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+</sqlMap>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="RepairType">
+	<typeAlias type="com.entity.RepairTypeEntity" alias="repairTypeE"/>
+	<resultMap id="repairTypeMap" class="com.entity.RepairTypeEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="isUse" property="isUse" jdbcType="INT" />
+		<result column="isDelete" property="isDelete" jdbcType="INT" />
+		<result column="repairName" property="repairName" jdbcType="VARCHAR" />
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+	</resultMap>
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllRepairType" resultMap="repairTypeMap">
+    select * from repairType
+  </select>
+  
+   <!-- 根据用户名获得用户对象 -->
+   <select id="getRepairTypeByName" resultMap="repairTypeMap" parameterClass="repairTypeE">
+	select * from repairType where 
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="repairName">
+			repairName=#repairName#
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getRepairTypeById" resultMap="repairTypeMap">
+     select * from repairType where id=#id#
+  </select> 
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertRepairType" parameterClass="repairTypeE">
+      insert into repairType (repairName,createDate,createTime) 
+      values (#repairName#,#createDate#,#createTime#)
+      <selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from repairType
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteRepairType">
+     delete from repairType where id=#id#
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateRepairType" parameterClass="repairTypeE">
+      update repairType set repairname=#repairName# where id=#id#
+   </update>
+</sqlMap>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Client">
+	<typeAlias type="com.entity.ClientEntity" alias="clientE"/>
+	<resultMap id="clientMap" class="com.entity.ClientEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="clientName" property="clientName" jdbcType="VARCHAR" />
+		<result column="contant" property="contant" jdbcType="VARCHAR" />
+		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+		<result column="fax" property="fax" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="products" property="products" jdbcType="VARCHAR" />
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+	</resultMap>
+  
+  <!-- 根据id查询详细 -->
+  <select id="getAllClient" resultMap="clientMap">
+    select * from clientInfo order by id
+  </select>
+  
+   <!-- 模糊查询客户信息 --> 
+   <select id="getClientBy" resultMap="clientMap" parameterClass="clientE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from clientInfo 
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="clientName">
+			clientName like '%' + #clientName# +  '%' 
+		</isNotEmpty>
+	</dynamic>
+	) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 具体查询客户信息 -->
+   <select id="getClientBy2" resultMap="clientMap" parameterClass="clientE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from clientInfo 
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="clientName">
+			clientName = #clientName# 
+		</isNotEmpty>
+	</dynamic>
+	) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 模糊查询客户信息 --> 
+   <select id="getClientByCount" resultClass="String" parameterClass="clientE">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from clientInfo ) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="clientName">
+			clientName like '%' + #clientName# +  '%' 
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 具体查询客户信息 -->
+   <select id="getClientBy2Count" resultClass="String" parameterClass="clientE">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from clientInfo ) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="clientName">
+			clientName = #clientName# 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getClientById" resultMap="clientMap">
+     select * from clientInfo where id=#id#
+  </select> 
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertClient" parameterClass="clientE">
+      insert into clientInfo (clientName,contant,mobile,fax,address,products,createDate,createTime) 
+      values (#clientName#,#contant#,#mobile#,#fax#,#address#,#products#,#createDate#,#createTime#)
+      <selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from clientInfo
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteClient" parameterClass="java.util.List">
+	delete from clientInfo 
+	<iterate prepend="WHERE" open="(" close=")"
+	conjunction="OR">
+	id=#idLst[]#
+	</iterate>
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateClient" parameterClass="clientE">
+      update clientInfo set 
+      clientName=#clientName#,
+      contant=#contant#,
+      mobile=#mobile#,
+      fax=#fax#,
+      address=#address#,
+      products=#products#,
+      editDate=#editDate#,
+      editTime=#editTime#
+      where id=#id#
+   </update>
+</sqlMap>

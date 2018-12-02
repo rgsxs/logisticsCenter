@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Commercial">
+	<typeAlias type="com.entity.CommercialEntity" alias="commercialE"/>
+	<resultMap id="commercialMap" class="com.entity.CommercialEntity" >
+		<result column="id" property="id" jdbcType="INT" />
+		<result column="truckNumber" property="truckNumber" jdbcType="VARCHAR" />
+		<result column="startDate" property="startDate" jdbcType="VARCHAR"/>
+		<result column="endDate" property="endDate" jdbcType="VARCHAR"/>
+		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
+		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
+		<result column="editDate" property="editDate" jdbcType="VARCHAR" />
+		<result column="editTime" property="editTime" jdbcType="VARCHAR" />
+	</resultMap>
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllCommercial" resultMap="commercialMap">
+    select * from commercialInsurance
+  </select>
+  
+   <!--  -->
+   <select id="getCommercialBy" resultMap="commercialMap" parameterClass="commercialE">
+	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from commercialInsurance 
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="truckNumber">
+			truckNumber like '%' + #truckNumber# +  '%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startDate">
+			(startDate &lt; #startDate# and enddate &gt; #startDate#) or ( startDate &gt; #startDate# )
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endDate">
+			(endDate &lt; #endDate#) or (startDate &lt; #endDate# and enddate &gt; #endDate#)
+		</isNotEmpty>
+	</dynamic>
+	) A
+	<dynamic prepend="WHERE ">
+		<isNotEmpty prepend="AND" property="currentPage">
+			rownumber > $currentPage$
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+   <!-- 获得分页的count -->
+   <select id="getCommercialByCount" resultClass="String" parameterClass="commercialE">
+	select count(*) from ( select row_number() over(order by id) as rownumber,* from commercialInsurance ) A
+	<dynamic prepend="WHERE">
+		<isNotEmpty prepend="AND" property="truckNumber">
+			truckNumber like '%' + #truckNumber# +  '%' 
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="startDate">
+			startDate &gt; #startDate#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="endDate">
+			endDate &lt; #endDate#
+		</isNotEmpty>
+	</dynamic>
+     
+  </select> 
+  
+  <!-- 根据id获得车辆商业险 -->
+    <select id="getCommercialById" resultMap="commercialMap">
+     select * from commercialInsurance where id=#id#
+  </select> 
+  
+   <!-- 新增车辆商业险 -->
+   <insert id="insertCommercial" parameterClass="commercialE">
+      insert into commercialInsurance (truckNumber,startDate,endDate,createDate,createTime,editDate,editTime) 
+      values (#truckNumber#,#startDate#,#endDate#,#createDate#,#createTime#,#editDate#,#editTime#)
+      <selectKey resultClass="int" keyProperty="id" type="post">    
+			SELECT max(id) as id from commercialInsurance
+		</selectKey>
+   </insert>
+   
+   <!-- 删除车辆商业险 -->
+   <delete id="deleteCommercial" parameterClass="java.util.List">
+     delete from commercialInsurance 
+	<iterate prepend="WHERE" open="(" close=")"
+	conjunction="OR">
+	id=#idLst[]#
+	</iterate>
+   </delete>
+   
+   <!-- 更新车辆商业险类型 -->
+   <update id="updateCommercial" parameterClass="commercialE">
+      update commercialInsurance set truckNumber=#truckNumber#,startDate=#startDate#,endDate=#endDate#,editDate=#editDate#,editTime=#editTime# where id=#id#
+   </update>
+   
+   <!-- 根据id获得车辆商业险 -->
+    <select id="getWarnCommercial" resultMap="commercialMap" parameterClass="String">
+     select * from commercialInsurance where (startDate &lt; $days$ and enddate &gt; $days$)
+  </select> 
+   
+</sqlMap>
