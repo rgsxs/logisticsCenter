@@ -1,12 +1,10 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
-import com.cachec.CacheManager;
+import com.alibaba.fastjson.JSONObject;
+import com.cache.CacheManager;
 import com.javabean.ClientBean;
-import com.service.ClientService;
-import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
+import com.logisticscenter.service.ClientService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -18,14 +16,14 @@ import java.util.Map;
  * @卜伟领 2017
  *
  */
-public class UserInfoController implements Serializable{
+public class ClientController implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public UserInfoController(){
+	public ClientController(){
 		
 	}
 	//标识ID

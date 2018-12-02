@@ -1,4 +1,4 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
 import com.common.CommonTransMethod;
 import com.common.ConvertService;
@@ -12,8 +12,6 @@ import com.util.ConstantUtils;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;

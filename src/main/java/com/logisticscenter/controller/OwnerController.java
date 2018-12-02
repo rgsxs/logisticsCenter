@@ -1,4 +1,4 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;

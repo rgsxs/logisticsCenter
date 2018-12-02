@@ -1,4 +1,4 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.Result;

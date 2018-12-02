@@ -1,4 +1,4 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
 import com.common.CommonTransMethod;
 import com.common.ConvertService;

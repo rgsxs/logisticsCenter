@@ -1,4 +1,4 @@
-package com.logisticscenter.Controller;
+package com.logisticscenter.controller;
 
 import com.cachec.CacheManager;
 import com.javabean.DriverInfoBean;
@@ -6,7 +6,6 @@ import com.service.DriverService;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
