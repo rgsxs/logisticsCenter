@@ -6,20 +6,15 @@ import java.util.List;
 import com.javabean.ChartsBean;
 import com.logisticscenter.mapper.ChartsDao;
 import com.logisticscenter.service.ChartsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ChartsServiceImpl implements ChartsService {
-	
-	ChartsDao chartsDao;
-	
-	public ChartsDao getChartsDao() {
-		return chartsDao;
-	}
 
-	public void setChartsDao(ChartsDao chartsDao) {
-		this.chartsDao = chartsDao;
-	}
+	@Autowired
+	ChartsDao chartsDao;
 
 	public List<ChartsBean> getClientChartsByMonth(String selectYear){
 		List<ChartsBean> beanList = new ArrayList<ChartsBean>();

@@ -4,7 +4,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.cache.CacheManager;
 import com.javabean.ClientBean;
 import com.logisticscenter.service.ClientService;
+import com.util.ParamUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -26,194 +29,13 @@ public class ClientController implements Serializable{
 	public ClientController(){
 		
 	}
-	//标识ID
-	private int id;
-	//客户名称
-	private String clientName;
-	//联系方式
-	private String contant;
-	//手机
-	private String mobile;
-	//传真
-	private String fax;
-	//地址
-	private String address;
-	//货物
-	private String products;
-	//返回值状态
-	private boolean status;
-	
-	//创建日期
-	private String createDate;
-	//创建时间
-	private String createTime;
-	
-	//选择司机框
-	private String selectClientName;
-	//精确查找/模糊查找
-	private String checkStyle ="";
-	
-	//pageSize
-	private String pageSize;
-	
-	//currentPage
-	private String currentPage;
-	
+
+	@Autowired
 	private ClientService clientService;
-	
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-
-	public String getClientName() {
-		return clientName;
-	}
-
-
-	public void setClientName(String clientName) {
-		this.clientName = clientName;
-	}
-
-
-	public String getContant() {
-		return contant;
-	}
-
-
-	public void setContant(String contant) {
-		this.contant = contant;
-	}
-
-
-	public String getMobile() {
-		return mobile;
-	}
-
-
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
-
-
-	public String getFax() {
-		return fax;
-	}
-
-
-	public void setFax(String fax) {
-		this.fax = fax;
-	}
-
-
-	public String getAddress() {
-		return address;
-	}
-
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-
-	public String getProducts() {
-		return products;
-	}
-
-
-	public void setProducts(String products) {
-		this.products = products;
-	}
-
-
-	public boolean isStatus() {
-		return status;
-	}
-
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-
-	public String getSelectClientName() {
-		return selectClientName;
-	}
-
-
-	public void setSelectClientName(String selectClientName) {
-		this.selectClientName = selectClientName;
-	}
-
-
-	public String getCheckStyle() {
-		return checkStyle;
-	}
-
-
-	public void setCheckStyle(String checkStyle) {
-		this.checkStyle = checkStyle;
-	}
-
-
-	public String getPageSize() {
-		return pageSize;
-	}
-
-
-	public void setPageSize(String pageSize) {
-		this.pageSize = pageSize;
-	}
-
-
-	public String getCurrentPage() {
-		return currentPage;
-	}
-
-
-	public void setCurrentPage(String currentPage) {
-		this.currentPage = currentPage;
-	}
-
-
-	public ClientService getClientService() {
-		return clientService;
-	}
-
-
-	public void setClientService(ClientService clientService) {
-		this.clientService = clientService;
-	}
 
 
 	@SuppressWarnings("unchecked")
-	public String selectAllClient(){
-		HttpServletResponse response =   ServletActionContext.getResponse();
+	public Map selectAllClient(HttpServletRequest request){
 		List<ClientBean> beanLst = null;
 		beanLst= clientService.getAllClient();
 		 //获取输出流，然后使用  
@@ -236,15 +58,7 @@ public class ClientController implements Serializable{
 				result.put(beanLst.get(i).getId(), beanMap);
 			}
 			retResult.put("client",result);
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json    */
-//            response.setContentType("text/json"); 
-//            /*设置字符集为'UTF-8'*/
-//            response.setCharacterEncoding("UTF-8"); 
-			JSONObject obj = JSONObject.parseObject(retResult.toString());
-			out.print(obj.toString());
-			out.flush();
+			return retResult;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -253,7 +67,8 @@ public class ClientController implements Serializable{
 	}
 	
 	
-	public String addClient(){
+	public String addClient(HttpServletRequest request){
+		Map paramMap = ParamUtil.request2Map(request);
 		ClientBean bean = new ClientBean(id,clientName,contant,mobile,fax,address,products);
 		int maxId = clientService.insertClient(bean);
 		id = maxId;

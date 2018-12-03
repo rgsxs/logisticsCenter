@@ -9,8 +9,9 @@ import com.entity.TruckGoodsOrderDetailEntity;
 import com.entity.TruckGoodsOrderTakerEntity;
 import com.logisticscenter.mapper.TruckGoodsOrderDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class TruckGoodsOrderDaoImpl implements TruckGoodsOrderDao {
 
 	/**

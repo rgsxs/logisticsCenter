@@ -5,7 +5,7 @@ import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.javabean.TruckBean;
 import com.service.TruckService;
-import com.util.TransforUtils;
+import com.util.Util;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
@@ -348,12 +348,12 @@ public class TruckController implements Serializable{
 	@SuppressWarnings("unchecked")
 	public String getTruckBy(){
 		HttpServletRequest request =   ServletActionContext.getRequest();
-		truckNumber = TransforUtils.null2String(request.getParameter("truckNumber"));
-		truckBrand = TransforUtils.null2String(request.getParameter("truckBrand"));
+		truckNumber = Util.null2String(request.getParameter("truckNumber"));
+		truckBrand = Util.null2String(request.getParameter("truckBrand"));
 		driver = ConvertService.getIntValue((request.getParameter("driver")), 0);
-		engineNumber = TransforUtils.null2String(request.getParameter("engineNumber"));
-		buyStartDate = TransforUtils.null2String(request.getParameter("buyStartDate"));
-		buyEndDate = TransforUtils.null2String(request.getParameter("buyEndDate"));
+		engineNumber = Util.null2String(request.getParameter("engineNumber"));
+		buyStartDate = Util.null2String(request.getParameter("buyStartDate"));
+		buyEndDate = Util.null2String(request.getParameter("buyEndDate"));
 		TruckBean truckBean = new TruckBean(truckNumber,truckBrand,driver,engineNumber,buyStartDate,buyEndDate,pageSize,currentPage);
 		HttpServletResponse response =   ServletActionContext.getResponse();
 		List<TruckBean> beanLst= truckService.getTruckInfo(truckBean);
@@ -419,7 +419,7 @@ public class TruckController implements Serializable{
 	@SuppressWarnings("unchecked")
 	public String getTruckById(){
 		HttpServletRequest request =   ServletActionContext.getRequest();
-		id = TransforUtils.getIntValue(request.getParameter("id"),0);
+		id = Util.getIntValue(request.getParameter("id"),0);
 		HttpServletResponse response =   ServletActionContext.getResponse();
 		TruckBean truckBean= truckService.getTruckInfo(id+"");
 		 //获取输出流，然后使用  

@@ -4,11 +4,10 @@ import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.javabean.CommercialBean;
 import com.javabean.TruckBean;
-import com.service.CommercialService;
-import com.service.TruckService;
+import com.logisticscenter.service.CommercialService;
+import com.logisticscenter.service.TruckService;
 import com.util.TimeUtil;
-import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,171 +32,13 @@ public class CommercialController implements Serializable{
 	public CommercialController(){
 		
 	}
-	//标识ID
-	private int id;
-	//车牌号
-	private String truckNumber;
-	//开始日期
-	private String startDate;
-	//结束日期
-	private String endDate;
-	//创建日期
-	private String createDate;
-	//创建时间
-	private String createTime;
-	//时间选择
-	private int timeSag;
-	//修改日期
-	private String editDate;
-	//修改时间
-	private String editTime;
-	
-	//pageSize
-	private String pageSize;
-	
-	//currentPage
-	private String currentPage;
-	
+
+	@Autowired
 	private CommercialService commercialService;
+
 	//车辆服务类
+	@Autowired
 	private TruckService truckService;
-	//返回值状态
-	private boolean status;
-	
-	public int getId() {
-		return id;
-	}
-
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getTruckNumber() {
-		return truckNumber;
-	}
-
-
-	public void setTruckNumber(String truckNumber) {
-		this.truckNumber = truckNumber;
-	}
-
-
-	public String getStartDate() {
-		return startDate;
-	}
-
-
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
-	}
-
-
-	public String getEndDate() {
-		return endDate;
-	}
-
-
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
-	}
-
-
-	public int getTimeSag() {
-		return timeSag;
-	}
-
-
-	public void setTimeSag(int timeSag) {
-		this.timeSag = timeSag;
-	}
-
-
-	public String getCreateDate() {
-		return createDate;
-	}
-
-
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
-	}
-
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-
-	public String getEditDate() {
-		return editDate;
-	}
-
-
-	public void setEditDate(String editDate) {
-		this.editDate = editDate;
-	}
-
-
-	public String getEditTime() {
-		return editTime;
-	}
-
-
-	public void setEditTime(String editTime) {
-		this.editTime = editTime;
-	}
-
-
-	public String getPageSize() {
-		return pageSize;
-	}
-
-
-	public void setPageSize(String pageSize) {
-		this.pageSize = pageSize;
-	}
-
-
-	public String getCurrentPage() {
-		return currentPage;
-	}
-
-
-	public void setCurrentPage(String currentPage) {
-		this.currentPage = currentPage;
-	}
-
-
-	public boolean isStatus() {
-		return status;
-	}
-
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	
-	public CommercialService getCommercialService() {
-		return commercialService;
-	}
-
-	public void setCommercialService(CommercialService commercialService) {
-		this.commercialService = commercialService;
-	}
-
-	public TruckService getTruckService() {
-		return truckService;
-	}
-
-
-	public void setTruckService(TruckService truckService) {
-		this.truckService = truckService;
-	}
 
 
 	public String addCommercial(){

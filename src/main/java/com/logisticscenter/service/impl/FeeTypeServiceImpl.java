@@ -12,20 +12,15 @@ import com.javabean.FeeTypeBean;
 import com.logisticscenter.mapper.FeeTypeDao;
 import com.logisticscenter.service.FeeTypeService;
 import com.util.ConstantUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class FeeTypeServiceImpl implements FeeTypeService {
-	
+
+	@Autowired
 	FeeTypeDao feeTypeDao;
-
-	public FeeTypeDao getFeeTypeDao() {
-		return feeTypeDao;
-	}
-
-	public void setFeeTypeDao(FeeTypeDao feeTypeDao) {
-		this.feeTypeDao = feeTypeDao;
-	}
 
 	@Override
 	public int deleteFeeType(String id) {

@@ -3,7 +3,7 @@ package com.javabean;
 import java.math.BigDecimal;
 
 import com.util.ConstantUtils;
-import com.util.TransforUtils;
+import com.util.Util;
 
 public class TruckBean {
 	
@@ -19,54 +19,54 @@ public class TruckBean {
 			String engineNumber2, String madeDate2, String buyDate2,
 			String worth2, String buyCost2, String remark2) {
 		id = id2;
-		truckNumber = TransforUtils.null2String(truckNumber2);
-		truckOwner = TransforUtils.null2String(truckOwner2);
-		truckBrand = TransforUtils.null2String(truckBrand2);
-		truckName = TransforUtils.null2String(truckName2);
-		contactNumber = TransforUtils.null2String(contactNumber2);
+		truckNumber = Util.null2String(truckNumber2);
+		truckOwner = Util.null2String(truckOwner2);
+		truckBrand = Util.null2String(truckBrand2);
+		truckName = Util.null2String(truckName2);
+		contactNumber = Util.null2String(contactNumber2);
 		truckType = truckType2;
 		driver = driver2;
-		truckColor = TransforUtils.null2String(truckColor2);
-		if(!"".equals(TransforUtils.null2String(trucklength2))){
-			truckLength = TransforUtils.toDecimal(trucklength2,4);
+		truckColor = Util.null2String(truckColor2);
+		if(!"".equals(Util.null2String(trucklength2))){
+			truckLength = Util.toDecimal(trucklength2,4);
 		}else{
 			truckLength = ConstantUtils.defaultDecimal;
 		}
-		if(!"".equals(TransforUtils.null2String(truckWidth2))){
-			truckWidth = TransforUtils.toDecimal(truckWidth2,4);
+		if(!"".equals(Util.null2String(truckWidth2))){
+			truckWidth = Util.toDecimal(truckWidth2,4);
 		}else{
 			truckWidth = ConstantUtils.defaultDecimal;
 		}
-		if(!"".equals(TransforUtils.null2String(truckHeight2))){
-			truckHeight = TransforUtils.toDecimal(truckHeight2,4);
+		if(!"".equals(Util.null2String(truckHeight2))){
+			truckHeight = Util.toDecimal(truckHeight2,4);
 		}else{
 			truckHeight = ConstantUtils.defaultDecimal;
 		}
-		if(!"".equals(TransforUtils.null2String(standardWeight2))){
-			standardWeight = TransforUtils.toDecimal(standardWeight2,4);
+		if(!"".equals(Util.null2String(standardWeight2))){
+			standardWeight = Util.toDecimal(standardWeight2,4);
 		}else{
 			standardWeight = ConstantUtils.defaultDecimal;
 		}
-		driverLicense = TransforUtils.null2String(driverLicense2);
-		engineNumber = TransforUtils.null2String(engineNumber2);
-		madeDate = TransforUtils.null2String(madeDate2);
-		buyDate = TransforUtils.null2String(buyDate2);
-		if(!"".equals(TransforUtils.null2String(worth2))){
-			worth = TransforUtils.toDecimal(worth2,4);
+		driverLicense = Util.null2String(driverLicense2);
+		engineNumber = Util.null2String(engineNumber2);
+		madeDate = Util.null2String(madeDate2);
+		buyDate = Util.null2String(buyDate2);
+		if(!"".equals(Util.null2String(worth2))){
+			worth = Util.toDecimal(worth2,4);
 		}else{
 			worth = ConstantUtils.defaultDecimal;
 		}
-		if(!"".equals(TransforUtils.null2String(buyCost2))){
-			buyCost = TransforUtils.toDecimal(buyCost2,4);
+		if(!"".equals(Util.null2String(buyCost2))){
+			buyCost = Util.toDecimal(buyCost2,4);
 		}else{
 			buyCost = ConstantUtils.defaultDecimal;
 		}
-		remark = TransforUtils.null2String(remark2);
+		remark = Util.null2String(remark2);
 	}
 	
 	public TruckBean(String truckNumber2,String truckBrand2,int driver2,String engineNumber2,String buyStartDate2,String buyEndDate2,String pageSize,String currentPage) {
-		this.truckNumber = TransforUtils.null2String(truckNumber2);
-		this.truckBrand = TransforUtils.null2String(truckBrand2);
+		this.truckNumber = Util.null2String(truckNumber2);
+		this.truckBrand = Util.null2String(truckBrand2);
 		this.driver = driver2;
 		this.engineNumber = engineNumber2;
 		this.buyStartDate = buyStartDate2;

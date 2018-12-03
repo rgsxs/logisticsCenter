@@ -3,8 +3,9 @@ package com.logisticscenter.mapper.impl;
 import com.entity.TruckSetEntity;
 import com.logisticscenter.mapper.TruckSetDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class TruckSetDaoImpl implements TruckSetDao {
 
 	

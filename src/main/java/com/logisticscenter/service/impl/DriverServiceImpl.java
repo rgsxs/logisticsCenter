@@ -11,20 +11,15 @@ import com.entity.DriverInfoEntity;
 import com.javabean.DriverInfoBean;
 import com.logisticscenter.mapper.DriverInfoDao;
 import com.logisticscenter.service.DriverService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class DriverServiceImpl implements DriverService {
-	
+
+	@Autowired
 	DriverInfoDao driverInfoDao;
-
-	public DriverInfoDao getDriverInfoDao() {
-		return driverInfoDao;
-	}
-
-	public void setDriverInfoDao(DriverInfoDao driverInfoDao) {
-		this.driverInfoDao = driverInfoDao;
-	}
 
 	@Override
 	public int deleteDriverInfo(String id) {

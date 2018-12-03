@@ -8,8 +8,9 @@ import com.common.ConvertService;
 import com.entity.GoodsTypeEntity;
 import com.logisticscenter.mapper.GoodsTypeDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class GoodsTypeDaoImpl implements GoodsTypeDao {
 
 	@Override

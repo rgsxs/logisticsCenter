@@ -8,20 +8,15 @@ import com.entity.CompulsoryEntity;
 import com.javabean.CompulsoryBean;
 import com.logisticscenter.mapper.CompulsoryDao;
 import com.logisticscenter.service.CompulsoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CompulsoryServiceImpl implements CompulsoryService {
-	
+
+	@Autowired
 	CompulsoryDao compulsoryDao;
-
-	public CompulsoryDao getCompulsoryDao() {
-		return compulsoryDao;
-	}
-
-	public void setCompulsoryDao(CompulsoryDao compulsoryDao) {
-		this.compulsoryDao = compulsoryDao;
-	}
 
 	@Override
 	public int deleteCompulsory(String id) {

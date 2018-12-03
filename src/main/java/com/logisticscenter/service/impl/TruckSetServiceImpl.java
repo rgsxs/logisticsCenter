@@ -5,22 +5,15 @@ import com.entity.TruckSetEntity;
 import com.javabean.TruckSetBean;
 import com.logisticscenter.mapper.TruckSetDao;
 import com.logisticscenter.service.TruckSetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TruckSetServiceImpl implements TruckSetService {
-	
+
+	@Autowired
 	TruckSetDao truckSetDao;
-
-
-	public TruckSetDao getTruckSetDao() {
-		return truckSetDao;
-	}
-
-	public void setTruckSetDao(TruckSetDao truckSetDao) {
-		this.truckSetDao = truckSetDao;
-	}
-
 
 	@Override
 	public TruckSetBean getTruckSet() {

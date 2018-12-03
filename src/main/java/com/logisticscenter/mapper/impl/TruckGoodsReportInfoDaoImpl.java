@@ -12,8 +12,9 @@ import com.entity.TruckGoodsReportDetailEntity;
 import com.entity.TruckGoodsReportEntity;
 import com.logisticscenter.mapper.TruckGoodsReportDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 
 	@Override

@@ -9,20 +9,15 @@ import com.javabean.DriverInfoBean;
 import com.javabean.RepairTypeBean;
 import com.logisticscenter.mapper.RepairTypeDao;
 import com.logisticscenter.service.RepairTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class RepairTypeServiceImpl implements RepairTypeService {
-	
+
+	@Autowired
 	RepairTypeDao repairTypeDao;
-
-	public RepairTypeDao getRepairTypeDao() {
-		return repairTypeDao;
-	}
-
-	public void setRepairTypeDao(RepairTypeDao repairTypeDao) {
-		this.repairTypeDao = repairTypeDao;
-	}
 
 	@Override
 	public void deleteRepairType(String id) {

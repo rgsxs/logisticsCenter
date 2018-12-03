@@ -1,5 +1,8 @@
 package com.util;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.text.StrTokenizer;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
@@ -19,10 +22,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.text.StrTokenizer;
 
-public class TransforUtils {
+public class Utils {
 	
 	private static Random random = new Random();
 	private static String defaultLang = null;
@@ -2949,4 +2950,5 @@ public class TransforUtils {
 
 		return hashmap;
 	}
+
 }

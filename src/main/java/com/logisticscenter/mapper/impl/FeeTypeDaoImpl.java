@@ -10,8 +10,9 @@ import com.common.ConvertService;
 import com.entity.FeeTypeEntity;
 import com.logisticscenter.mapper.FeeTypeDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class FeeTypeDaoImpl implements FeeTypeDao {
 
 	@Override

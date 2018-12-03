@@ -10,21 +10,16 @@ import com.javabean.TruckGoodsOrderDetailBean;
 import com.javabean.TruckGoodsOrderTakerBean;
 import com.logisticscenter.mapper.TruckGoodsOrderDao;
 import com.logisticscenter.service.TruckGoodsOrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TruckGoodsOrderServiceImpl implements TruckGoodsOrderService {
-	
+
+	@Autowired
 	TruckGoodsOrderDao truckGoodsOrderDao;
 
-	
-	public TruckGoodsOrderDao getTruckGoodsOrderDao() {
-		return truckGoodsOrderDao;
-	}
-
-	public void setTruckGoodsOrderDao(TruckGoodsOrderDao truckGoodsOrderDao) {
-		this.truckGoodsOrderDao = truckGoodsOrderDao;
-	}
 
 	/**
 	 * @param insertInfo 预录车辆信息

@@ -7,8 +7,9 @@ import com.common.ConvertService;
 import com.entity.ClientEntity;
 import com.logisticscenter.mapper.ClientDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class ClientDaoImpl implements ClientDao {
 
 	@Override

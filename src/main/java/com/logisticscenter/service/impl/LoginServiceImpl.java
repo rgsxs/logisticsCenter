@@ -7,20 +7,15 @@ import com.entity.SystemInfoEntity;
 import com.javabean.SystemInfoBean;
 import com.logisticscenter.mapper.SystemInfoDao;
 import com.logisticscenter.service.LoginService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class LoginServiceImpl implements LoginService {
-	
+
+	@Autowired
 	SystemInfoDao systemDao;
-
-	public SystemInfoDao getSystemDao() {
-		return systemDao;
-	}
-
-	public void setSystemDao(SystemInfoDao systemDao) {
-		this.systemDao = systemDao;
-	}
 
 	@Override
 	public void deleteSystemInfo(String id) {

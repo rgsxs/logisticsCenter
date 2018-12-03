@@ -8,20 +8,15 @@ import com.entity.ImageFileEntity;
 import com.javabean.ImageFileBean;
 import com.logisticscenter.mapper.ImageFileDao;
 import com.logisticscenter.service.ImageFileService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ImageFileServiceImpl implements ImageFileService {
-	
+
+	@Autowired
 	ImageFileDao imageFileDao;
-
-	public ImageFileDao getImageFileDaoDao() {
-		return imageFileDao;
-	}
-
-	public void setImageFileDao(ImageFileDao imageFileDao) {
-		this.imageFileDao = imageFileDao;
-	}
 
 	/* (non-Javadoc)
 	 * @see com.service.ImageFileService#getImageFileBy(java.lang.String)

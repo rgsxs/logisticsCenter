@@ -7,8 +7,9 @@ import com.common.ConvertService;
 import com.entity.CompulsoryEntity;
 import com.logisticscenter.mapper.CompulsoryDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class CompulsoryDaoImpl implements CompulsoryDao {
 
 	@Override

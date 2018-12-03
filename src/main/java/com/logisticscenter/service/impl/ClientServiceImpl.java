@@ -11,20 +11,15 @@ import com.entity.ClientEntity;
 import com.javabean.ClientBean;
 import com.logisticscenter.mapper.ClientDao;
 import com.logisticscenter.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class ClientServiceImpl implements ClientService {
 
+	@Autowired
 	ClientDao clientDao;
-
-	public ClientDao getClientDao() {
-		return clientDao;
-	}
-
-	public void setClientDao(ClientDao clientDao) {
-		this.clientDao = clientDao;
-	}
 
 	@Override
 	public int deleteClient(String id) {

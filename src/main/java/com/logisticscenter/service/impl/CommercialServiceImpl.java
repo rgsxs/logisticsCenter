@@ -8,20 +8,16 @@ import com.entity.CommercialEntity;
 import com.javabean.CommercialBean;
 import com.logisticscenter.mapper.CommercialDao;
 import com.logisticscenter.service.CommercialService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class CommercialServiceImpl implements CommercialService {
-	
+
+	@Autowired
 	CommercialDao commercialDao;
 
-	public CommercialDao getCommercialDao() {
-		return commercialDao;
-	}
-
-	public void setCommercialDao(CommercialDao commercialDao) {
-		this.commercialDao = commercialDao;
-	}
 
 	@Override
 	public int deleteCommercial(String id) {

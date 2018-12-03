@@ -11,20 +11,15 @@ import com.entity.TruckEntity;
 import com.javabean.TruckBean;
 import com.logisticscenter.mapper.TruckInfoDao;
 import com.logisticscenter.service.TruckService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TruckServiceImpl implements TruckService {
-	
+
+	@Autowired
 	TruckInfoDao truckDao;
-
-	public TruckInfoDao getTruckDao() {
-		return truckDao;
-	}
-
-	public void setTruckDao(TruckInfoDao truckDao) {
-		this.truckDao = truckDao;
-	}
 
 	@Override
 	public int deleteTruck(String id) {

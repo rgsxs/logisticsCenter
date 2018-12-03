@@ -8,20 +8,16 @@ import com.entity.IllegalReportEntity;
 import com.javabean.IllegalReportBean;
 import com.logisticscenter.mapper.IllegalReportDao;
 import com.logisticscenter.service.IllegalReportService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class IllegalReportServiceImpl implements IllegalReportService {
-	
+
+	@Autowired
 	IllegalReportDao illegalReportDao;
 
-	public IllegalReportDao getIllegalReportDao() {
-		return illegalReportDao;
-	}
-
-	public void setIllegalReportDao(IllegalReportDao illegalReportDao) {
-		this.illegalReportDao = illegalReportDao;
-	}
 
 	@Override
 	public void deleteIllegalReport(String id) {

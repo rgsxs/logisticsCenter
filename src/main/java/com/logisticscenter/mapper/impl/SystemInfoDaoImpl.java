@@ -4,8 +4,9 @@ import java.util.List;
 import com.entity.SystemInfoEntity;
 import com.logisticscenter.mapper.SystemInfoDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class SystemInfoDaoImpl implements SystemInfoDao {
 
 	@Override

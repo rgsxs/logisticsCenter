@@ -5,8 +5,9 @@ import java.util.List;
 import com.entity.IllegalReportEntity;
 import com.logisticscenter.mapper.IllegalReportDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class IllegalReportDaoImpl implements IllegalReportDao {
 
 	@Override

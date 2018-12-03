@@ -8,21 +8,16 @@ import com.entity.TruckFeeInfoEntity;
 import com.javabean.TruckFeeInfoBean;
 import com.logisticscenter.mapper.TruckFeeInfoDao;
 import com.logisticscenter.service.TruckFeeInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TruckFeeInfoServiceImpl implements TruckFeeInfoService {
-	
+
+	@Autowired
 	TruckFeeInfoDao truckFeeInfoDao;
 
-
-	public TruckFeeInfoDao getTruckFeeInfoDao() {
-		return truckFeeInfoDao;
-	}
-
-	public void setTruckFeeInfoDao(TruckFeeInfoDao truckFeeInfoDao) {
-		this.truckFeeInfoDao = truckFeeInfoDao;
-	}
 
 	@Override
 	public void deleteTruckFeeInfo(String id) {

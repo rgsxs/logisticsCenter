@@ -6,8 +6,9 @@ import java.util.List;
 import com.entity.ImageFileEntity;
 import com.logisticscenter.mapper.ImageFileDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class ImageFileDaoImpl implements ImageFileDao {
 
 

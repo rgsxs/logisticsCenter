@@ -4,7 +4,7 @@ import com.cachec.CacheManager;
 import com.common.ConvertService;
 import com.javabean.GoodsTypeBean;
 import com.service.GoodsTypeService;
-import com.util.TransforUtils;
+import com.util.Util;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
 
@@ -212,8 +212,8 @@ public class GoodsTypeController implements Serializable{
 		//如果查询的是按照使用情况来查看,默认已1:使用中来查看
 		isUse = ConvertService.getIntValue(request.getParameter("isUse"),-1);
 		HttpServletResponse response =   ServletActionContext.getResponse();
-		pageSize = TransforUtils.null2o(pageSize);
-		currentPage = TransforUtils.null2o(currentPage);
+		pageSize = Util.null2o(pageSize);
+		currentPage = Util.null2o(currentPage);
 		GoodsTypeBean bean = new GoodsTypeBean( id,selectGoodsName,isUse,isDelete,pageSize,currentPage);
 		List<GoodsTypeBean> beanLst= goodsTypeService.getGoodsType(bean);
 		int pageCount = 0;

@@ -5,8 +5,9 @@ import java.util.List;
 import com.entity.RepairTypeEntity;
 import com.logisticscenter.mapper.RepairTypeDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class RepairTypeDaoImpl implements RepairTypeDao {
 
 	@Override

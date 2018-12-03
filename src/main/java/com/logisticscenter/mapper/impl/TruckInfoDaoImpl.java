@@ -8,8 +8,9 @@ import com.common.ConvertService;
 import com.entity.TruckEntity;
 import com.logisticscenter.mapper.TruckInfoDao;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class TruckInfoDaoImpl implements TruckInfoDao {
 
 	@Override

@@ -20,20 +20,15 @@ import com.javabean.TruckSetBean;
 import com.logisticscenter.mapper.TruckGoodsReportDao;
 import com.logisticscenter.service.TruckGoodsReportService;
 import com.util.ConstantUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class TruckGoodsReportServiceImpl implements TruckGoodsReportService {
-	
+
+	@Autowired
 	TruckGoodsReportDao truckGoodsReportDao;
-
-	public TruckGoodsReportDao getTruckGoodsReportDao() {
-		return truckGoodsReportDao;
-	}
-
-	public void setTruckGoodsReportDao(TruckGoodsReportDao truckGoodsReportDao) {
-		this.truckGoodsReportDao = truckGoodsReportDao;
-	}
 
 	@Override
 	public int deleteTruckGoodsReport(String id) {

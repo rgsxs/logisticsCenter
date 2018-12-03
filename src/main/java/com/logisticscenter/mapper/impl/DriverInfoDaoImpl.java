@@ -7,7 +7,9 @@ import com.logisticscenter.mapper.DriverInfoDao;
 
 import com.common.ConvertService;
 import com.entity.DriverInfoEntity;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public class DriverInfoDaoImpl implements DriverInfoDao {
 
 	@Override

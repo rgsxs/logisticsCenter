@@ -11,21 +11,15 @@ import com.entity.GoodsTypeEntity;
 import com.javabean.GoodsTypeBean;
 import com.logisticscenter.mapper.GoodsTypeDao;
 import com.logisticscenter.service.GoodsTypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class GoodsTypeServiceImpl implements GoodsTypeService {
-	
+
+	@Autowired
 	GoodsTypeDao goodsTypeDao;
-
-
-	public GoodsTypeDao getGoodsTypeDao() {
-		return goodsTypeDao;
-	}
-
-	public void setGoodsTypeDao(GoodsTypeDao goodsTypeDao) {
-		this.goodsTypeDao = goodsTypeDao;
-	}
 
 	@Override
 	public int deleteGoodsType(String id) {
