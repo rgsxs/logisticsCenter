@@ -1,9 +1,8 @@
 package com.logisticscenter.mapper;
 
-import java.util.List;
+import com.logisticscenter.model.CompulsoryEntity;
 
-import com.entity.CommercialEntity;
-import com.entity.CompulsoryEntity;
+import java.util.List;
 
 /**
  * @author 卜

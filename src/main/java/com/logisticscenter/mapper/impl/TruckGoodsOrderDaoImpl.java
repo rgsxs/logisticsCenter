@@ -5,9 +5,9 @@ import java.util.List;
 
 
 import com.common.ConvertService;
-import com.entity.TruckGoodsOrderDetailEntity;
-import com.entity.TruckGoodsOrderTakerEntity;
 import com.logisticscenter.mapper.TruckGoodsOrderDao;
+import com.logisticscenter.model.TruckGoodsOrderDetailEntity;
+import com.logisticscenter.model.TruckGoodsOrderTakerEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -50,7 +50,6 @@ public class TruckGoodsOrderDaoImpl implements TruckGoodsOrderDao {
 	 * @param selectInfo
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<TruckGoodsOrderTakerEntity> getTruckGoodsOrderTaker(TruckGoodsOrderTakerEntity selectInfo){
 		List<TruckGoodsOrderTakerEntity> retEntity = new ArrayList<TruckGoodsOrderTakerEntity>();
 		try{
@@ -67,7 +66,6 @@ public class TruckGoodsOrderDaoImpl implements TruckGoodsOrderDao {
 	 * @param selectInfo
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<TruckGoodsOrderDetailEntity> getTruckGoodsOrderDetail(TruckGoodsOrderDetailEntity selectInfo){
 		List<TruckGoodsOrderDetailEntity> retEntity = new ArrayList<TruckGoodsOrderDetailEntity>();
 		try{
@@ -113,7 +111,6 @@ public class TruckGoodsOrderDaoImpl implements TruckGoodsOrderDao {
 	 * @param reportId
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	public List<TruckGoodsOrderDetailEntity> getTruckGoodsOrderDetailById(String reportId){
 		List<TruckGoodsOrderDetailEntity> retEntity= new ArrayList<TruckGoodsOrderDetailEntity>();
 		try{

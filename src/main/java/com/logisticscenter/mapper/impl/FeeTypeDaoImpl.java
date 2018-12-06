@@ -7,8 +7,8 @@ import java.util.Map;
 
 
 import com.common.ConvertService;
-import com.entity.FeeTypeEntity;
 import com.logisticscenter.mapper.FeeTypeDao;
+import com.logisticscenter.model.FeeTypeEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -37,7 +37,6 @@ public class FeeTypeDaoImpl implements FeeTypeDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<FeeTypeEntity> getFeeType(FeeTypeEntity selectInfo) {
 		List<FeeTypeEntity> feeTypeEntityList = new ArrayList<FeeTypeEntity>();
@@ -50,7 +49,6 @@ public class FeeTypeDaoImpl implements FeeTypeDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getFeeTypeCount(FeeTypeEntity selectInfo) {
 		String count = "";
@@ -63,7 +61,6 @@ public class FeeTypeDaoImpl implements FeeTypeDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<FeeTypeEntity> getAllFeeType() {
 		return (List<FeeTypeEntity>)getSqlMapClientTemplate().queryForList("FeeType.getAllFeeType");

@@ -1,9 +1,10 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.TruckGoodsOrderDetailEntity;
+import com.logisticscenter.model.TruckGoodsOrderTakerEntity;
+
 import java.util.List;
 
-import com.entity.TruckGoodsOrderDetailEntity;
-import com.entity.TruckGoodsOrderTakerEntity;
 
 public interface TruckGoodsOrderDao {
 	

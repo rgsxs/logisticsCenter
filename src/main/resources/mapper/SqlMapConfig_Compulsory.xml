@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="Compulsory">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<sqlMap namespace="com.logisticscenter.mapper.CompulsoryDao">
 	<typeAlias type="com.entity.CompulsoryEntity" alias="compulsoryE"/>
 	<resultMap id="compulsoryMap" class="com.entity.CompulsoryEntity" >
 		<result column="id" property="id" jdbcType="INT" />

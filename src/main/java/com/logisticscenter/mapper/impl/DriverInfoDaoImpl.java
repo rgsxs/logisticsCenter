@@ -6,7 +6,7 @@ import java.util.List;
 import com.logisticscenter.mapper.DriverInfoDao;
 
 import com.common.ConvertService;
-import com.entity.DriverInfoEntity;
+import com.logisticscenter.model.DriverInfoEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -32,7 +32,6 @@ public class DriverInfoDaoImpl implements DriverInfoDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<DriverInfoEntity> getDriverInfo(DriverInfoEntity selectInfo,String selectStatus) {
 		if("0".equals(selectStatus)){
@@ -42,7 +41,6 @@ public class DriverInfoDaoImpl implements DriverInfoDao {
 		}
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getDriverInfoCount(DriverInfoEntity selectInfo,String selectStatus) {
 		String count = "";
@@ -54,7 +52,6 @@ public class DriverInfoDaoImpl implements DriverInfoDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<DriverInfoEntity> getAllDriverInfo() {
 		List<DriverInfoEntity> entityList = new ArrayList<DriverInfoEntity>();

@@ -2,8 +2,8 @@ package com.logisticscenter.mapper.impl;
 
 import java.util.List;
 
-import com.entity.RepairTypeEntity;
 import com.logisticscenter.mapper.RepairTypeDao;
+import com.logisticscenter.model.RepairTypeEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,13 +22,11 @@ public class RepairTypeDaoImpl implements RepairTypeDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RepairTypeEntity> getRepairType(RepairTypeEntity selectInfo) {
 		return (List<RepairTypeEntity>)getSqlMapClientTemplate().queryForList("RepairType.getRepairTypeByName",selectInfo);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getRepairTypeCount(RepairTypeEntity selectInfo) {
 		String count = "";
@@ -36,7 +34,6 @@ public class RepairTypeDaoImpl implements RepairTypeDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RepairTypeEntity> getAllRepairType() {
 		return (List<RepairTypeEntity>)getSqlMapClientTemplate().queryForList("RepairType.getAllRepairType");

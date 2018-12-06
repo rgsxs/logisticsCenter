@@ -4,9 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.ClientEntity;
 import com.logisticscenter.mapper.ClientDao;
-import org.springframework.stereotype.Component;
+import com.logisticscenter.model.ClientEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -36,7 +35,6 @@ public class ClientDaoImpl implements ClientDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ClientEntity> getClient(ClientEntity selectInfo, String selectStatus) {
 		List<ClientEntity> entityList = new ArrayList<ClientEntity>();
@@ -48,7 +46,6 @@ public class ClientDaoImpl implements ClientDao {
 		return entityList;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getClientCount(ClientEntity selectInfo,String selectStatus) {
 		String count = "";
@@ -60,7 +57,6 @@ public class ClientDaoImpl implements ClientDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ClientEntity> getAllClient() {
 		List<ClientEntity> entityList = new ArrayList<ClientEntity>();

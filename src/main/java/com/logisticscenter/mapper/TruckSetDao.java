@@ -1,6 +1,7 @@
 package com.logisticscenter.mapper;
 
-import com.entity.TruckSetEntity;
+
+import com.logisticscenter.model.TruckSetEntity;
 
 public interface TruckSetDao {
 	

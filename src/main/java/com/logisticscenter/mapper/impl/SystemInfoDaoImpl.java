@@ -1,8 +1,8 @@
 package com.logisticscenter.mapper.impl;
 
 import java.util.List;
-import com.entity.SystemInfoEntity;
 import com.logisticscenter.mapper.SystemInfoDao;
+import com.logisticscenter.model.SystemInfoEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,6 @@ public class SystemInfoDaoImpl implements SystemInfoDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<SystemInfoEntity> getSystemInfo(SystemInfoEntity selectInfo) {
 		return (List<SystemInfoEntity>)getSqlMapClientTemplate().queryForObject("Login.getUsersByName",selectInfo);

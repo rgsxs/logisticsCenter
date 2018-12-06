@@ -1,8 +1,6 @@
-package com.entity;
+package com.logisticscenter.model;
 
 import java.math.BigDecimal;
-
-import com.common.ConvertService;
 
 public class TruckGoodsOrderTakerEntity {
 	

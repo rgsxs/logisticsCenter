@@ -5,8 +5,8 @@ import java.util.List;
 
 
 import com.common.ConvertService;
-import com.entity.CommercialEntity;
 import com.logisticscenter.mapper.CommercialDao;
+import com.logisticscenter.model.CommercialEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -32,7 +32,6 @@ public class CommercialDaoImpl implements CommercialDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<CommercialEntity> getCommercial(CommercialEntity selectInfo) {
 		List<CommercialEntity> feeTypeEntityList = new ArrayList<CommercialEntity>();
@@ -45,7 +44,6 @@ public class CommercialDaoImpl implements CommercialDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getCommercialCount(CommercialEntity selectInfo) {
 		String count = "";

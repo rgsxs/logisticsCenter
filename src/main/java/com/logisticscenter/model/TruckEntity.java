@@ -1,8 +1,8 @@
-package com.entity;
-
-import java.math.BigDecimal;
+package com.logisticscenter.model;
 
 import com.javabean.TruckBean;
+
+import java.math.BigDecimal;
 
 public class TruckEntity {
 	

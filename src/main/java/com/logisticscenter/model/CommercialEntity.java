@@ -1,6 +1,6 @@
-package com.entity;
+package com.logisticscenter.model;
 
-public class CompulsoryEntity {
+public class CommercialEntity {
 	//标识ID
 	private int id;
 	//车牌号

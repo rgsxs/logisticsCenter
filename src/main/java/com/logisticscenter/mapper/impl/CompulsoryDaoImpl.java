@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.CompulsoryEntity;
 import com.logisticscenter.mapper.CompulsoryDao;
+import com.logisticscenter.model.CompulsoryEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -31,7 +31,6 @@ public class CompulsoryDaoImpl implements CompulsoryDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<CompulsoryEntity> getCompulsory(CompulsoryEntity selectInfo) {
 		List<CompulsoryEntity> feeTypeEntityList = new ArrayList<CompulsoryEntity>();
@@ -44,7 +43,6 @@ public class CompulsoryDaoImpl implements CompulsoryDao {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getCompulsoryCount(CompulsoryEntity selectInfo) {
 		String count = "";

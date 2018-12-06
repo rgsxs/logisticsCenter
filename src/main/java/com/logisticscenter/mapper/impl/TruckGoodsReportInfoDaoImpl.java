@@ -7,10 +7,10 @@ import java.util.Map;
 
 
 import com.common.ConvertService;
-import com.entity.FeeTypeValueEntity;
-import com.entity.TruckGoodsReportDetailEntity;
-import com.entity.TruckGoodsReportEntity;
 import com.logisticscenter.mapper.TruckGoodsReportDao;
+import com.logisticscenter.model.FeeTypeValueEntity;
+import com.logisticscenter.model.TruckGoodsReportDetailEntity;
+import com.logisticscenter.model.TruckGoodsReportEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -44,7 +44,6 @@ public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckGoodsReportEntity> getTruckGoodsReport(TruckGoodsReportEntity selectInfo) {
 		List<TruckGoodsReportEntity> retEntity= new ArrayList<TruckGoodsReportEntity>();
@@ -56,7 +55,6 @@ public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 		return retEntity;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckGoodsReportEntity> getTruckGoodsReportExcel(TruckGoodsReportEntity selectInfo) {
 		List<TruckGoodsReportEntity> retEntity= new ArrayList<TruckGoodsReportEntity>();
@@ -68,7 +66,6 @@ public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 		return retEntity;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getTruckGoodsReportByCount(TruckGoodsReportEntity selectInfo) {
 		String count = "";
@@ -79,8 +76,7 @@ public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 		}
 		return count;
 	}
-	
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<TruckGoodsReportEntity> getAllTruckGoodsReport() {
 		List<TruckGoodsReportEntity> retEntity = new ArrayList<TruckGoodsReportEntity>();
@@ -153,7 +149,6 @@ public class TruckGoodsReportInfoDaoImpl implements TruckGoodsReportDao {
 		return retEntity;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckGoodsReportEntity> getTruckGoodsReportImport(TruckGoodsReportEntity selectInfo) {
 		List<TruckGoodsReportEntity> retEntity= new ArrayList<TruckGoodsReportEntity>();

@@ -2,8 +2,8 @@ package com.logisticscenter.mapper.impl;
 
 import java.util.List;
 
-import com.entity.TruckFeeInfoEntity;
 import com.logisticscenter.mapper.TruckFeeInfoDao;
+import com.logisticscenter.model.TruckFeeInfoEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,13 +22,11 @@ public class TruckFeeInfoDaoImpl implements TruckFeeInfoDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckFeeInfoEntity> getTruckFeeInfo(TruckFeeInfoEntity selectInfo) {
 		return (List<TruckFeeInfoEntity>)getSqlMapClientTemplate().queryForObject("TruckFeeInfo.getUsersByName",selectInfo);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckFeeInfoEntity> getAllTruckFeeInfo() {
 		return (List<TruckFeeInfoEntity>)getSqlMapClientTemplate().queryForList("TruckFeeInfo.getAllDriver");

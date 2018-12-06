@@ -1,11 +1,10 @@
 package com.logisticscenter.mapper;
 
-import java.util.List;
+import com.logisticscenter.model.FeeTypeValueEntity;
+import com.logisticscenter.model.TruckGoodsReportDetailEntity;
+import com.logisticscenter.model.TruckGoodsReportEntity;
 
-import com.entity.FeeTypeValueEntity;
-import com.entity.TruckGoodsReportDetailEntity;
-import com.entity.TruckGoodsReportEntity;
-import com.javabean.TruckGoodsReportBean;
+import java.util.List;
 
 public interface TruckGoodsReportDao {
 	

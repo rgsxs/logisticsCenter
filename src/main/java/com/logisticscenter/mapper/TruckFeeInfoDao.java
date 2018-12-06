@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.TruckFeeInfoEntity;
+
 import java.util.List;
 
-import com.entity.TruckFeeInfoEntity;
 
 public interface TruckFeeInfoDao {
 	

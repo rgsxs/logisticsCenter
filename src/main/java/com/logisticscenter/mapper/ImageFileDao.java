@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.ImageFileEntity;
+
 import java.util.List;
 
-import com.entity.ImageFileEntity;
 
 /**
  * @author 卜

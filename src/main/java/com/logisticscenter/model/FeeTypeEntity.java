@@ -1,30 +1,32 @@
-package com.entity;
+package com.logisticscenter.model;
 
-public class CommercialEntity {
+public class FeeTypeEntity {
 	//标识ID
 	private int id;
-	//车牌号
-	private String truckNumber;
-	//开始日期
-	private String startDate;
-	//结束日期
-	private String endDate;
+	//货物名称
+	private String feeName;
+	//类型
+	private int showType;
+	//是否启用
+	private int isUse;
+	//是否删除
+	private int isDelete;
 	//创建日期
 	private String createDate;
 	//创建时间
 	private String createTime;
-	
 	//修改日期
 	private String editDate;
 	//修改时间
 	private String editTime;
-	
+	//费用类型字段
+	private String feeTypeColumn;
 	//pageSize
 	private String pageSize;
 	
 	//currentPage
 	private String currentPage;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -33,28 +35,36 @@ public class CommercialEntity {
 		this.id = id;
 	}
 
-	public String getTruckNumber() {
-		return truckNumber;
+	public String getFeeName() {
+		return feeName;
 	}
 
-	public void setTruckNumber(String truckNumber) {
-		this.truckNumber = truckNumber;
+	public void setFeeName(String feeName) {
+		this.feeName = feeName;
 	}
 
-	public String getStartDate() {
-		return startDate;
+	public int getShowType() {
+		return showType;
 	}
 
-	public void setStartDate(String startDate) {
-		this.startDate = startDate;
+	public void setShowType(int showType) {
+		this.showType = showType;
 	}
 
-	public String getEndDate() {
-		return endDate;
+	public int getIsUse() {
+		return isUse;
 	}
 
-	public void setEndDate(String endDate) {
-		this.endDate = endDate;
+	public void setIsUse(int isUse) {
+		this.isUse = isUse;
+	}
+
+	public int getIsDelete() {
+		return isDelete;
+	}
+
+	public void setIsDelete(int isDelete) {
+		this.isDelete = isDelete;
 	}
 
 	public String getCreateDate() {
@@ -87,6 +97,14 @@ public class CommercialEntity {
 
 	public void setEditTime(String editTime) {
 		this.editTime = editTime;
+	}
+
+	public String getFeeTypeColumn() {
+		return feeTypeColumn;
+	}
+
+	public void setFeeTypeColumn(String feeTypeColumn) {
+		this.feeTypeColumn = feeTypeColumn;
 	}
 
 	public String getPageSize() {

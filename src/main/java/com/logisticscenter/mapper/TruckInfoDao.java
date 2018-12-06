@@ -1,8 +1,10 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.TruckEntity;
+
 import java.util.List;
 
-import com.entity.TruckEntity;
+
 
 public interface TruckInfoDao {
 	

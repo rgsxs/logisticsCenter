@@ -14,10 +14,10 @@ public class ParamUtil {
 
     public static Map<String, Object> request2Map(HttpServletRequest request) {
         // 参数Map
-        Map<String, Object> properties = request.getParameterMap();
+        Map<String, String[]> properties = request.getParameterMap();
         // 返回值Map
         Map<String, Object> returnMap = new HashMap<String, Object>();
-        Iterator<Map.Entry<String, Object>> entries = properties.entrySet().iterator();
+        Iterator<Map.Entry<String, String[]>> entries = properties.entrySet().iterator();
         Map.Entry entry;
         String name = "";
         Object value = null;

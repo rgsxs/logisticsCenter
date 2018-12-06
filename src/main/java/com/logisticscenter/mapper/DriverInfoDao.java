@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.DriverInfoEntity;
+
 import java.util.List;
 
-import com.entity.DriverInfoEntity;
 
 public interface DriverInfoDao {
 	

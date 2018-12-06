@@ -1,8 +1,10 @@
-package com.entity;
+package com.logisticscenter.model;
 
-import javax.persistence.Entity;
+import org.apache.ibatis.type.Alias;
+
 import java.io.Serializable;
 
+@Alias("ChartsEntity")
 public class ChartsEntity implements Serializable {
 	//一月 
 	private String Jan;

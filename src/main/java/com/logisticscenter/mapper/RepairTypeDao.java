@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.RepairTypeEntity;
+
 import java.util.List;
 
-import com.entity.RepairTypeEntity;
 
 public interface RepairTypeDao {
 	

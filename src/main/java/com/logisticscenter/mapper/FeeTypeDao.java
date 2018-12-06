@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.FeeTypeEntity;
+
 import java.util.List;
 
-import com.entity.FeeTypeEntity;
 
 public interface FeeTypeDao {
 	

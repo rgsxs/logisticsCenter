@@ -3,8 +3,8 @@ package com.logisticscenter.mapper.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.entity.ImageFileEntity;
 import com.logisticscenter.mapper.ImageFileDao;
+import com.logisticscenter.model.ImageFileEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +16,7 @@ public class ImageFileDaoImpl implements ImageFileDao {
 	 * @param id
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<ImageFileEntity> getImageFileBy(String id) {
 		List<ImageFileEntity> imageFileEntityList = new ArrayList<ImageFileEntity>();

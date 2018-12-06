@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.SystemInfoEntity;
+
 import java.util.List;
 
-import com.entity.SystemInfoEntity;
 
 public interface SystemInfoDao {
 	

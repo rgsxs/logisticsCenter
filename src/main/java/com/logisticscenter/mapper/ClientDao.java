@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.ClientEntity;
+
 import java.util.List;
 
-import com.entity.ClientEntity;
 
 public interface ClientDao {
 	

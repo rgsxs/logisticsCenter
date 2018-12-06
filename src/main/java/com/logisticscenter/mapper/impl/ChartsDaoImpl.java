@@ -15,19 +15,16 @@ import org.springframework.stereotype.Repository;
 public class ChartsDaoImpl  implements ChartsDao {
 
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartsBean> getClientChartsByMonth(String selectYear) {
 		return (List<ChartsBean>)getSqlMapClientTemplate().queryForList("Charts.getClientChartsByMonth",selectYear);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartsBean> getDriverChartsByMonth(String selectYear) {
 		return (List<ChartsBean>)getSqlMapClientTemplate().queryForList("Charts.getDriverChartsByMonth",selectYear);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartsBean> getClientFeeChartsByMonth(String selectYear,String columns) {
 		List<ChartsBean> chartBeanList = new ArrayList<ChartsBean>();
@@ -42,7 +39,6 @@ public class ChartsDaoImpl  implements ChartsDao {
 		return chartBeanList;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<ChartsBean> getDriverFeeChartsByMonth(String selectYear,String columns) {
 		List<ChartsBean> chartBeanList = new ArrayList<ChartsBean>();

@@ -1,45 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="Login">
-  <typeAlias type="com.javabean.LabelSetBean" alias="labelSet"/>
-  <resultMap id="label" class="labelSet" >
-    <result column="id" property="id" jdbcType="int" />
-    <result column="type" property="type" jdbcType="CHAR" />
-    <result column="lableName" property="lableName" jdbcType="CHAR" />
-    <result column="URL" property="URL" jdbcType="CHAR" />
-    <result column="sort" property="sort" jdbcType="INT" />
-    <result column="isshow" property="ishow" jdbcType="INT" />
-    <result column="createTime" property="createTime" jdbcType="dateTime" />
-    <result column="editTime" property="editTime" jdbcType="dateTime" />
-  </resultMap>
-  
-<!--   获得全查询列表 -->
-<!--  <select id="getAllUsers" resultMap="label">-->
-<!--    select * from user_person-->
-<!--  </select>-->
-<!--  -->
-<!--    根据用户名获得用户对象 -->
-<!--   <select id="getUsersByName" resultMap="label">-->
-<!--     select * from user_person where user_Name=#user#-->
-<!--  </select> -->
-<!--  -->
-<!--   根据id获得用户对象 -->
-<!--    <select id="getUsersById" resultMap="label">-->
-<!--     select * from user_person where user_id=#id#-->
-<!--  </select> -->
-<!--  -->
-<!--    新增用户对象 -->
-<!--   <insert id="insertUsers" parameterClass="labelSet">-->
-<!--      insert into user_person (user_id,user_Name) values (#id#,#user#)-->
-<!--   </insert>-->
-<!--   -->
-<!--    删除用户对象 -->
-<!--   <delete id="deleteUsers">-->
-<!--     delete from user_person where user_id=#id#-->
-<!--   </delete>-->
-<!--   -->
-<!--    更新用户对象 -->
-<!--   <delete id="updateUsers" parameterClass="labelSet">-->
-<!--      update user_person set user_Name=#user# where user_id=#id#-->
-<!--   </delete>-->
-</sqlMap>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper>
+
+</mapper>

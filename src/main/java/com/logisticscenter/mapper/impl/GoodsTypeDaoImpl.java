@@ -5,8 +5,8 @@ import java.util.List;
 
 
 import com.common.ConvertService;
-import com.entity.GoodsTypeEntity;
 import com.logisticscenter.mapper.GoodsTypeDao;
+import com.logisticscenter.model.GoodsTypeEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +34,6 @@ public class GoodsTypeDaoImpl implements GoodsTypeDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<GoodsTypeEntity> getGoodsType(GoodsTypeEntity selectInfo) {
 		List<GoodsTypeEntity> goodsTypeEntityList = new ArrayList<GoodsTypeEntity>();
@@ -46,7 +45,6 @@ public class GoodsTypeDaoImpl implements GoodsTypeDao {
 		return goodsTypeEntityList;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getGoodsTypeCount(GoodsTypeEntity selectInfo) {
 		String count="";
@@ -58,7 +56,6 @@ public class GoodsTypeDaoImpl implements GoodsTypeDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<GoodsTypeEntity> getAllGoodsType() {
 		return (List<GoodsTypeEntity>)getSqlMapClientTemplate().queryForList("GoodsType.getAllGoodsType");

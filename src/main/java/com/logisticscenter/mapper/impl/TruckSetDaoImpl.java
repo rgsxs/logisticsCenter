@@ -1,7 +1,7 @@
 package com.logisticscenter.mapper.impl;
 
-import com.entity.TruckSetEntity;
 import com.logisticscenter.mapper.TruckSetDao;
+import com.logisticscenter.model.TruckSetEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 public class TruckSetDaoImpl implements TruckSetDao {
 
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public TruckSetEntity getTruckSet() {
 		TruckSetEntity truckSetE = new TruckSetEntity();

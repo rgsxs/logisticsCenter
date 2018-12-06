@@ -2,8 +2,8 @@ package com.logisticscenter.mapper.impl;
 
 import java.util.List;
 
-import com.entity.IllegalReportEntity;
 import com.logisticscenter.mapper.IllegalReportDao;
+import com.logisticscenter.model.IllegalReportEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -22,13 +22,11 @@ public class IllegalReportDaoImpl implements IllegalReportDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<IllegalReportEntity> getIllegalReport(IllegalReportEntity selectInfo) {
 		return (List<IllegalReportEntity>)getSqlMapClientTemplate().queryForList("IllegalReport.getIllegalReportByName",selectInfo);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getIllegalReportCount(IllegalReportEntity selectInfo) {
 		String count = "";
@@ -36,7 +34,6 @@ public class IllegalReportDaoImpl implements IllegalReportDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<IllegalReportEntity> getAllIllegalReport() {
 		return (List<IllegalReportEntity>)getSqlMapClientTemplate().queryForList("IllegalReport.getAllIllegalReport");

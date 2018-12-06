@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.IllegalReportEntity;
+
 import java.util.List;
 
-import com.entity.IllegalReportEntity;
 
 public interface IllegalReportDao {
 	

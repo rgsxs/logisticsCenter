@@ -1,8 +1,9 @@
 package com.logisticscenter.mapper;
 
+import com.logisticscenter.model.GoodsTypeEntity;
+
 import java.util.List;
 
-import com.entity.GoodsTypeEntity;
 
 public interface GoodsTypeDao {
 	

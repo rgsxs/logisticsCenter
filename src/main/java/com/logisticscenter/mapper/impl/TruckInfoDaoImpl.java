@@ -5,8 +5,8 @@ import java.util.List;
 
 
 import com.common.ConvertService;
-import com.entity.TruckEntity;
 import com.logisticscenter.mapper.TruckInfoDao;
+import com.logisticscenter.model.TruckEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -34,7 +34,6 @@ public class TruckInfoDaoImpl implements TruckInfoDao {
 		
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckEntity> getTruckInfo(TruckEntity selectInfo) {
 		
@@ -46,7 +45,6 @@ public class TruckInfoDaoImpl implements TruckInfoDao {
 		return entityList;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public String getTruckInfoCount(TruckEntity selectInfo) {
 		
@@ -59,7 +57,6 @@ public class TruckInfoDaoImpl implements TruckInfoDao {
 		return count;
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<TruckEntity> getAllTruck() {
 		List<TruckEntity> entityList = new ArrayList<TruckEntity>();

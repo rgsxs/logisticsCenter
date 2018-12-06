@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
-<sqlMap namespace="FeeType">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<sqlMap namespace="com.logisticscenter.mapper.FeeTypeDao">
 	<typeAlias type="com.entity.FeeTypeEntity" alias="feeTypeE"/>
 	<resultMap id="feeTypeMap" class="com.entity.FeeTypeEntity" >
 		<result column="id" property="id" jdbcType="INT" />

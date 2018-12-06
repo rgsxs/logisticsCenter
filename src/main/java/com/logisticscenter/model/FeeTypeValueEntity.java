@@ -1,4 +1,4 @@
-package com.entity;
+package com.logisticscenter.model;
 
 public class FeeTypeValueEntity {
 	

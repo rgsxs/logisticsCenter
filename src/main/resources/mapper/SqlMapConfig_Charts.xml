@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper  namespace="Charts">
+<mapper  namespace="com.logisticscenter.mapper.ChartsDao">
 
   <!-- 获得客户报表 -->
-  <select id="getClientChartsByMonth" resultClass="com.javabean.ChartsBean">
+  <select id="getClientChartsByMonth" resultType="com.javabean.ChartsBean">
 	select client ,sum(M1) Jan ,sum(M1) Feb ,sum(M3) Mar ,sum(M4) Apr ,sum(M5) May ,sum(M6) Jun ,sum(M7) Jul ,sum(M8) Aug ,sum(M9) Sept ,sum(M10) Oct ,sum(M11) Nov ,sum(M12) Dec 
 	from 
 	(
@@ -24,7 +24,7 @@
   </select>
   
    <!-- 获得车辆报表 -->
-  <select id="getDriverChartsByMonth" resultClass="com.javabean.ChartsBean">
+  <select id="getDriverChartsByMonth" resultType="com.javabean.ChartsBean">
 	select driver ,sum(M1) Jan ,sum(M1) Feb ,sum(M3) Mar ,sum(M4) Apr ,sum(M5) May ,sum(M6) Jun ,sum(M7) Jul ,sum(M8) Aug ,sum(M9) Sept ,sum(M10) Oct ,sum(M11) Nov ,sum(M12) Dec 
 	from 
 	(
@@ -46,7 +46,7 @@
   
   
     <!-- 获得客户报表 -->
-  <select id="getClientFeeChartsByMonth" parameterClass="java.util.Map" resultClass="com.javabean.ChartsBean">
+  <select id="getClientFeeChartsByMonth" parameterType="java.util.Map" resultType="com.javabean.ChartsBean">
 	select client ,sum(M1) Jan ,sum(M1) Feb ,sum(M3) Mar ,sum(M4) Apr ,sum(M5) May ,sum(M6) Jun ,sum(M7) Jul ,sum(M8) Aug ,sum(M9) Sept ,sum(M10) Oct ,sum(M11) Nov ,sum(M12) Dec 
 	from 
 	(
@@ -67,7 +67,7 @@
   </select>
   
    <!-- 获得车辆报表 -->
-  <select id="getDriverFeeChartsByMonth" parameterClass="java.util.Map" resultClass="com.javabean.ChartsBean">
+  <select id="getDriverFeeChartsByMonth" parameterType="java.util.Map" resultType="com.javabean.ChartsBean">
 	select driver ,sum(M1) Jan ,sum(M1) Feb ,sum(M3) Mar ,sum(M4) Apr ,sum(M5) May ,sum(M6) Jun ,sum(M7) Jul ,sum(M8) Aug ,sum(M9) Sept ,sum(M10) Oct ,sum(M11) Nov ,sum(M12) Dec 
 	from 
 	(
