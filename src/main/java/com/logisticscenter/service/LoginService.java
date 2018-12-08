@@ -1,21 +1,20 @@
 package com.logisticscenter.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.javabean.SystemInfoBean;
 
 public interface LoginService {
 	
-	public abstract SystemInfoBean insertSystemInfo(SystemInfoBean insertInfo);
+	public abstract Map insertSystemInfo(Map<String, Object> params);
 	
-	public abstract SystemInfoBean getSystemInfo(String id);
+	public abstract Map getSystemInfo(Map<String, Object> params);
 	
-	public abstract List<SystemInfoBean> getSystemInfo(SystemInfoBean selectInfo);
+	public abstract Map deleteSystemInfo(Map<String, Object> params);
 	
-	public abstract void deleteSystemInfo(String id);
+	public abstract Map updateSystemInfo(Map<String, Object> params);
 	
-	public abstract void updateSystemInfo(SystemInfoBean updateInfo);
-	
-	public abstract void updateAllSystemInfo(SystemInfoBean updateInfo);
+	public abstract Map updateAllSystemInfo(Map<String, Object> params);
 
 }
