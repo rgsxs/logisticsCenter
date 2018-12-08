@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.logisticscenter.model.ChartsEntity;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface ChartsDao {
