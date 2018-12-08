@@ -2,11 +2,17 @@ package com.logisticscenter.controller;
 
 import com.javabean.LabelSetBean;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
+@Controller
+@RestController
+@RequestMapping(value = "/api/labelSet")
 public class labelSetController implements Serializable{
 	
 	private LabelSetBean lsb;

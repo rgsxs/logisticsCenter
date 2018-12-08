@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.DriverInfoEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface DriverInfoDao {
 	
 	public abstract int insertDriverInfo(DriverInfoEntity insertInfo);

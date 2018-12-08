@@ -8,6 +8,11 @@ import com.logisticscenter.service.CommercialService;
 import com.logisticscenter.service.TruckService;
 import com.util.TimeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,6 +27,9 @@ import java.util.Map;
  * @卜伟领 2017
  *商业险ACTION
  */
+@Controller
+@RestController
+@RequestMapping(value = "/api/commercial")
 public class CommercialController implements Serializable{
 	
 	/**
@@ -40,16 +48,18 @@ public class CommercialController implements Serializable{
 	@Autowired
 	private TruckService truckService;
 
-
-	public String addCommercial(){
+	@ResponseBody
+	@PostMapping("/addCommercial")
+	public Map addCommercial(HttpServletRequest request){
 		CommercialBean bean = new CommercialBean(truckNumber,startDate,endDate,pageSize,currentPage);
 		int maxId = commercialService.insertCommercial(bean);
 		this.status = maxId > 0?true:false;
 		return "success";
 	}
-	
-	@SuppressWarnings("unchecked")
-	public String selectAllCommercial(){
+
+	@ResponseBody
+	@PostMapping("/selectCommercial")
+	public Map selectCommercial(HttpServletRequest request){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
 		timeSag = ConvertService.getIntValue((request.getParameter("timeSag")),0);
@@ -65,7 +75,7 @@ public class CommercialController implements Serializable{
 			}
 			
 		}
-		CommercialBean infoBean = new CommercialBean(truckNumber,startDate,endDate,pageSize,currentPage);
+		CommercialBean infoBean = new CommercialBean(id,truckNumber,startDate,endDate,pageSize,currentPage);
 		List<CommercialBean> beanLst= commercialService.getCommercial(infoBean);
 		int pageCount = 0;
 		if("1".equals(currentPage)){
@@ -107,44 +117,11 @@ public class CommercialController implements Serializable{
 		}//返回json对象
 		return null;
 	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public String selectCommercialById(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
-		id = ConvertService.getIntValue((request.getParameter("id")),0);
-		CommercialBean bean= commercialService.getCommercial(id+"");
-		//获取输出流，然后使用  
-        PrintWriter out = null;
-		try {
-			Map result = new HashMap();
-			Map retResult = new HashMap();
-			Map beanMap = null;
-			result.put("id",bean.getId());
-			result.put("truckNumber",bean.getTruckNumber());
-			result.put("startDate",bean.getStartDate());
-			result.put("endDate",bean.getEndDate());
-			result.put("createDate",bean.getCreateDate());
-			result.put("createTime",bean.getCreateTime());
-			retResult.put("commercial",result);
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json    */
-//            response.setContentType("text/json"); 
-//            /*设置字符集为'UTF-8'*/
-//            response.setCharacterEncoding("UTF-8"); 
-			JSONObject obj = JSONObject.parseObject(retResult.toString());
-			out.print(obj.toString());
-			out.flush();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}//返回json对象
-		return null;
-	}
-	
-	public String deleteCommercial(){
+
+
+	@ResponseBody
+	@PostMapping("/deleteCommercial")
+	public Map deleteCommercial(HttpServletRequest request){
 
 		String ids = request.getParameter("deleteCommercials");
 		int count = commercialService.deleteCommercial(ids);
@@ -172,8 +149,10 @@ public class CommercialController implements Serializable{
 		}//返回json对象
 		return null;
 	}
-	
-	public String updateCommercial(){
+
+	@ResponseBody
+	@PostMapping("/updateCommercial")
+	public Map updateCommercial(HttpServletRequest request){
 
 		truckNumber = request.getParameter("truckNumber");
 		startDate = request.getParameter("startDate");
@@ -184,8 +163,10 @@ public class CommercialController implements Serializable{
 		
 		return "success";
 	}
-	
-	public String getWarnCommercial(){
+
+	@ResponseBody
+	@PostMapping("/getWarnCommercial")
+	public Map getWarnCommercial(HttpServletRequest request){
 
 		int days = ConvertService.getIntValue(request.getParameter("commercialDate"),0);
 		String selectDays = ConvertService.getDate(days);

@@ -12,164 +12,48 @@ import com.javabean.ImageFileBean;
 import com.javabean.TruckBean;
 import com.javabean.TruckGoodsOrderDetailBean;
 import com.logisticscenter.service.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class CommonTransMethod {
 	//客户service注入
+	@Autowired
 	public static ClientService clientService;
 	//司机service注入
+	@Autowired
 	public static DriverService driverService;
 	//费用类型service注入
+	@Autowired
 	public static FeeTypeService feeTypeService;
 	//货物类型service注入
+	@Autowired
 	public static GoodsTypeService goodsTypeService;
 	//违章记录service注入
+	@Autowired
 	public static IllegalReportService illegalReportService;
 	//admin管理者service注入
+	@Autowired
 	public static LoginService loginService;
 	//维修类型service注入
+	@Autowired
 	public static RepairTypeService repairTypeService;
 	//车辆费用service注入
+	@Autowired
 	public static TruckFeeInfoService truckFeeInfoService;
 	//车辆记录service注入
+	@Autowired
 	public static TruckGoodsReportService truckGoodsReportService;
 	//车辆order记录service注入
+	@Autowired
 	public static TruckGoodsOrderService truckGoodsOrderService;
 	//车辆service注入
+	@Autowired
 	public static TruckService truckService;
 	//报表注入
+	@Autowired
 	public static ChartsService chartsService;
 	//图片文件service注入
+	@Autowired
 	public static ImageFileService imageFileService;
-	
-	public static ClientService getClientService() {
-		return clientService;
-	}
-
-
-	public static void setClientService(ClientService clientService) {
-		CommonTransMethod.clientService = clientService;
-	}
-
-
-	public static DriverService getDriverService() {
-		return driverService;
-	}
-
-
-	public static void setDriverService(DriverService driverService) {
-		CommonTransMethod.driverService = driverService;
-	}
-
-
-	public static FeeTypeService getFeeTypeService() {
-		return feeTypeService;
-	}
-
-
-	public static void setFeeTypeService(FeeTypeService feeTypeService) {
-		CommonTransMethod.feeTypeService = feeTypeService;
-	}
-
-
-	public static GoodsTypeService getGoodsTypeService() {
-		return goodsTypeService;
-	}
-
-
-	public static void setGoodsTypeService(GoodsTypeService goodsTypeService) {
-		CommonTransMethod.goodsTypeService = goodsTypeService;
-	}
-
-
-	public static IllegalReportService getIllegalReportService() {
-		return illegalReportService;
-	}
-
-
-	public static void setIllegalReportService(
-			IllegalReportService illegalReportService) {
-		CommonTransMethod.illegalReportService = illegalReportService;
-	}
-
-
-	public static LoginService getLoginService() {
-		return loginService;
-	}
-
-
-	public static void setLoginService(LoginService loginService) {
-		CommonTransMethod.loginService = loginService;
-	}
-
-
-	public static RepairTypeService getRepairTypeService() {
-		return repairTypeService;
-	}
-
-
-	public static void setRepairTypeService(RepairTypeService repairTypeService) {
-		CommonTransMethod.repairTypeService = repairTypeService;
-	}
-
-
-	public static TruckFeeInfoService getTruckFeeInfoService() {
-		return truckFeeInfoService;
-	}
-
-
-	public static void setTruckFeeInfoService(
-			TruckFeeInfoService truckFeeInfoService) {
-		CommonTransMethod.truckFeeInfoService = truckFeeInfoService;
-	}
-
-
-	public static TruckGoodsReportService getTruckGoodsReportService() {
-		return truckGoodsReportService;
-	}
-
-
-	public static TruckGoodsOrderService getTruckGoodsOrderService() {
-		return truckGoodsOrderService;
-	}
-
-
-	public static void setTruckGoodsOrderService(
-			TruckGoodsOrderService truckGoodsOrderService) {
-		CommonTransMethod.truckGoodsOrderService = truckGoodsOrderService;
-	}
-
-
-	public static void setTruckGoodsReportService(
-			TruckGoodsReportService truckGoodsReportService) {
-		CommonTransMethod.truckGoodsReportService = truckGoodsReportService;
-	}
-
-
-	public static TruckService getTruckService() {
-		return truckService;
-	}
-
-
-	public static void setTruckService(TruckService truckService) {
-		CommonTransMethod.truckService = truckService;
-	}
-
-	public static ChartsService getChartsService() {
-		return chartsService;
-	}
-
-
-	public static void setChartsService(ChartsService chartsService) {
-		CommonTransMethod.chartsService = chartsService;
-	}
-	
-	public ImageFileService getImageFileService() {
-		return imageFileService;
-	}
-
-	public void setImageFileService(ImageFileService imageFileService) {
-		CommonTransMethod.imageFileService = imageFileService;
-	}
 
 
 	/**

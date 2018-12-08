@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.GoodsTypeEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface GoodsTypeDao {
 	
 	public abstract int insertGoodsType(GoodsTypeEntity insertInfo);

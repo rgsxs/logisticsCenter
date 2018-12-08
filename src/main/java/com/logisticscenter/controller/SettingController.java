@@ -6,6 +6,9 @@ import com.javabean.TruckSetBean;
 import com.service.TruckSetService;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
@@ -18,6 +21,9 @@ import java.util.Map;
  * @卜伟领 2017
  *
  */
+@Controller
+@RestController
+@RequestMapping(value = "/api/setting")
 public class SettingController implements Serializable{
 	
 	/**

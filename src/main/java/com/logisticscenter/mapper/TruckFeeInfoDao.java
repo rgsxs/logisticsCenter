@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.TruckFeeInfoEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface TruckFeeInfoDao {
 	
 	public abstract int insertTruckFeeInfo(TruckFeeInfoEntity insertInfo);

@@ -3,9 +3,9 @@ package com.logisticscenter.service.impl;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.SystemInfoEntity;
 import com.javabean.SystemInfoBean;
 import com.logisticscenter.mapper.SystemInfoDao;
+import com.logisticscenter.model.SystemInfoEntity;
 import com.logisticscenter.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

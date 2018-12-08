@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.CompulsoryEntity;
 import com.javabean.CompulsoryBean;
 import com.logisticscenter.mapper.CompulsoryDao;
+import com.logisticscenter.model.CompulsoryEntity;
 import com.logisticscenter.service.CompulsoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

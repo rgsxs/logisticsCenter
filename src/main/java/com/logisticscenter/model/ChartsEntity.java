@@ -1,10 +1,7 @@
 package com.logisticscenter.model;
 
-import org.apache.ibatis.type.Alias;
-
 import java.io.Serializable;
 
-@Alias("ChartsEntity")
 public class ChartsEntity implements Serializable {
 	//一月 
 	private String Jan;
@@ -47,6 +44,9 @@ public class ChartsEntity implements Serializable {
 	
 	//客户(客户报表显示用)
 	private String client;
+
+	//司机(司机报表显示用)
+	private String driver;
 
 	public String getJan() {
 		return Jan;
@@ -159,5 +159,12 @@ public class ChartsEntity implements Serializable {
 	public void setClient(String client) {
 		this.client = client;
 	}
-	
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
 }

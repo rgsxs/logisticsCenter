@@ -11,6 +11,9 @@ import com.service.TruckGoodsReportService;
 import com.util.ConstantUtils;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -20,6 +23,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@RestController
+@RequestMapping(value = "/api/truckGoodsOrder")
 public class TruckGoodsOrderController implements Serializable{
 	
 	/**

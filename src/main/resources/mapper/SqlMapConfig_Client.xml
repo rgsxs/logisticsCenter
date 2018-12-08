@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.logisticscenter.mapper.ClientDao">
-	<typeAlias  type="com.entity.ClientEntity" alias="clientE"/>
-	<resultMap  id="clientMap"  type="com.entity.ClientEntity">
+
+	<resultMap  id="clientMap"  type="clientEntity">
 		<result column="id" property="id" jdbcType="INT" />
 		<result column="clientName" property="clientName" jdbcType="VARCHAR" />
 		<result column="contant" property="contant" jdbcType="VARCHAR" />
@@ -20,7 +20,7 @@
   </select>
   
    <!-- 模糊查询客户信息 --> 
-   <select id="getClientBy" resultMap="clientMap" parameterType="clientE">
+   <select id="getClientBy" resultMap="clientMap" parameterType="clientEntity">
 	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from clientInfo 
 	<dynamic prepend="WHERE ">
 		<isNotEmpty prepend="AND" property="clientName">
@@ -37,7 +37,7 @@
   </select> 
   
   <!-- 具体查询客户信息 -->
-   <select id="getClientBy2" resultMap="clientMap" parameterType="clientE">
+   <select id="getClientBy2" resultMap="clientMap" parameterType="clientEntity">
 	select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from clientInfo 
 	<dynamic prepend="WHERE ">
 		<isNotEmpty prepend="AND" property="clientName">
@@ -54,7 +54,7 @@
   </select> 
   
   <!-- 模糊查询客户信息 --> 
-   <select id="getClientByCount" resultType="String" parameterType="clientE">
+   <select id="getClientByCount" resultType="String" parameterType="clientEntity">
 	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from clientInfo ) A
 	<dynamic prepend="WHERE ">
 		<isNotEmpty prepend="AND" property="clientName">
@@ -65,7 +65,7 @@
   </select> 
   
   <!-- 具体查询客户信息 -->
-   <select id="getClientBy2Count" resultType="String" parameterType="clientE">
+   <select id="getClientBy2Count" resultType="String" parameterType="clientEntity">
 	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from clientInfo ) A
 	<dynamic prepend="WHERE ">
 		<isNotEmpty prepend="AND" property="clientName">
@@ -84,7 +84,7 @@
   </select> 
   
    <!-- 新增用户对象 -->
-   <insert id="insertClient" parameterType="clientE">
+   <insert id="insertClient" parameterType="clientEntity">
       insert into clientInfo (clientName,contant,mobile,fax,address,products,createDate,createTime) 
       values (#clientName#,#contant#,#mobile#,#fax#,#address#,#products#,#createDate#,#createTime#)
       <selectKey resultType="int" keyProperty="id" >
@@ -102,7 +102,7 @@
    </delete>
    
    <!-- 更新用户对象 -->
-   <update id="updateClient" parameterType="clientE">
+   <update id="updateClient" parameterType="clientEntity">
       update clientInfo set 
       clientName=#clientName#,
       contant=#contant#,
@@ -114,4 +114,17 @@
       editTime=#editTime#
       where id=#id#
    </update>
+
+	<!-- 更新用户对象 -->
+	<update id="updateAllClient" parameterType="clientEntity">
+		update clientInfo set
+		clientName=#clientName#,
+		contant=#contant#,
+		mobile=#mobile#,
+		fax=#fax#,
+		address=#address#,
+		products=#products#,
+		editDate=#editDate#,
+		editTime=#editTime#
+	</update>
 </mapper>

@@ -2,7 +2,6 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.IllegalReportEntity;
 import com.javabean.IllegalReportBean;
 
 public interface IllegalReportService {

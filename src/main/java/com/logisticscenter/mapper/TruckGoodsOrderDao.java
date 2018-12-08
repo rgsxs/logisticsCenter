@@ -2,10 +2,11 @@ package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.TruckGoodsOrderDetailEntity;
 import com.logisticscenter.model.TruckGoodsOrderTakerEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface TruckGoodsOrderDao {
 	
 	/**

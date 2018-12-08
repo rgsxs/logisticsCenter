@@ -2,7 +2,6 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.RepairTypeEntity;
 import com.javabean.RepairTypeBean;
 
 public interface RepairTypeService {

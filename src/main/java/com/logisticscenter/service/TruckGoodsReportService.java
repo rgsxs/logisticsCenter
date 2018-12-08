@@ -35,7 +35,9 @@ public interface TruckGoodsReportService {
 	public abstract int updateColumn(int id, String updColumnSql);
 	
 	/**
-	 * @param 获得指定字段自定数据的值
+	 * 获得指定字段自定数据的值
+	 * @param reportId
+	 * @param columnName
 	 */
 	public abstract List<FeeTypeValueBean> getColumnValue(String reportId, String columnName);
 	
@@ -55,21 +57,21 @@ public interface TruckGoodsReportService {
 	
 	/**
 	 * 获得车辆出车货物类型分类详细
-	 * @param selectInfo
+	 * @param truckOrders
 	 * @return
 	 */
 	public abstract List<TruckGoodsReportDetailBean> getTruckGoodsReportDetail(String truckOrders);
 	
 	/**
 	 * 更新出车货物类型分类详细
-	 * @param selectInfo
+	 * @param updateInfo
 	 * @return
 	 */
 	public abstract int updateTruckGoodsReportDetail(TruckGoodsReportDetailBean updateInfo);
 	
 	/**
 	 * 更新出车货物类型分类详细
-	 * @param selectInfo
+	 * @param date
 	 * @return
 	 */
 	public abstract String getMaxReportNumber(String date);
@@ -89,7 +91,7 @@ public interface TruckGoodsReportService {
 	
 	/**
 	 * 计算费用/盈利/运费的合计
-	 * @param updateInfo
+	 * @param selectInfo
 	 * @return
 	 */
 	public abstract TruckGoodsReportBean getTruckGoodsReportSum(TruckGoodsReportBean selectInfo);

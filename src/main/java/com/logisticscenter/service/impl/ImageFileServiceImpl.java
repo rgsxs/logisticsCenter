@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.ImageFileEntity;
 import com.javabean.ImageFileBean;
 import com.logisticscenter.mapper.ImageFileDao;
+import com.logisticscenter.model.ImageFileEntity;
 import com.logisticscenter.service.ImageFileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

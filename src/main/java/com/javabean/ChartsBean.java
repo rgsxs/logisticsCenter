@@ -46,7 +46,7 @@ public class ChartsBean {
 	//客户(客户报表显示用)
 	private String client;
 	
-	//客户(客户报表显示用)
+	//司机(司机报表显示用)
 	private String driver;
 
 	public String getJan() {

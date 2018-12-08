@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.CommercialEntity;
 import com.javabean.CommercialBean;
 import com.logisticscenter.mapper.CommercialDao;
+import com.logisticscenter.model.CommercialEntity;
 import com.logisticscenter.service.CommercialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

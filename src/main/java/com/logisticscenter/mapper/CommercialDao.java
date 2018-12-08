@@ -2,6 +2,7 @@ package com.logisticscenter.mapper;
 
 
 import com.logisticscenter.model.CommercialEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author 卜
  *
  */
+@Mapper
 public interface CommercialDao {
 
 	/**

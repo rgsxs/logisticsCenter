@@ -10,7 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import com.util.ConstantUtils;
-import com.util.Util;
+import com.util.Utils;
 
 public class ConvertService {
 	
@@ -50,7 +50,7 @@ public class ConvertService {
 					// 获得和属性对应的get方法
 					Method getMethod = beanClass.getMethod(getMethodName,new Class[] {});
 					// 调用getter方法获取属性值
-					Integer value = Util.getIntValue((Integer) getMethod.invoke(obj)+"");
+					Integer value = Utils.getIntValue((Integer) getMethod.invoke(obj)+"");
 					
 					m = entity.getClass().getMethod(setMethodName,Integer.class);
 					m.invoke(entity, value);
@@ -58,7 +58,7 @@ public class ConvertService {
 					// 获得和属性对应的get方法
 					Method getMethod = beanClass.getMethod(getMethodName,new Class[] {});
 					// 调用getter方法获取属性值
-					int value = Util.getIntValue((Integer) getMethod.invoke(obj)+"");;
+					int value = Utils.getIntValue((Integer) getMethod.invoke(obj)+"");;
 					
 					m = entity.getClass().getMethod(setMethodName,int.class);
 					m.invoke(entity, value);

@@ -10,6 +10,9 @@ import com.service.FeeTypeService;
 import com.service.TruckGoodsReportService;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -24,6 +27,9 @@ import java.util.Map;
  * @卜伟领 2017
  *
  */
+@Controller
+@RestController
+@RequestMapping(value = "/api/importExcel")
 public class ImportExcelController implements Serializable{
 	
 	/**

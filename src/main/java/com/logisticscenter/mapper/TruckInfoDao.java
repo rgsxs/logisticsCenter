@@ -1,11 +1,12 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.TruckEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
 
-
+@Mapper
 public interface TruckInfoDao {
 	
 	public abstract int insertTruck(TruckEntity insertInfo);

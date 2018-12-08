@@ -2,7 +2,6 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.TruckEntity;
 import com.javabean.TruckBean;
 
 public interface TruckService {

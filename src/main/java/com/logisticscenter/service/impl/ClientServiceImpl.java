@@ -1,15 +1,12 @@
 package com.logisticscenter.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
 import com.common.ConvertService;
-import com.entity.ClientEntity;
-import com.javabean.ClientBean;
 import com.logisticscenter.mapper.ClientDao;
+import com.logisticscenter.model.ClientEntity;
 import com.logisticscenter.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -21,115 +18,102 @@ public class ClientServiceImpl implements ClientService {
 	@Autowired
 	ClientDao clientDao;
 
-	@Override
-	public int deleteClient(String id) {
-		int count = clientDao.deleteClient(id);
-		return count;
-		
-	}
-
-	@Override
-	public ClientBean getClient(String id) {
-		return (ClientBean) ConvertService.convertEntityToBean(clientDao.getClient(id), new ClientBean());
-	}
-
-	@Override
-	public List<ClientBean> getClient(ClientBean selectInfo,String selectStatus) {
-		List<ClientBean> beanList = new ArrayList<ClientBean>();
-		try{
-			ClientEntity clientE = (ClientEntity)ConvertService.convertBeanToEntity(selectInfo,new ClientEntity());
-			List<ClientEntity> entityList = new ArrayList<ClientEntity>();
-			int pageSize =Integer.parseInt(clientE.getPageSize());
-			int currentPage =Integer.parseInt(clientE.getCurrentPage());
-			currentPage = (currentPage -1)*pageSize;
-			clientE.setCurrentPage(currentPage+"");
-			entityList = clientDao.getClient(clientE,selectStatus);
-			for(int i=0;i<entityList.size(); i++){
-				ClientBean dirverBean = (ClientBean) ConvertService.convertEntityToBean(entityList.get(i), new ClientBean());
-				beanList.add(dirverBean);
-			}
-			
-			
-		}catch(Exception e){e.printStackTrace();}
-		
-		return beanList;
-	}
-	
-	@Override
-	public String getClientCount(ClientBean selectInfo,String selectStatus) {
-		String count = "";
-		try{
-			ClientEntity clientE = (ClientEntity)ConvertService.convertBeanToEntity(selectInfo,new ClientEntity());
-			List<ClientEntity> entityList = new ArrayList<ClientEntity>();
-			List<ClientBean> beanList = new ArrayList<ClientBean>();
-			int pageSize =Integer.parseInt(clientE.getPageSize());
-			int currentPage =Integer.parseInt(clientE.getCurrentPage());
-			currentPage = (currentPage -1)*pageSize;
-			clientE.setCurrentPage(currentPage+"");
-			count = clientDao.getClientCount(clientE,selectStatus);
-		}catch(Exception e){e.printStackTrace();}
-		return count;
-		
-	}
-
-	@Override
-	public int updateClient(ClientBean updateInfo) {
-		int count=0;
-		ClientEntity ClientE = (ClientEntity) ConvertService.convertBeanToEntity(updateInfo, new ClientEntity());
-		ClientE.setEditDate(ConvertService.getDate());
-		ClientE.setEditTime(ConvertService.getTime());
-		count = clientDao.updateClient(ClientE);
-		return count;
-		
-	}
-	
-	@Override
-	public void updateAllClient(ClientBean updateInfo) {
-		ClientEntity ClientE = new ClientEntity();
-		clientDao.updateAllClient(ClientE);
-		
-	}
-
-	@Override
-	public int insertClient(ClientBean insertInfo) {
-		ClientEntity ClientE = (ClientEntity) ConvertService.convertBeanToEntity(insertInfo, new ClientEntity());
-		ClientE.setCreateDate(ConvertService.getDate());
-		ClientE.setCreateTime(ConvertService.getTime());
-		int statusFlg = clientDao.insertClient(ClientE);
-		// TODO Auto-generated method stub
-		return statusFlg;
-	}
-	
-	public List<ClientBean> getAllClient(){
-		List<ClientBean> beanList = new ArrayList<ClientBean>();
+	public Map getClient(Map<String, Object> params){
+		List<ClientEntity> entityList = new ArrayList<ClientEntity>();
 		List<Cache> cacheList = CacheManager.getCacheListInfo("clientBean_CACHE");
+		Map result = new HashMap();
+		Map retResult = new HashMap();
 		if(cacheList!=null && cacheList.size()>0){
 			for(int i =0;i<cacheList.size();i++){
-				beanList.add((ClientBean)cacheList.get(i).getValue());
+				entityList.add((ClientEntity)cacheList.get(i).getValue());
 			}
 		}else{
-			List<ClientEntity> entityList = new ArrayList<ClientEntity>();
-			beanList = new ArrayList<ClientBean>();
-			entityList = clientDao.getAllClient();
-			for(int i=0;i<entityList.size(); i++){
-				ClientBean dirverBean = (ClientBean) ConvertService.convertEntityToBean(entityList.get(i), new ClientBean());
-				beanList.add(dirverBean);
-			}
 			Cache cache = null;
 			Date date = new Date();
 			List <Cache> beanCacheLst = new ArrayList<Cache>();
 			//货物类型设置缓存
-			for(int i = 0;i<beanList.size();i++){
+			for(int i = 0;i<entityList.size();i++){
 				cache = new Cache();
-				cache.setKey(beanList.get(i).getId()+"");
+				cache.setKey(entityList.get(i).getId()+"");
 				cache.setTimeOut(date.getTime());
-				cache.setValue(beanList.get(i));
+				cache.setValue(entityList.get(i));
 				beanCacheLst.add(cache);
 			}
 			CacheManager.putCacheList("clientBean_CACHE", beanCacheLst);
 		}
+
+		try {
+
+			Map beanMap = null;
+			for(int i = 0 ; i<entityList.size(); i++){
+				beanMap = new HashMap();
+				beanMap.put("id",entityList.get(i).getId());
+				beanMap.put("clientName",entityList.get(i).getClientName());
+				beanMap.put("contant",entityList.get(i).getContant());
+				beanMap.put("mobile",entityList.get(i).getMobile());
+				beanMap.put("fax",entityList.get(i).getFax());
+				beanMap.put("address",entityList.get(i).getAddress());
+				beanMap.put("products",entityList.get(i).getProducts());
+				beanMap.put("createDate",entityList.get(i).getCreateDate());
+				beanMap.put("createTime",entityList.get(i).getCreateTime());
+				result.put(entityList.get(i).getId(), beanMap);
+			}
+			retResult.put("client",result);
+			return retResult;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}//返回json对象
+
+		return retResult;
+	}
+
+	@Override
+	public Map insertClient(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		ClientEntity clientE = new ClientEntity();
+		clientE.setClientName((String)params.get("clientName"));
+		clientE.setContant((String)params.get("contant"));
+		clientE.setMobile((String)params.get("mobile"));
+		clientE.setFax((String)params.get("fax"));
+		clientE.setAddress((String)params.get("address"));
+		clientE.setProducts((String)params.get("products"));
+		clientE.setCreateDate(ConvertService.getDate());
+		clientE.setCreateTime(ConvertService.getTime());
+		int maxId = clientDao.insertClient(clientE);
+		CacheManager.clearOnly("clientBean_CACHE");
+		retResult.put("id",maxId);
+		return retResult;
+	}
+
+
+	@Override
+	public Map updateClient(Map<String, Object> params) {
+		int count=0;
+		Map retResult = new HashMap();
+		ClientEntity clientE = new ClientEntity();
+		clientE.setClientName((String)params.get("clientName"));
+		clientE.setContant((String)params.get("contant"));
+		clientE.setMobile((String)params.get("mobile"));
+		clientE.setFax((String)params.get("fax"));
+		clientE.setAddress((String)params.get("address"));
+		clientE.setProducts((String)params.get("products"));
+		clientE.setCreateDate(ConvertService.getDate());
+		clientE.setCreateTime(ConvertService.getTime());
+		count = clientDao.updateClient(clientE);
+		CacheManager.clearOnly("clientBean_CACHE");
+		retResult.put("count",count);
+		return retResult;
+
+	}
+
+	@Override
+	public Map deleteClient(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		int count = clientDao.deleteClient((String)params.get("ids"));
+		retResult.put("count",count);
+		return retResult;
 		
-		return beanList;
 	}
 
 }

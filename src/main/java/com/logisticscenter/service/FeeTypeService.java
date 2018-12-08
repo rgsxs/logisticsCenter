@@ -2,7 +2,6 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.FeeTypeEntity;
 import com.javabean.FeeTypeBean;
 
 public interface FeeTypeService {

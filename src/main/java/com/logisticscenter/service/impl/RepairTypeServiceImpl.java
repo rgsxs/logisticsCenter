@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.RepairTypeEntity;
 import com.javabean.DriverInfoBean;
 import com.javabean.RepairTypeBean;
 import com.logisticscenter.mapper.RepairTypeDao;
+import com.logisticscenter.model.RepairTypeEntity;
 import com.logisticscenter.service.RepairTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

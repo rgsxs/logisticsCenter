@@ -1,19 +1,20 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.ClientEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface ClientDao {
 	
 	public abstract int insertClient(ClientEntity insertInfo);
 	
-	public abstract ClientEntity getClient(String id);
+	public abstract ClientEntity getClientById(String id);
 	
 	public abstract List<ClientEntity> getClient(ClientEntity selectInfo, String selectStatus);
 	
-	public abstract String getClientCount(ClientEntity selectInfo, String selectStatus);
+	public abstract String getClientByCount(ClientEntity selectInfo, String selectStatus);
 	
 	public abstract List<ClientEntity> getAllClient();
 	

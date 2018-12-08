@@ -1,9 +1,9 @@
 package com.logisticscenter.service.impl;
 
 import com.common.ConvertService;
-import com.entity.TruckSetEntity;
 import com.javabean.TruckSetBean;
 import com.logisticscenter.mapper.TruckSetDao;
+import com.logisticscenter.model.TruckSetEntity;
 import com.logisticscenter.service.TruckSetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

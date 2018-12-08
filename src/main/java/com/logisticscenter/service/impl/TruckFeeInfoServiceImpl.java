@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.TruckFeeInfoEntity;
 import com.javabean.TruckFeeInfoBean;
 import com.logisticscenter.mapper.TruckFeeInfoDao;
+import com.logisticscenter.model.TruckFeeInfoEntity;
 import com.logisticscenter.service.TruckFeeInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

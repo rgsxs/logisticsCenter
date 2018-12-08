@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.SystemInfoEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface SystemInfoDao {
 	
 	public abstract void insertSystemInfo(SystemInfoEntity insertInfo);

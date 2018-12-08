@@ -106,6 +106,14 @@
 			<version>1.2.47</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/com.asprise.imaging/java-scanner-access-twain -->
+		<dependency>
+			<groupId>com.asprise.imaging</groupId>
+			<artifactId>java-scanner-access-twain</artifactId>
+			<version>12.0.10.1</version>
+		</dependency>
+
+
 		<!-- 分页插件 -->
 		<dependency>
 			<groupId>com.github.pagehelper</groupId>

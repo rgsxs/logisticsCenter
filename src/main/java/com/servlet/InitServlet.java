@@ -17,11 +17,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.cache.Cache;
+import com.cache.CacheManager;
+import com.logisticscenter.service.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.cachec.Cache;
-import com.cachec.CacheManager;
 import com.general.BaseBean;
 import com.general.SystemUpgrade;
 import com.javabean.ClientBean;
@@ -30,12 +31,7 @@ import com.javabean.FeeTypeBean;
 import com.javabean.GoodsTypeBean;
 import com.javabean.TruckBean;
 import com.javabean.TruckSetBean;
-import com.service.ClientService;
-import com.service.DriverService;
-import com.service.FeeTypeService;
-import com.service.GoodsTypeService;
-import com.service.TruckService;
-import com.service.TruckSetService;
+
 import com.util.ConstantUtils;
 
 public class InitServlet extends HttpServlet {
@@ -318,8 +314,8 @@ public class InitServlet extends HttpServlet {
      /**
       * 实现 HttpServlet 的 doGet 方法，不作任何操作
       *
-      * @param HttpServletRequest  request
-      * @param HttpServletResponse response
+      * @param request
+      * @param response
       * @return void
       * @throws ServletException, IOException
       */
@@ -332,8 +328,8 @@ public class InitServlet extends HttpServlet {
  	/**
      * 实现 HttpServlet 的 doPost 方法，不作任何操作
      *
-     * @param HttpServletRequest  request
-     * @param HttpServletResponse response
+     * @param request
+     * @param response
      * @return void
      * @throws ServletException, IOException
      */

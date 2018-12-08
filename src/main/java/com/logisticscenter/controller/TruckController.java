@@ -8,6 +8,9 @@ import com.service.TruckService;
 import com.util.Util;
 import net.sf.json.JSONObject;
 import org.apache.struts2.ServletActionContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +20,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@RestController
+@RequestMapping(value = "/api/truck")
 public class TruckController implements Serializable{
 	
 	/**

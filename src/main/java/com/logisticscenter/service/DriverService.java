@@ -2,7 +2,7 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.DriverInfoEntity;
+//import com.entity.DriverInfoEntity;
 import com.javabean.DriverInfoBean;
 
 public interface DriverService {

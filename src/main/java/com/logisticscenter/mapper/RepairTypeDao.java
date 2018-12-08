@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.RepairTypeEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface RepairTypeDao {
 	
 	public abstract int insertRepairType(RepairTypeEntity insertInfo);

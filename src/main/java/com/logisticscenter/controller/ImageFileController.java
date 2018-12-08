@@ -2,16 +2,15 @@ package com.logisticscenter.controller;
 
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.Result;
-import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
+
 import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.general.BaseBean;
 import com.javabean.*;
-import com.service.FeeTypeService;
-import com.service.ImageFileService;
-import com.service.TruckGoodsReportService;
+import com.logisticscenter.service.FeeTypeService;
+import com.logisticscenter.service.ImageFileService;
+import com.logisticscenter.service.TruckGoodsReportService;
 import com.util.ConstantUtils;
-import net.sf.json.JSONObject;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -23,8 +22,13 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.struts2.ServletActionContext;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +41,9 @@ import java.util.*;
  * @卜伟领 2017
  *
  */
-@SuppressWarnings("deprecation")
+@Controller
+@RestController
+@RequestMapping(value = "/api/imageFile")
 public class ImageFileController implements Serializable{
 	/**
 	 * 
@@ -47,73 +53,20 @@ public class ImageFileController implements Serializable{
 	public ImageFileController(){
 		
 	}
-	//注意，file并不是指前端jsp上传过来的文件本身，而是文件上传过来存放在临时文件夹下面的文件
-    private File file[];
-    
-    //提交过来的file的名字
-    private String fileFileName[];
-    
-    //提交过来的file的MIME类型
-    private String fileContentType[];
+
+	@Autowired
 	private ImageFileService imageFileService;
-	
+
+	@Autowired
 	private TruckGoodsReportService truckGoodsReportService;
 	
 	//获得费用类型字段用
+	@Autowired
 	private FeeTypeService feeTypeService;
-	
-	public File[] getFile() {
-		return file;
-	}
 
-	public void setFile(File[] file) {
-		this.file = file;
-	}
 
-	public String[] getFileFileName() {
-		return fileFileName;
-	}
-
-	public void setFileFileName(String[] fileFileName) {
-		this.fileFileName = fileFileName;
-	}
-
-	public String[] getFileContentType() {
-		return fileContentType;
-	}
-
-	public void setFileContentType(String[] fileContentType) {
-		this.fileContentType = fileContentType;
-	}
-
-	public ImageFileService getImageFileService() {
-		return imageFileService;
-	}
-
-	public void setImageFileService(ImageFileService imageFileService) {
-		this.imageFileService = imageFileService;
-	}
-
-	
-	public TruckGoodsReportService getTruckGoodsReportService() {
-		return truckGoodsReportService;
-	}
-
-	public void setTruckGoodsReportService(
-			TruckGoodsReportService truckGoodsReportService) {
-		this.truckGoodsReportService = truckGoodsReportService;
-	}
-
-	
-	public FeeTypeService getFeeTypeService() {
-		return feeTypeService;
-	}
-
-	public void setFeeTypeService(FeeTypeService feeTypeService) {
-		this.feeTypeService = feeTypeService;
-	}
-
-	@SuppressWarnings("unchecked")
+	@ResponseBody
+	@PostMapping("/getFiles")
 	public String getFiles(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -143,7 +96,9 @@ public class ImageFileController implements Serializable{
 		}
 		return null;
 	}
-	
+
+	@ResponseBody
+	@PostMapping("/downloads")
 	public String downloads(){
 
 		String pathId = request.getParameter("id");
@@ -168,7 +123,9 @@ public class ImageFileController implements Serializable{
 		}
 		return null;
 	}
-	
+
+	@ResponseBody
+	@PostMapping("/exportExcel")
 	public String exportExcel(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -370,6 +327,8 @@ public class ImageFileController implements Serializable{
 	/**
 	 * 
 	 */
+	@ResponseBody
+	@PostMapping("/mouldExcel")
 	public String mouldExcel(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -446,6 +405,8 @@ public class ImageFileController implements Serializable{
 	/**
 	 * 调用扫描仪上传图片
 	 */
+	@ResponseBody
+	@PostMapping("/scan")
 	public String scan(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		BaseBean bs = new BaseBean();
@@ -554,6 +515,8 @@ public class ImageFileController implements Serializable{
 	/**
 	 * 调用Js扫描仪上传图片
 	 */
+	@ResponseBody
+	@PostMapping("/scanJs")
 	public String scanJs(){
 		HttpServletResponse response = ServletActionContext.getResponse();
 		HttpServletRequest request = ServletActionContext.getRequest();
@@ -762,7 +725,9 @@ public class ImageFileController implements Serializable{
 			}
 		}
 	}
-	
+
+	@ResponseBody
+	@PostMapping("/getAllFee")
 	public String getAllFee(String id){
 		//获得费用的title
 		List<FeeTypeBean> beanLst= feeTypeService.getAllFeeType();
@@ -792,6 +757,8 @@ public class ImageFileController implements Serializable{
 	 * @param id
 	 * @return
 	 */
+	@ResponseBody
+	@PostMapping("/getAllCount")
 	public String getAllCount(String id){
 		float allCount = 0F;
 		//设置订单中货物类型详细信息

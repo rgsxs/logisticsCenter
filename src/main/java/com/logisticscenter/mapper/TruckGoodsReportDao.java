@@ -3,9 +3,11 @@ package com.logisticscenter.mapper;
 import com.logisticscenter.model.FeeTypeValueEntity;
 import com.logisticscenter.model.TruckGoodsReportDetailEntity;
 import com.logisticscenter.model.TruckGoodsReportEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
+@Mapper
 public interface TruckGoodsReportDao {
 	
 	public abstract int insertTruckGoodsReport(TruckGoodsReportEntity insertInfo);

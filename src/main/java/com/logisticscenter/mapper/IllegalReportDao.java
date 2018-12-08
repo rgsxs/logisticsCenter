@@ -1,10 +1,11 @@
 package com.logisticscenter.mapper;
 
 import com.logisticscenter.model.IllegalReportEntity;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-
+@Mapper
 public interface IllegalReportDao {
 	
 	public abstract int insertIllegalReport(IllegalReportEntity insertInfo);

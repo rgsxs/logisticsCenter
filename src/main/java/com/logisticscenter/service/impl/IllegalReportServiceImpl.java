@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.IllegalReportEntity;
 import com.javabean.IllegalReportBean;
 import com.logisticscenter.mapper.IllegalReportDao;
+import com.logisticscenter.model.IllegalReportEntity;
 import com.logisticscenter.service.IllegalReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

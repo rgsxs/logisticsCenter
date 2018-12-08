@@ -2,7 +2,6 @@ package com.logisticscenter.service;
 
 import java.util.List;
 
-import com.entity.SystemInfoEntity;
 import com.javabean.SystemInfoBean;
 
 public interface LoginService {

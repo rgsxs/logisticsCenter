@@ -5,14 +5,19 @@ import com.asprise.imaging.core.Result;
 import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
 import com.common.ConvertService;
 import com.javabean.ImageFileBean;
-import com.service.ImageFileService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.util.List;
 import java.util.Map;
 
+@Controller
+@RestController
+@RequestMapping(value = "/api/test")
 public class TestController {
 	
 	public static void main(String[] args) {

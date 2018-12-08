@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.common.ConvertService;
-import com.entity.TruckGoodsOrderDetailEntity;
-import com.entity.TruckGoodsOrderTakerEntity;
 import com.javabean.TruckGoodsOrderDetailBean;
 import com.javabean.TruckGoodsOrderTakerBean;
 import com.logisticscenter.mapper.TruckGoodsOrderDao;
+import com.logisticscenter.model.TruckGoodsOrderDetailEntity;
+import com.logisticscenter.model.TruckGoodsOrderTakerEntity;
 import com.logisticscenter.service.TruckGoodsOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

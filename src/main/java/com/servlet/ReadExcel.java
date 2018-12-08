@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.logisticscenter.service.TruckGoodsReportService;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -25,13 +26,6 @@ import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.javabean.TruckGoodsReportBean;
 import com.javabean.TruckGoodsReportDetailBean;
-import com.service.ClientService;
-import com.service.DriverService;
-import com.service.FeeTypeService;
-import com.service.GoodsTypeService;
-import com.service.TruckGoodsReportService;
-import com.service.TruckService;
-import com.service.TruckSetService;
 import com.util.ConstantUtils;
 
 public class ReadExcel {
