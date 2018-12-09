@@ -2,12 +2,14 @@ package com.logisticscenter.service;
 
 import com.javabean.TruckSetBean;
 
+import java.util.Map;
+
 public interface TruckSetService {
 	
 	
-	public abstract TruckSetBean getTruckSet();
+	public abstract Map<String, Object> getTruckSet(Map<String, Object> params);
 	
-	public abstract void updateTruckSet(TruckSetBean updateInfo);
+	public abstract Map<String, Object> updateTruckSet(Map<String, Object> params);
 	
 
 }
