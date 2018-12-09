@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.TruckSetDao">
-	<typeAlias type="com.entity.TruckSetEntity" alias="truckSetE"/>
-	<resultMap id="truckSetMap" class="com.entity.TruckSetEntity" >
-		<result column="pageSize" property="pageSize" jdbcType="VARCHAR" />
-		<result column="commercialDate" property="commercialDate" jdbcType="VARCHAR" />
-		<result column="compulsoryDate" property="compulsoryDate" jdbcType="VARCHAR" />
-		<result column="orderRule" property="orderRule" jdbcType="VARCHAR" />
-		<result column="preRule" property="preRule" jdbcType="VARCHAR" />
-		<result column="lastRule" property="lastRule" jdbcType="VARCHAR" />
-		<result column="reLogin" property="reLogin" jdbcType="INT" />
-	</resultMap>
-  
-  <!-- 根据id查询详细 -->
-  <select id="getTruckSet" resultMap="truckSetMap">
+<mapper namespace="com.logisticscenter.mapper.TruckSetDao">
+    <!-- 根据id查询详细 -->
+    <select id="getTruckSet" resultMap="truckSetEntity">
     select * from truckSetting
   </select>
-  
-   <!-- 更新用户对象 -->
-   <update id="updateTruckSet" parameterClass="truckSetE">
-      update truckSetting set pageSize=#pageSize#,commercialDate=#commercialDate#,compulsoryDate=#compulsoryDate#,orderRule=#orderRule#,preRule=#preRule#,lastRule=#lastRule#,reLogin=#reLogin#
+
+    <!-- 更新用户对象 -->
+    <update id="updateTruckSet" parameterType="truckSetEntity">
+      update truckSetting
+      set
+      	pageSize=#{pageSize},
+      	commercialDate=#{commercialDate},
+      	compulsoryDate=#{compulsoryDate},
+      	orderRule=#{orderRule},
+      	preRule=#{preRule},
+      	lastRule=#{lastRule},
+      	reLogin=#{reLogin}
    </update>
-</sqlMap>
+</mapper>
