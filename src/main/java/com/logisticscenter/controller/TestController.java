@@ -5,6 +5,7 @@ import com.asprise.imaging.core.Result;
 import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
 import com.common.ConvertService;
 import com.javabean.ImageFileBean;
+import com.logisticscenter.service.ImageFileService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -71,7 +72,7 @@ public class TestController {
 			File file = null;
 			ApplicationContext context2 = new ClassPathXmlApplicationContext("applicationContext_bean.xml");
 			ApplicationContext context1 = new ClassPathXmlApplicationContext(new String[] { "applicationContext_bean.xml" });
-			ImageFileService imageFileService = (ImageFileService) context1.getBean("imageFileService"); 
+			ImageFileService imageFileService = (ImageFileService) context1.getBean("imageFileService");
 			//设置目录
 			String dateTemp=ConvertService.getDate();;
 			String root = "D:\\temp\\"+dateTemp;

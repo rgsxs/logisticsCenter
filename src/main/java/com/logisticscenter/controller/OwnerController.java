@@ -1,7 +1,5 @@
 package com.logisticscenter.controller;
 
-import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,12 +25,10 @@ public class OwnerController implements Serializable{
 	}
 	
 	@SuppressWarnings("unchecked")
-	public String selectTruckOwner(){
-		HttpServletResponse response =   ServletActionContext.getResponse();
-		 //获取输出流，然后使用  
-        PrintWriter out = null;
+	public Map selectTruckOwner(HttpServletResponse response){
+		Map result = new HashMap();
 		try {
-			Map result = new HashMap();
+
 			Map ownerMap = new HashMap();
 			ownerMap.put("1","程1同");
 			ownerMap.put("2","程2同");
@@ -41,20 +37,11 @@ public class OwnerController implements Serializable{
 			ownerMap.put("5","程5同");
 			ownerMap.put("6","程6同");
 			result.put("owner", ownerMap);
-			JSONObject jsonb = new JSONObject();
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json    */
-//            response.setContentType("text/json"); 
-//            /*设置字符集为'UTF-8'*/
-//            response.setCharacterEncoding("UTF-8"); 
-			out.print(jsonb.parseObject(result).toString());
-			out.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//返回json对象
-		return null;
+		return result;
 	}
 
 }

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cache.Cache;
 import com.cache.CacheManager;
 import com.common.ConvertService;
@@ -47,7 +46,8 @@ public class LoginServiceImpl implements LoginService {
 		systemEntity.setPassword(password);
 		Cache cache = CacheManager.getCacheInfo("truckSettingBean_CACHE");
 		TruckSetBean bean=(TruckSetBean)cache.getValue();
-		boolean isLogin = getIsLogin(loginid);
+//		boolean isLogin = getIsLogin(loginid);
+		boolean isLogin = false;
 		if(!isLogin){
 			Map <String,SystemInfoEntity> systemMap = new HashMap<String,SystemInfoEntity>();
 			systemMap.put(loginid,systemEntity);
@@ -78,30 +78,25 @@ public class LoginServiceImpl implements LoginService {
 		return retResult;
 	}
 
-	@Override
-	public List<SystemInfoBean> getSystemInfo(SystemInfoBean selectInfo) {
-		SystemInfoEntity entity = (SystemInfoEntity)ConvertService.convertBeanToEntity(selectInfo, new SystemInfoEntity());
-		return (List<SystemInfoBean>) ConvertService.convertEntityToBean(systemDao.getSystemInfo(entity), new SystemInfoBean());
-	}
 
 	@Override
-	public void updateSystemInfo(SystemInfoBean updateInfo) {
-		SystemInfoEntity systemE = new SystemInfoEntity();
-		systemDao.updateSystemInfo(systemE);
-		
+	public Map updateSystemInfo(Map<String, Object> params) {
+//		SystemInfoEntity systemE = new SystemInfoEntity();
+//		systemDao.updateSystemInfo(systemE);
+		return null;
 	}
 	
 	@Override
-	public void updateAllSystemInfo(SystemInfoBean updateInfo) {
-		SystemInfoEntity systemE = new SystemInfoEntity();
-		systemDao.updateAllSystemInfo(systemE);
-		
+	public Map updateAllSystemInfo(Map<String, Object> params) {
+//		SystemInfoEntity systemE = new SystemInfoEntity();
+//		systemDao.updateAllSystemInfo(systemE);
+		return null;
 	}
 
 	@Override
-	public SystemInfoBean insertSystemInfo(SystemInfoBean insertInfo) {
-		SystemInfoEntity systemE = (SystemInfoEntity) ConvertService.convertBeanToEntity(insertInfo, new SystemInfoEntity());
-		systemDao.insertSystemInfo(systemE);
+	public Map insertSystemInfo(Map<String, Object> params) {
+//		SystemInfoEntity systemE = (SystemInfoEntity) ConvertService.convertBeanToEntity(insertInfo, new SystemInfoEntity());
+//		systemDao.insertSystemInfo(systemE);
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -109,16 +104,17 @@ public class LoginServiceImpl implements LoginService {
 	 * @param loginId
 	 * @return 是否已经登录
 	 */
-	private boolean getIsLogin(String loginId){
-		for(int i=0;i <systemInfo.size();i++){
-			Map<String,SystemInfoBean> systemMap = systemInfo.get(i);
-			for(String key : systemMap.keySet()){
-				if(key.equals(loginId)){
-					return true;
-				}
-			}
-		}
-		return false;
+	private Map getIsLogin(String loginid){
+		return null;
+//		for(int i=0;i <systemInfo.size();i++){
+//			Map<String,SystemInfoBean> systemMap = systemInfo.get(i);
+//			for(String key : systemMap.keySet()){
+//				if(key.equals(loginId)){
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
 	}
 
 }

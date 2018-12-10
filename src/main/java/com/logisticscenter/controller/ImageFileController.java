@@ -3,6 +3,7 @@ package com.logisticscenter.controller;
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.Result;
 
+import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
 import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.general.BaseBean;
@@ -67,39 +68,50 @@ public class ImageFileController implements Serializable{
 
 	@ResponseBody
 	@PostMapping("/getFiles")
-	public String getFiles(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
-		String selectFileIds = request.getParameter("selectFileIds");
-		List<ImageFileBean> imageFileList = new ArrayList<ImageFileBean>();
-		imageFileList = imageFileService.getImageFileBy(selectFileIds);
-		PrintWriter out = null;
-		Map result = new HashMap();
-		Map retResult = new HashMap();
-		String retDetail = "";
-		try{
-			for(int i=0;i<imageFileList.size();i++){
-				
-			}
-			retResult.put("FileDetail",result);
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json	*/
-//			response.setContentType("text/json"); 
-//			/*设置字符集为'UTF-8'*/
-//			response.setCharacterEncoding("UTF-8"); 
-			JSONObject obj = JSONObject.parseObject(retResult.toString());
-			out.print(obj.toString());
-			out.flush();
-		}catch(Exception e){
-			
+	public Map getFiles(HttpServletRequest request){
+		Map<String, Object> apidatas = new HashMap<String, Object>();
+		try {
+//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.put("api_status", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			apidatas.put("api_status", false);
+			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
 		}
-		return null;
+		return apidatas;
+
+//		HttpServletResponse response = ServletActionContext.getResponse();
+//		HttpServletRequest request = ServletActionContext.getRequest();
+//		String selectFileIds = request.getParameter("selectFileIds");
+//		List<ImageFileBean> imageFileList = new ArrayList<ImageFileBean>();
+//		imageFileList = imageFileService.getImageFileBy(selectFileIds);
+//		PrintWriter out = null;
+//		Map result = new HashMap();
+//		Map retResult = new HashMap();
+//		String retDetail = "";
+//		try{
+//			for(int i=0;i<imageFileList.size();i++){
+//
+//			}
+//			retResult.put("FileDetail",result);
+//			response.setContentType("text/html; charset=utf-8");
+//			out = response.getWriter();
+////			/* 设置格式为text/json	*/
+////			response.setContentType("text/json");
+////			/*设置字符集为'UTF-8'*/
+////			response.setCharacterEncoding("UTF-8");
+//			JSONObject obj = JSONObject.parseObject(retResult.toString());
+//			out.print(obj.toString());
+//			out.flush();
+//		}catch(Exception e){
+//
+//		}
+//		return null;
 	}
 
 	@ResponseBody
 	@PostMapping("/downloads")
-	public String downloads(){
+	public String downloads(HttpServletRequest request, HttpServletResponse response){
 
 		String pathId = request.getParameter("id");
 		String pathUrl = CommonTransMethod.getFullPathName(pathId);
@@ -126,9 +138,7 @@ public class ImageFileController implements Serializable{
 
 	@ResponseBody
 	@PostMapping("/exportExcel")
-	public String exportExcel(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
+	public String exportExcel(HttpServletRequest request ,HttpServletResponse response ){
 		//获得费用类型的columns
 		String[] feeNames = ConstantUtils.FEE_TYPE_NAMES.split(",");
 		String[] feeIds = ConstantUtils.FEE_TYPE_COLUMNS.split(",");
@@ -329,9 +339,7 @@ public class ImageFileController implements Serializable{
 	 */
 	@ResponseBody
 	@PostMapping("/mouldExcel")
-	public String mouldExcel(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
+	public String mouldExcel(HttpServletRequest request ,HttpServletResponse response ){
 		//获得费用类型的columns
 		String[] feeNames = ConstantUtils.FEE_TYPE_NAMES.split(",");
 		String[] feeIds = ConstantUtils.FEE_TYPE_COLUMNS.split(",");
@@ -403,20 +411,19 @@ public class ImageFileController implements Serializable{
 	}
 	
 	/**
+	 * mvn install:install-file -Dfile=asprise_scan.jar -DgroupId=com.asprise -DartifactId=asprise -Dversion=1.0.1 -Dpackaging=jar
 	 * 调用扫描仪上传图片
 	 */
 	@ResponseBody
 	@PostMapping("/scan")
-	public String scan(){
-		HttpServletResponse response = ServletActionContext.getResponse();
+	public Map scan(HttpServletResponse response){
 		BaseBean bs = new BaseBean();
 		bs.writeLog("扫描图片开始");
 		bs.writeLog("1111111111");
 	//输出Excel文件
-		//获取输出流，然后使用  
-        PrintWriter out = null;
+		Map retResult = new HashMap();
 		try {
-			Map retResult = new HashMap();
+
 			//参照http://asprise.com/scan2/docs/html/scan-dsl-spec.html#dsl-i18n
 			Result result = new AspriseScanUI().setRequest(
 					  Request.fromJson("{" +
@@ -495,20 +502,12 @@ public class ImageFileController implements Serializable{
 			}
 			retResult.put("fileNames", fileNames);
 			retResult.put("accessorys", accessorys);
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json    */
-//            response.setContentType("text/json"); 
-//            /*设置字符集为'UTF-8'*/
-//            response.setCharacterEncoding("UTF-8"); 
-			JSONObject obj = JSONObject.parseObject(retResult.toString());
-			out.print(obj.toString());
-			out.flush();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return retResult;
 	}
 	
 	
@@ -517,14 +516,12 @@ public class ImageFileController implements Serializable{
 	 */
 	@ResponseBody
 	@PostMapping("/scanJs")
-	public String scanJs(){
-		HttpServletResponse response = ServletActionContext.getResponse();
-		HttpServletRequest request = ServletActionContext.getRequest();
+	public Map scanJs(HttpServletRequest request,HttpServletResponse response ){
 		request.getAttribute("files");
  		BaseBean bs = new BaseBean();
-		PrintWriter out = null;
+		Map retResult = new HashMap();
 		try {
- 			Map retResult = new HashMap();
+
 			//设置目录
 			String dateTemp=ConvertService.getDate();;
 			String root = "D:\\temp\\"+dateTemp;
@@ -621,16 +618,6 @@ public class ImageFileController implements Serializable{
 					}
 					retResult.put("fileNames", fileNames);
 					retResult.put("accessorys", accessorys);
-					response.setContentType("text/html; charset=utf-8");
-					out = response.getWriter();
-//					/* 设置格式为text/json    */
-//		            response.setContentType("text/json"); 
-//		            /*设置字符集为'UTF-8'*/
-//		            response.setCharacterEncoding("UTF-8"); 
-					JSONObject obj = JSONObject.parseObject(retResult.toString());
-					out.print(obj.toString());
-					out.flush();
-						
 					}
 				}
 			
@@ -641,7 +628,7 @@ public class ImageFileController implements Serializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return null;
+		return retResult;
 	}
 	
 	/**

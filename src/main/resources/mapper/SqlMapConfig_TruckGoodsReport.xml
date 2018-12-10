@@ -3,7 +3,7 @@
 <mapper namespace="com.logisticscenter.mapper.TruckGoodsReportDao">
 
     <!-- 获得全查询列表 -->
-    <select id="getAllTruckGoodsReport" resultMap="truckGoodsReportMap">
+    <select id="getAllTruckGoodsReport" resultMap="truckGoodsReportEntity">
         select * from truckGoodsReport
         <dynamic prepend="WHERE ">
             <isNotNull property="value" prepend="AND">
@@ -13,7 +13,7 @@
     </select>
 
     <!-- 根据条件专门费用 -->
-    <select id="getTruckGoodsReportBy" resultMap="truckGoodsReportMap1" parameterType="truckGoodsReportEntity"
+    <select id="getTruckGoodsReportBy" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
             cacheModel="productCache">
         <isNotEmpty property="getFeeTypecolumn">
             select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,*,$getFeeTypecolumn$
@@ -65,7 +65,7 @@
 
 
     <!-- 根据条件查询出车信息 -->
-    <select id="gettruckGoodsReportEntityxcelBy" resultMap="truckGoodsReportMap" parameterType="truckGoodsReportEntity"
+    <select id="gettruckGoodsReportEntityxcelBy" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
             cacheModel="productCache">
         select * from truckGoodsReport
         <dynamic prepend="WHERE ">
@@ -144,7 +144,7 @@
     </select>
 
     <!-- 根据id获得用户对象 -->
-    <select id="getTruckGoodsReportById" resultMap="truckGoodsReportMap">
+    <select id="getTruckGoodsReportById" resultMap="truckGoodsReportEntity">
      select * from truckGoodsReport where id=#id#
   </select>
 
@@ -331,7 +331,7 @@
   </select>
 
     <!-- 根据条件查询出车信息 -->
-    <select id="getTruckGoodsReportByImport" resultMap="truckGoodsReportMap" parameterType="truckGoodsReportEntity"
+    <select id="getTruckGoodsReportByImport" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
             cacheModel="productCache">
         select * from truckGoodsReport
         <dynamic prepend="WHERE ">

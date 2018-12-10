@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.logisticscenter.service.ImageFileService;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -167,8 +166,8 @@ public class UploadServlet extends HttpServlet {
 				retResult.put("fileNames", fileNames);
 				retResult.put("accessorys", accessorys);
 				response.setContentType("text/html; charset=utf-8");
-				JSONObject obj = JSONObject.parseObject(retResult.toString());
-				out.print(obj.toString());
+//				JSONObject obj = JSONObject.parseObject(retResult.toString());
+//				out.print(obj.toString());
 				out.flush();
 				out.close();
 				return;

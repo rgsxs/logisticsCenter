@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.DriverInfoDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllDriver" resultMap="driverEntity">
+  <select id="getAllDriver" resultMap="driverInfoEntity">
     select * from driverInfo order by id
   </select>
   
    <!--  -->
-   <select id="getDriverBy" resultMap="driverEntity" parameterType="driverEntity">
+   <select id="getDriverBy" resultMap="driverInfoEntity" parameterType="driverInfoEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo
 	   <where>
 		   <if test="name != null and name != ''">
@@ -24,7 +24,7 @@
   </select> 
   
   <!--  -->
-   <select id="getDriverBy2" resultMap="driverEntity" parameterType="driverEntity">
+   <select id="getDriverBy2" resultMap="driverInfoEntity" parameterType="driverInfoEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo
 	   <where>
 		   <if test="name != null and name != ''">
@@ -40,7 +40,7 @@
   </select> 
   
    <!--  -->
-   <select id="getDriverByCount" resultType="string" parameterType="driverEntity">
+   <select id="getDriverByCount" resultType="string" parameterType="driverInfoEntity">
 	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
 	   <where>
 		   <if test="name != null and name != ''">
@@ -50,7 +50,7 @@
   </select> 
   
   <!--  -->
-   <select id="getDriverBy2Count" resultType="string" parameterType="driverEntity">
+   <select id="getDriverBy2Count" resultType="string" parameterType="driverInfoEntity">
 	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
 	   <where>
 		   <if test="name != null and name != ''">
@@ -60,11 +60,11 @@
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getDriverById" resultMap="driverEntity">
+    <select id="getDriverById" resultMap="driverInfoEntity">
      select * from driverInfo where id=#{id}   </select>
   
    <!-- 新增用户对象 -->
-   <insert id="insertDriver" parameterType="driverEntity">
+   <insert id="insertDriver" parameterType="driverInfoEntity">
       insert into driverInfo (
 	   name,
 	   sex,
@@ -121,7 +121,7 @@
    </delete>
    
    <!-- 更新用户对象 -->
-   <update id="updateDriver" parameterType="driverEntity">
+   <update id="updateDriver" parameterType="driverInfoEntity">
       update driverInfo set 
 		  name= #{name}, 
 		  sex= #{sex}, 
