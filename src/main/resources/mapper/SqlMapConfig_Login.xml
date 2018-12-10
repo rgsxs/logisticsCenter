@@ -1,58 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.SystemInfoDao">
-	<typeAlias type="com.entity.SystemInfoEntity" alias="loginE"/>
-	<resultMap id="loginMap" class="com.entity.SystemInfoEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="loginid" property="loginid" jdbcType="VARCHAR" />
-		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="lastname" property="lastname" jdbcType="VARCHAR" />
-		<result column="sex" property="sex" jdbcType="INT"/>
-		<result column="birthday" property="birthday" jdbcType="VARCHAR" />
-		<result column="nationality" property="nationality" jdbcType="VARCHAR" />
-		<result column="telephone" property="telephone" jdbcType="VARCHAR" />
-		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
-		<result column="email" property="email" jdbcType="VARCHAR" />
-		<result column="homeaddress" property="homeaddress" jdbcType="VARCHAR" />
-		<result column="startdate" property="startdate" jdbcType="VARCHAR" />
-		<result column="enddate" property="enddate" jdbcType="VARCHAR" />
-		<result column="status" property="status" jdbcType="INT" />
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
-	</resultMap>
-  
+<mapper namespace="com.logisticscenter.mapper.SystemInfoDao">
   <!-- 获得全查询列表 -->
-  <select id="getAllSystem" resultMap="loginMap">
+  <select id="getAllSystem" resultMap="systemInfoEntity">
     select * from adminInfo
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getSystemByName" resultMap="loginMap">
-     select * from adminInfo where 
-	<dynamic prepend="WHERE ">
-		<isNotEmpty prepend="AND" property="lastname">
-			lastname=#lastname#
-		</isNotEmpty>
-	</dynamic>
+   <select id="getSystemByName" resultMap="systemInfoEntity">
+     select * from adminInfo where
+	   <where>
+		   <if test="lastname != null and lastname != ''">
+			   lastname=#{lastname}
+		   </if>
+	   </where>
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getSystemById" resultMap="loginMap">
-     select * from adminInfo where loginid=#loginid#
+    <select id="getSystemById" resultMap="systemInfoEntity">
+     select * from adminInfo where loginid=#{loginid}
   </select> 
   
    <!-- 新增用户对象 -->
-   <insert id="insertSystem" parameterClass="loginE">
-      insert into adminInfo (loginid,lastname) values (#loginid#,#lastname#)
+   <insert id="insertSystem" parameterType="systemInfoEntity">
+      insert into adminInfo (loginid,lastname) values (#{loginid},#{lastname})
    </insert>
    
    <!-- 删除用户对象 -->
    <delete id="deleteSystem">
-     delete from adminInfo where id=#id#
+     delete from adminInfo where id=#{id}
    </delete>
    
    <!-- 更新用户对象 -->
-   <update id="updateSystem" parameterClass="loginE">
-      update adminInfo set lastname=#lastname# where id=#id#
+   <update id="updateSystem" parameterType="systemInfoEntity">
+      update adminInfo set lastname=#{lastname} where id=#{id}
    </update>
-</sqlMap>
+</mapper>

@@ -1,51 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.TruckFeeInfoDao">
-	<typeAlias type="com.entity.TruckFeeInfoEntity" alias="truckFeeInfoE"/>
-	<resultMap id="truckFeeInfoMap" class="com.entity.TruckFeeInfoEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="carryNumber" property="carryNumber" jdbcType="VARCHAR"/>
-		<result column="truckNumber" property="truckNumber" jdbcType="VARCHAR" />
-		<result column="expensens" property="expensens" jdbcType="DECIMAL" nullValue="0" />
-		<result column="oilCost" property="oilCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="towinigCost" property="towinigCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="roadCost" property="roadCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="repairCost" property="repairCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="leadWayCost" property="leadWayCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="tireCost" property="tireCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="otherCost" property="otherCost" jdbcType="DECIMAL" nullValue="0" />
-		<result column="allowance" property="allowance" jdbcType="DECIMAL" nullValue="0" />
-		<result column="total" property="total" jdbcType="DECIMAL" nullValue="0" />
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
-	</resultMap>
+<mapper namespace="com.logisticscenter.mapper.TruckFeeInfoDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllTruckFeeInfo" resultMap="truckFeeInfoMap">
+  <select id="getAllTruckFeeInfo" resultMap="truckFeeInfoEntity">
     select * from truckFeeInfo
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getTruckFeeInfoByName" resultMap="truckFeeInfoMap" parameterClass="truckFeeInfoE">
-	select * from truckFeeInfo where 
-	<dynamic prepend="WHERE ">
-		<isNotEmpty prepend="AND" property="name">
-			name=#name#
-		</isNotEmpty>
-	</dynamic>
-     
+   <select id="getTruckFeeInfoByName" resultMap="truckFeeInfoMap" parameterType="truckFeeInfoE">
+	select * from truckFeeInfo
+	   <where>
+		   <if test="name != null and name != ''">
+			   name=#name#
+		   </if>
+	   </where>
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getTruckFeeInfoById" resultMap="truckFeeInfoMap">
+    <select id="getTruckFeeInfoById" resultMap="truckFeeInfoEntity">
      select * from truckFeeInfo where id=#id#
   </select> 
   
    <!-- 新增用户对象 -->
-   <insert id="insertTruckFeeInfo" parameterClass="truckFeeInfoE">
+   <insert id="insertTruckFeeInfo" parameterType="truckFeeInfoEntity">
       insert into truckFeeInfo (carryNumber,truckNumber,expensens,oilCost,towinigCost,roadCost,repairCost,leadWayCost,tireCost,otherCost,allowance,total,createDate,createTime) 
       values (#carryNumber#,#truckNumber#,#expensens#,#oilCost#,#towinigCost#,#roadCost#,#repairCost#,#leadWayCost#,#tireCost#,#otherCost#,#allowance#,#total#,#createDate#,#createTime#)
-      <selectKey resultClass="int" keyProperty="id" type="post">    
+      <selectKey resultType="int" keyProperty="id" order="AFTER">
 			SELECT max(id) as id from truckFeeInfo
 		</selectKey>
    </insert>
@@ -56,7 +37,7 @@
    </delete>
    
    <!-- 更新用户对象 -->
-   <update id="updateTruckFeeInfo" parameterClass="truckFeeInfoE">
+   <update id="updateTruckFeeInfo" parameterType="truckFeeInfoEntity">
       update truckFeeInfo set truckNumber=#truckNumber# where id=#id#
    </update>
-</sqlMap>
+</mapper>

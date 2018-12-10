@@ -1,66 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.IllegalReportDao">
-	<typeAlias type="com.entity.IllegalReportEntity" alias="illegalReportE"/>
-	<resultMap id="illegalReportMap" class="com.entity.IllegalReportEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="truckNumber" property="truckNumber" jdbcType="VARCHAR" />
-		<result column="illegalNumber" property="illegalNumber" jdbcType="VARCHAR" />
-		<result column="illegalType" property="illegalType" jdbcType="INT" />
-		<result column="illegalCost" property="illegalCost" jdbcType="VARCHAR" />
-		<result column="driver" property="driver" jdbcType="INT" nullValue="0"/>
-		<result column="illegalDate" property="illegalDate" jdbcType="VARCHAR" />
-		<result column="illegalReason" property="illegalReason" jdbcType="VARCHAR" />
-		<result column="insuranceCost" property="insuranceCost" jdbcType="VARCHAR" />
-		<result column="result" property="result" jdbcType="VARCHAR" />
-		<result column="illegalRemind" property="illegalRemind" jdbcType="VARCHAR" />
-		<result column="remark" property="remark" jdbcType="VARCHAR" />
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
-
-
-	</resultMap>
+<mapper namespace="com.logisticscenter.mapper.IllegalReportDao">
   
-  <!-- 获得全查询列表 -->
-  <select id="getAllIllegalReport" resultMap="illegalReportMap">
+    <!-- 获得全查询列表 -->
+    <select id="getAllIllegalReport" resultMap="illegalReportMap">
     select * from illegalReport
   </select>
-  
-   <!-- 根据用户名获得用户对象 -->
-   <select id="getIllegalReportByName" resultMap="illegalReportMap" parameterClass="illegalReportE">
-	select * from illegalReport 
-	<dynamic prepend="WHERE ">
-		<isNotEmpty prepend="AND" property="truckNumber">
-			truckNumber=#truckNumber#
-		</isNotEmpty>
-		<isNotEmpty prepend="AND" property="illegalNumber">
-			illegalNumber=#illegalNumber#
-		</isNotEmpty>
-	</dynamic>
-     
-  </select> 
-  
-  <!-- 根据id获得用户对象 -->
+
+    <!-- 根据用户名获得用户对象 -->
+    <select id="getIllegalReportByName" resultMap="illegalReportMap" parameterType="illegalReportEntity">
+        select * from illegalReport
+        <where>
+            <if test="truckNumber != null and truckNumber != ''">
+                truckNumber=#{truckNumber}
+            </if>
+            <if test="illegalNumber != null and illegalNumber != ''">
+                illegalNumber=#{illegalNumber}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据id获得用户对象 -->
     <select id="getIllegalReportById" resultMap="illegalReportMap">
-     select * from illegalReport where id=#id#
-  </select> 
-  
-   <!-- 新增用户对象 -->
-   <insert id="insertIllegalReport" parameterClass="illegalReportE">
-      insert into illegalReport (truckNumber,illegalNumber,illegalType,illegalCost,driver,illegalDate,illegalReason,insuranceCost,result,illegalRemind,remark) 
-      values (#truckNumber#,#illegalNumber#,#illegalType#,#illegalCost#,#driver#,#illegalDate#,#illegalReason#,#insuranceCost#,#result#,#illegalRemind#,#remark#)
-      <selectKey resultClass="int" keyProperty="id" type="post">    
-			SELECT max(id) as id from illegalReport
-		</selectKey>
-   </insert>
-   
-   <!-- 删除用户对象 -->
-   <delete id="deleteIllegalReport">
-     delete from illegalReport where id=#id#
+     select * from illegalReport where id=#{id}
+  </select>
+
+    <!-- 新增用户对象 -->
+    <insert id="insertIllegalReport" parameterType="illegalReportEntity">
+        insert into illegalReport
+        (truckNumber,illegalNumber,illegalType,illegalCost,driver,illegalDate,illegalReason,insuranceCost,result,illegalRemind,remark)
+        values
+        (
+        #{truckNumber},
+        #{illegalNumber},
+        #{illegalType},
+        #{illegalCost},
+        #{driver},
+        #{illegalDate},
+        #{illegalReason},
+        #{insuranceCost},
+        #{result},
+        #{illegalRemind},
+        #{remark}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT max(id) as id from illegalReport
+        </selectKey>
+    </insert>
+
+    <!-- 删除用户对象 -->
+    <delete id="deleteIllegalReport">
+     delete from illegalReport where id=#{id}
    </delete>
-   
-   <!-- 更新用户对象 -->
-   <update id="updateIllegalReport" parameterClass="illegalReportE">
-      update illegalReport set illegalNumber=#illegalNumber# where id=#id#
+
+    <!-- 更新用户对象 -->
+    <update id="updateIllegalReport" parameterType="illegalReportEntity">
+      update illegalReport set illegalNumber=#{illegalNumber} where id=#{id}
    </update>
-</sqlMap>
+</mapper>

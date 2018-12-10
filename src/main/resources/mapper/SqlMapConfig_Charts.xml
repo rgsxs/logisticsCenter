@@ -51,18 +51,18 @@
 	from 
 	(
 		select ci.id client,
-		case when Month(begindate)=1 then $getFeeTypeColumn$ else 0 end as M1,
-		case when Month(begindate)=2 then $getFeeTypeColumn$ else 0 end as M2,
-		case when Month(begindate)=3 then $getFeeTypeColumn$ else 0 end as M3,
-		case when Month(begindate)=4 then $getFeeTypeColumn$ else 0 end as M4,
-		case when Month(begindate)=5 then $getFeeTypeColumn$ else 0 end as M5,
-		case when Month(begindate)=6 then $getFeeTypeColumn$ else 0 end as M6,
-		case when Month(begindate)=7 then $getFeeTypeColumn$ else 0 end as M7,
-		case when Month(begindate)=8 then $getFeeTypeColumn$ else 0 end as M8,
-		case when Month(begindate)=9 then $getFeeTypeColumn$ else 0 end as M9,
-		case when Month(begindate)=10 then $getFeeTypeColumn$ else 0 end as M10,
-		case when Month(begindate)=11 then $getFeeTypeColumn$ else 0 end as M11,
-		case when Month(begindate)=12 then $getFeeTypeColumn$ else 0 end as M12  from clientinfo ci  left join  truckgoodsreport tgr  on tgr.client=ci.id and YEAR(begindate)=#selectYear#
+		case when Month(begindate)=1 then ${getFeeTypeColum} else 0 end as M1,
+		case when Month(begindate)=2 then ${getFeeTypeColum} else 0 end as M2,
+		case when Month(begindate)=3 then ${getFeeTypeColum} else 0 end as M3,
+		case when Month(begindate)=4 then ${getFeeTypeColum} else 0 end as M4,
+		case when Month(begindate)=5 then ${getFeeTypeColum} else 0 end as M5,
+		case when Month(begindate)=6 then ${getFeeTypeColum} else 0 end as M6,
+		case when Month(begindate)=7 then ${getFeeTypeColum} else 0 end as M7,
+		case when Month(begindate)=8 then ${getFeeTypeColum} else 0 end as M8,
+		case when Month(begindate)=9 then ${getFeeTypeColum} else 0 end as M9,
+		case when Month(begindate)=10 then ${getFeeTypeColum} else 0 end as M10,
+		case when Month(begindate)=11 then ${getFeeTypeColum} else 0 end as M11,
+		case when Month(begindate)=12 then ${getFeeTypeColum} else 0 end as M12  from clientinfo ci  left join  truckgoodsreport tgr  on tgr.client=ci.id and YEAR(begindate)=#selectYear#
 	)a group by client order by client
   </select>
   
@@ -72,18 +72,18 @@
 	from 
 	(
 		select di.id driver,
-		case when Month(tgr.begindate)=1 then $getFeeTypeColumn$ else 0 end as M1,
-		case when Month(tgr.begindate)=2 then $getFeeTypeColumn$ else 0 end as M2,
-		case when Month(tgr.begindate)=3 then $getFeeTypeColumn$ else 0 end as M3,
-		case when Month(tgr.begindate)=4 then $getFeeTypeColumn$ else 0 end as M4,
-		case when Month(tgr.begindate)=5 then $getFeeTypeColumn$ else 0 end as M5,
-		case when Month(tgr.begindate)=6 then $getFeeTypeColumn$ else 0 end as M6,
-		case when Month(tgr.begindate)=7 then $getFeeTypeColumn$ else 0 end as M7,
-		case when Month(tgr.begindate)=8 then $getFeeTypeColumn$ else 0 end as M8,
-		case when Month(tgr.begindate)=9 then $getFeeTypeColumn$ else 0 end as M9,
-		case when Month(tgr.begindate)=10 then $getFeeTypeColumn$ else 0 end as M10,
-		case when Month(tgr.begindate)=11 then $getFeeTypeColumn$ else 0 end as M11,
-		case when Month(tgr.begindate)=12 then $getFeeTypeColumn$ else 0 end as M12  from driverinfo di  left join  truckgoodsreport tgr  on tgr.driver=di.id and YEAR(begindate)=#selectYear#
+		case when Month(tgr.begindate)=1 then ${getFeeTypeColum} else 0 end as M1,
+		case when Month(tgr.begindate)=2 then ${getFeeTypeColum} else 0 end as M2,
+		case when Month(tgr.begindate)=3 then ${getFeeTypeColum} else 0 end as M3,
+		case when Month(tgr.begindate)=4 then ${getFeeTypeColum} else 0 end as M4,
+		case when Month(tgr.begindate)=5 then ${getFeeTypeColum} else 0 end as M5,
+		case when Month(tgr.begindate)=6 then ${getFeeTypeColum} else 0 end as M6,
+		case when Month(tgr.begindate)=7 then ${getFeeTypeColum} else 0 end as M7,
+		case when Month(tgr.begindate)=8 then ${getFeeTypeColum} else 0 end as M8,
+		case when Month(tgr.begindate)=9 then ${getFeeTypeColum} else 0 end as M9,
+		case when Month(tgr.begindate)=10 then ${getFeeTypeColum} else 0 end as M10,
+		case when Month(tgr.begindate)=11 then ${getFeeTypeColum} else 0 end as M11,
+		case when Month(tgr.begindate)=12 then ${getFeeTypeColum} else 0 end as M12  from driverinfo di  left join  truckgoodsreport tgr  on tgr.driver=di.id and YEAR(begindate)=#selectYear#
 	)a group by driver order by driver
   </select>
   

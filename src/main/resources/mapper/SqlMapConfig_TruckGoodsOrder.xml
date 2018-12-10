@@ -1,44 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.TruckGoodsOrderDao">
-	<typeAlias type="com.entity.TruckGoodsOrderTakerEntity" alias="truckGoodsOrderTakerE"/>
-	<typeAlias type="com.entity.TruckGoodsOrderDetailEntity" alias="truckGoodsOrderDetailE"/>
-	<resultMap id="truckGoodsOrderTakerMap" class="com.entity.TruckGoodsOrderTakerEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="goodsType" property="goodsType" jdbcType="VARCHAR" nullValue=""/>
-		<result column="beginDate" property="beginDate" jdbcType="VARCHAR" nullValue=""/>
-		<result column="client" property="client" jdbcType="INT" nullValue="0"/>
-		<result column="deleteFlg" property="deleteFlg" jdbcType="INT" nullValue="0"/>
-		<result column="packageFlg" property="packageFlg" jdbcType="INT" nullValue="0"/>
-		<result column="packagePrice" property="packagePrice" jdbcType="DECIMAL" nullValue="0"/>
-		<result column="workPlace" property="workPlace" jdbcType="VARCHAR" />
-		<result column="startPlace" property="startPlace" jdbcType="VARCHAR" nullValue=""/>
-		<result column="endPlace" property="endPlace" jdbcType="VARCHAR" nullValue=""/>
-		<result column="orderStatus" property="orderStatus" jdbcType="INT" nullValue="0"/>
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" nullValue=""/>
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" nullValue=""/>
-		<result column="editDate" property="editDate" jdbcType="VARCHAR" nullValue=""/>
-		<result column="editTime" property="editTime" jdbcType="VARCHAR" nullValue=""/>
-	</resultMap>
-	
-	<resultMap id="truckGoodsOrderDetailMap" class="com.entity.TruckGoodsOrderDetailEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="reportId" property="reportId" jdbcType="INT" />
-		<result column="goodsType" property="goodsType" jdbcType="INT" nullValue="0"/>
-		<result column="deleteFlg" property="deleteFlg" jdbcType="INT" nullValue="0"/>
-		<result column="price" property="price" jdbcType="DECIMAL" nullValue="0"/>
-		<result column="realCarry" property="realCarry" jdbcType="DECIMAL" nullValue="0"/>
-		<result column="invoiceFlg" property="invoiceFlg" jdbcType="INT" nullValue="0"/>
-		<result column="startPlace" property="startPlace" jdbcType="VARCHAR" nullValue=""/>
-		<result column="endPlace" property="endPlace" jdbcType="VARCHAR" nullValue=""/>
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" nullValue=""/>
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" nullValue=""/>
-		<result column="editDate" property="editDate" jdbcType="VARCHAR" nullValue=""/>
-		<result column="editTime" property="editTime" jdbcType="VARCHAR" nullValue=""/>
-	</resultMap>
-	
+<mapper namespace="com.logisticscenter.mapper.TruckGoodsOrderDao">
 	<!-- 新增预录出车信息 -->
-	<insert id="insertTruckGoodsOrderTaker" parameterClass="truckGoodsOrderTakerE">
+	<insert id="insertTruckGoodsOrderTaker" parameterType="truckGoodsOrderTakerEntity">
 		insert into truckGoodsOrderTaker (
 			goodsType,
 			beginDate,
@@ -72,13 +36,13 @@
 			#editDate#,
 			#editTime#
 		)
-		<selectKey resultClass="int" keyProperty="id" type="post">    
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
 			SELECT max(id) as id from truckGoodsOrderTaker
 		</selectKey>
 	</insert>
 	
 	<!-- 新增预录出车详细信息 -->
-	<insert id="insertTruckGoodsOrderDetail" parameterClass="truckGoodsOrderDetailE">
+	<insert id="insertTruckGoodsOrderDetail" parameterType="truckGoodsOrderDetailEntity">
 		insert into truckGoodsOrderDetail (
 			reportId,
 			goodsType,
@@ -108,14 +72,14 @@
 			#editDate#,
 			#editTime#
 		)
-		<selectKey resultClass="int" keyProperty="id" type="post">    
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
 			SELECT max(id) as id from truckGoodsOrderDetail
 		</selectKey>
 	</insert>
 	
 	
 	<!-- 根据条件查询出车预录信息 -->
-	<select id="getTruckGoodsOrderTaker" resultMap="truckGoodsOrderTakerMap" parameterClass="truckGoodsOrderTakerE">
+	<select id="getTruckGoodsOrderTaker" resultMap="truckGoodsOrderTakerMap" parameterType="truckGoodsOrderTakerEntity">
 		select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from truckGoodsOrderTaker 
 		<dynamic prepend="WHERE ">
 			<isEqual prepend="AND" property="orderStatus" compareValue="0">
@@ -143,7 +107,7 @@
 	</select>
 	
 	<!-- 根据条件查询出车预录详细信息 -->
-	<select id="getTruckGoodsOrderDetail" resultMap="truckGoodsOrderDetailMap" parameterClass="truckGoodsOrderDetailE">
+	<select id="getTruckGoodsOrderDetail" resultMap="truckGoodsOrderDetailMap" parameterType="truckGoodsOrderDetailEntity">
 		select * from truckGoodsOrderDetail 
 		<dynamic prepend="WHERE ">
 			<isNotEmpty prepend="AND" property="deleteFlg">
@@ -165,7 +129,7 @@
 	</select>  
 	
   <!-- 根据条件查询出车分页pageTotal -->
-	<select id="getTruckGoodsOrderByCount" resultClass="String" parameterClass="truckGoodsOrderTakerE">
+	<select id="getTruckGoodsOrderByCount" resultType="String" parameterType="truckGoodsOrderTakerEntity">
 		select count(*) from ( select row_number() over(order by id) as rownumber,* from truckGoodsOrderTaker ) A
 		<dynamic prepend="WHERE ">
 			<isEqual prepend="AND" property="orderStatus" compareValue="0">
@@ -200,7 +164,7 @@
 	</select>
 	
    <!-- 删除预录信息 -->
-	<update id="deleteTruckGoodsOrderTaker" parameterClass="java.util.List">
+	<update id="deleteTruckGoodsOrderTaker" parameterType="java.util.List">
 		update truckGoodsOrderTaker set deleteFlg = 1 ,orderStatus =2
 		<iterate prepend="WHERE" open="(" close=")"
 			conjunction="OR">
@@ -209,7 +173,7 @@
 	</update>
 	
 	<!-- 删除预录详细信息 -->
-	<update id="deleteTruckGoodsOrderDetail" parameterClass="java.util.List">
+	<update id="deleteTruckGoodsOrderDetail" parameterType="java.util.List">
 		update truckGoodsOrderDetail set deleteFlg = 1 
 		<iterate prepend="WHERE" open="(" close=")"
 			conjunction="OR">
@@ -218,7 +182,7 @@
 	</update>
    
    <!-- 更新预录出车信息 -->
-   <update id="updateTruckGoodsOrderTaker" parameterClass="truckGoodsOrderTakerE">
+   <update id="updateTruckGoodsOrderTaker" parameterType="truckGoodsOrderTakerEntity">
 		update truckGoodsOrderTaker set 
 			goodsType='$goodsType$',
 			beginDate=#beginDate#,
@@ -234,7 +198,7 @@
    </update>
    
    <!-- 更新预录出车详细信息 -->
-   <update id="updateTruckGoodsOrderDetail" parameterClass="truckGoodsOrderDetailE">
+   <update id="updateTruckGoodsOrderDetail" parameterType="truckGoodsOrderDetailEntity">
 		update truckGoodsOrderDetail set 
 			goodsType=#goodsType#,
 			price=#price#,
@@ -248,11 +212,11 @@
    </update>
    
    <!-- 更新预录出车详细信息 -->
-   <update id="updateTruckGoodsOrderStatus" parameterClass="truckGoodsOrderTakerE">
+   <update id="updateTruckGoodsOrderStatus" parameterType="truckGoodsOrderTakerEntity">
 		update truckGoodsOrderTaker set 
 			orderStatus=#orderStatus#,
 			editDate=#editDate#,
 			editTime=#editTime#
 		 where id=#id#
    </update>
-</sqlMap>
+</mapper>

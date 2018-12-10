@@ -1,53 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<sqlMap namespace="com.logisticscenter.mapper.RepairTypeDao">
-	<typeAlias type="com.entity.RepairTypeEntity" alias="repairTypeE"/>
-	<resultMap id="repairTypeMap" class="com.entity.RepairTypeEntity" >
-		<result column="id" property="id" jdbcType="INT" />
-		<result column="isUse" property="isUse" jdbcType="INT" />
-		<result column="isDelete" property="isDelete" jdbcType="INT" />
-		<result column="repairName" property="repairName" jdbcType="VARCHAR" />
-		<result column="createDate" property="createDate" jdbcType="VARCHAR" />
-		<result column="createTime" property="createTime" jdbcType="VARCHAR" />
-	</resultMap>
+<mapper namespace="com.logisticscenter.mapper.RepairTypeDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllRepairType" resultMap="repairTypeMap">
+  <select id="getAllRepairType" resultMap="repairTypeEntity">
     select * from repairType
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getRepairTypeByName" resultMap="repairTypeMap" parameterClass="repairTypeE">
-	select * from repairType where 
-	<dynamic prepend="WHERE ">
-		<isNotEmpty prepend="AND" property="repairName">
-			repairName=#repairName#
-		</isNotEmpty>
-	</dynamic>
-     
+   <select id="getRepairTypeByName" resultMap="repairTypeEntity" parameterType="repairTypeEntity">
+	select * from repairType where
+       <where>
+           <if test="repairName != null and repairName != ''">
+               repairName=#{repairName}
+           </if>
+       </where>
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getRepairTypeById" resultMap="repairTypeMap">
-     select * from repairType where id=#id#
+    <select id="getRepairTypeById" resultMap="repairTypeEntity">
+     select * from repairType where id=#{id}
   </select> 
   
    <!-- 新增用户对象 -->
-   <insert id="insertRepairType" parameterClass="repairTypeE">
+   <insert id="insertRepairType" parameterType="repairTypeEntity">
       insert into repairType (repairName,createDate,createTime) 
-      values (#repairName#,#createDate#,#createTime#)
-      <selectKey resultClass="int" keyProperty="id" type="post">    
+      values (#{repairName},#{createDate},#{createTime})
+      <selectKey resultType="int" keyProperty="id" order="AFTER">
 			SELECT max(id) as id from repairType
 		</selectKey>
    </insert>
    
    <!-- 删除用户对象 -->
    <delete id="deleteRepairType">
-     delete from repairType where id=#id#
+     delete from repairType where id=#{id}
    </delete>
    
    <!-- 更新用户对象 -->
-   <update id="updateRepairType" parameterClass="repairTypeE">
-      update repairType set repairname=#repairName# where id=#id#
+   <update id="updateRepairType" parameterType="repairTypeEntity">
+      update repairType set repairname=#{repairName} where id=#{id}
    </update>
-</sqlMap>
+</mapper>
