@@ -1,8 +1,7 @@
 package com.logisticscenter.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
@@ -22,10 +21,11 @@ public class TruckServiceImpl implements TruckService {
 	TruckInfoDao truckDao;
 
 	@Override
-	public int deleteTruck(String id) {
-		int count =  truckDao.deleteTruck(id);
-		return count;
-		
+	public Map deleteTruck(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		int count = truckDao.deleteTruck((String)params.get("deleteTrucks"));
+		retResult.put("count",count);
+		return retResult;
 	}
 
 	@Override
@@ -53,28 +53,91 @@ public class TruckServiceImpl implements TruckService {
 	}
 	
 	@Override
-	public String getTruckInfoCount(TruckBean selectInfo) {
-		TruckEntity TruckE = (TruckEntity)ConvertService.convertBeanToEntity(selectInfo,new TruckEntity());
-		String count = "";
-		count = truckDao.getTruckInfoCount(TruckE);
-		return count;
+	public Map getTruckInfoCount(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		TruckEntity truckE = new TruckEntity();
+		truckE.setId((Integer) params.get("id"));
+		truckE.setTruckNumber((String)params.get("truckNumber"));
+		truckE.setTruckOwner((String)params.get("truckOwner"));
+		truckE.setTruckBrand((String)params.get("truckBrand"));
+		truckE.setTruckName((String)params.get("truckName"));
+		truckE.setContactNumber((String)params.get("contactNumber"));
+		truckE.setTruckType((Integer)params.get("truckType"));
+		truckE.setDriver((Integer)params.get("driver"));
+		truckE.setTruckColor((String)params.get("truckColor"));
+		truckE.setTruckLength((BigDecimal)params.get("truckLength"));
+		truckE.setTruckWidth((BigDecimal)params.get("truckWidth"));
+		truckE.setTruckHeight((BigDecimal)params.get("truckHeight"));
+		truckE.setStandardWeight((BigDecimal)params.get("standardWeight"));
+		truckE.setDriverLicense((String)params.get("driverLicense"));
+		truckE.setEngineNumber((String)params.get("engineNumber"));
+		truckE.setMadeDate((String)params.get("madeDate"));
+		truckE.setBuyDate((String)params.get("buyDate"));
+		truckE.setWorth((BigDecimal)params.get("worth"));
+		truckE.setBuyCost((BigDecimal)params.get("buyCost"));
+		truckE.setRemark((String)params.get("remark"));
+		String count = truckDao.getTruckInfoCount(truckE);
+		retResult.put("count",count);
+		return retResult;
 		
 	}
 
 	@Override
-	public int updateTruck(TruckBean updateInfo) {
-		int updId=0;
-		TruckEntity truckE = (TruckEntity) ConvertService.convertBeanToEntity(updateInfo, new TruckEntity());
+	public Map updateTruck(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		TruckEntity truckE = new TruckEntity();
+		truckE.setId((Integer) params.get("id"));
+		truckE.setTruckNumber((String)params.get("truckNumber"));
+		truckE.setTruckOwner((String)params.get("truckOwner"));
+		truckE.setTruckBrand((String)params.get("truckBrand"));
+		truckE.setTruckName((String)params.get("truckName"));
+		truckE.setContactNumber((String)params.get("contactNumber"));
+		truckE.setTruckType((Integer)params.get("truckType"));
+		truckE.setDriver((Integer)params.get("driver"));
+		truckE.setTruckColor((String)params.get("truckColor"));
+		truckE.setTruckLength((BigDecimal)params.get("truckLength"));
+		truckE.setTruckWidth((BigDecimal)params.get("truckWidth"));
+		truckE.setTruckHeight((BigDecimal)params.get("truckHeight"));
+		truckE.setStandardWeight((BigDecimal)params.get("standardWeight"));
+		truckE.setDriverLicense((String)params.get("driverLicense"));
+		truckE.setEngineNumber((String)params.get("engineNumber"));
+		truckE.setMadeDate((String)params.get("madeDate"));
+		truckE.setBuyDate((String)params.get("buyDate"));
+		truckE.setWorth((BigDecimal)params.get("worth"));
+		truckE.setBuyCost((BigDecimal)params.get("buyCost"));
+		truckE.setRemark((String)params.get("remark"));
 		truckE.setEditDate(ConvertService.getDate());
 		truckE.setEditTime(ConvertService.getTime());
-		updId = truckDao.updateTruck(truckE);
-		return updId;
-		
+		int updId = truckDao.updateTruck(truckE);
+		retResult.put("updId",updId);
+		CacheManager.clearOnly("driverBean_CACHE");
+		return retResult;
 	}
 	
 	@Override
-	public void updateAllTruck(TruckBean updateInfo) {
-		TruckEntity truckE = (TruckEntity) ConvertService.convertBeanToEntity(updateInfo, new TruckEntity());
+	public Map updateAllTruck(Map<String, Object> params) {
+		Map retResult = new HashMap();
+		TruckEntity truckE = new TruckEntity();
+		truckE.setId((Integer) params.get("id"));
+		truckE.setTruckNumber((String)params.get("truckNumber"));
+		truckE.setTruckOwner((String)params.get("truckOwner"));
+		truckE.setTruckBrand((String)params.get("truckBrand"));
+		truckE.setTruckName((String)params.get("truckName"));
+		truckE.setContactNumber((String)params.get("contactNumber"));
+		truckE.setTruckType((Integer)params.get("truckType"));
+		truckE.setDriver((Integer)params.get("driver"));
+		truckE.setTruckColor((String)params.get("truckColor"));
+		truckE.setTruckLength((BigDecimal)params.get("truckLength"));
+		truckE.setTruckWidth((BigDecimal)params.get("truckWidth"));
+		truckE.setTruckHeight((BigDecimal)params.get("truckHeight"));
+		truckE.setStandardWeight((BigDecimal)params.get("standardWeight"));
+		truckE.setDriverLicense((String)params.get("driverLicense"));
+		truckE.setEngineNumber((String)params.get("engineNumber"));
+		truckE.setMadeDate((String)params.get("madeDate"));
+		truckE.setBuyDate((String)params.get("buyDate"));
+		truckE.setWorth((BigDecimal)params.get("worth"));
+		truckE.setBuyCost((BigDecimal)params.get("buyCost"));
+		truckE.setRemark((String)params.get("remark"));
 		truckE.setCreateDate(ConvertService.getDate());
 		truckE.setCreateTime(ConvertService.getTime());
 		truckDao.updateAllTruck(truckE);
