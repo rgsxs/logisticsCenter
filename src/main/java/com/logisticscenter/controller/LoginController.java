@@ -1,6 +1,5 @@
 package com.logisticscenter.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.cache.Cache;
 import com.cache.CacheManager;
 import com.javabean.SystemInfoBean;

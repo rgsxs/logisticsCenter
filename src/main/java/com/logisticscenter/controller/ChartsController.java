@@ -1,6 +1,5 @@
 package com.logisticscenter.controller;
 
-import com.alibaba.fastjson.JSONObject;
 import com.common.CommonTransMethod;
 import com.javabean.ChartsBean;
 import com.logisticscenter.service.ChartsService;

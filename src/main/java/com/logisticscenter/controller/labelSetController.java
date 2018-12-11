@@ -1,7 +1,6 @@
 package com.logisticscenter.controller;
 
 import com.javabean.LabelSetBean;
-import org.apache.struts2.ServletActionContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,8 +36,7 @@ public class labelSetController implements Serializable{
 	
 	private HttpServletRequest req; 
 	
-	public String labelSet(){
-	req = ServletActionContext. getRequest();
+	public String labelSet(HttpServletRequest req){
 	for(int i = 1;i<=count;i++){
 		lsb = new LabelSetBean();
 		lsb.setType(req.getParameter("type"+i).toString());

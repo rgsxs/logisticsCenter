@@ -6,14 +6,14 @@ import com.javabean.FeeTypeBean;
 import com.javabean.FeeTypeValueBean;
 import com.javabean.TruckGoodsReportBean;
 import com.javabean.TruckGoodsReportDetailBean;
-import com.service.FeeTypeService;
-import com.service.TruckGoodsReportService;
-import net.sf.json.JSONObject;
-import org.apache.struts2.ServletActionContext;
+import com.logisticscenter.service.FeeTypeService;
+import com.logisticscenter.service.TruckGoodsReportService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -45,26 +45,9 @@ public class ImportExcelController implements Serializable{
 	
 	//获得费用类型字段用
 	private FeeTypeService feeTypeService;
-	
-	public TruckGoodsReportService getTruckGoodsReportService() {
-		return truckGoodsReportService;
-	}
-
-	public void setTruckGoodsReportService(
-			TruckGoodsReportService truckGoodsReportService) {
-		this.truckGoodsReportService = truckGoodsReportService;
-	}
-
-	public FeeTypeService getFeeTypeService() {
-		return feeTypeService;
-	}
-
-	public void setFeeTypeService(FeeTypeService feeTypeService) {
-		this.feeTypeService = feeTypeService;
-	}
 
 	@SuppressWarnings("unchecked")
-	public String importExcel(){
+	public Map importExcel(HttpServletRequest request){
 		List<FeeTypeBean> feeTypeBean= feeTypeService.getAllFeeType();
 
 		String truckNumber = ConvertService.null2String(request.getParameter("truckNumber"));
@@ -99,11 +82,10 @@ public class ImportExcelController implements Serializable{
 			
 		}
 		innerTable +="</tr>";
-		//获取输出流，然后使用  
-        PrintWriter out = null;
+		Map retResult = new HashMap();
 		try {
 			List result = new ArrayList();
-			Map retResult = new HashMap();
+
 			for(int i = 0 ; i<beanLst.size(); i++){
 				innerTable +="<tr>"+
 				"<td>"+beanLst.get(i).getBeginDate()+"</td>"+
@@ -124,21 +106,12 @@ public class ImportExcelController implements Serializable{
 				innerTable +="</tr>";
 			}
 			retResult.put("truckGoodsReportBody",innerTable);
-			response.setContentType("text/html; charset=utf-8");
-			out = response.getWriter();
-//			/* 设置格式为text/json    */
-//            response.setContentType("text/json"); 
-//            /*设置字符集为'UTF-8'*/
-//            response.setCharacterEncoding("UTF-8"); 
-			JSONObject obj = JSONObject.parseObject(retResult.toString());
-			out.print(obj.toString());
-			out.flush();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}//返回json对象
 		
-		return null;
+		return retResult;
 	}
 	
 	/**

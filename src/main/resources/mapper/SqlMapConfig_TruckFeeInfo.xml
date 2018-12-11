@@ -8,7 +8,7 @@
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getTruckFeeInfoByName" resultMap="truckFeeInfoMap" parameterType="truckFeeInfoE">
+   <select id="getTruckFeeInfoByName" resultMap="truckFeeInfoMap" parameterType="truckFeeInfoEntity">
 	select * from truckFeeInfo
 	   <where>
 		   <if test="name != null and name != ''">

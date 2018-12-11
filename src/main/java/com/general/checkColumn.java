@@ -1,8 +1,4 @@
 package com.general;
-
-
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
 import com.common.ConvertService;
 import com.util.ConstantUtils;
 import org.jdom.Document;
@@ -293,13 +289,13 @@ public class checkColumn {
 	 */
 	private Map<String,Object> readJson(String json) {
 	    Map<String,Object> elememtMap = new HashMap<String,Object>();
-		if(json!=null&&!"".equals(json)){
-			try{
-				JSONObject jsonObj = JSONObject.parseObject(json);
-
-				elememtMap = JSONObject.parseObject(jsonObj.toJSONString(), new TypeReference<Map<String, Object>>(){});
-			}catch(Exception e){e.printStackTrace();}
-		}
+//		if(json!=null&&!"".equals(json)){
+//			try{
+//				JSONObject jsonObj = JSONObject.parseObject(json);
+//
+//				elememtMap = JSONObject.parseObject(jsonObj.toJSONString(), new TypeReference<Map<String, Object>>(){});
+//			}catch(Exception e){e.printStackTrace();}
+//		}
         return elememtMap;
 	}
 

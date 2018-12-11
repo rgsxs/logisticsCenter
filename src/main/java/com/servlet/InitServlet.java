@@ -153,7 +153,8 @@ public class InitServlet extends HttpServlet {
 		if(CacheManager.getCacheInfo("truckSettingBean_CACHE")!=null){
 			;
 		}else{
-			TruckSetBean bean= truckSetService.getTruckSet();
+//			TruckSetBean bean= truckSetService.getTruckSet(null);
+			TruckSetBean bean= new TruckSetBean();
 			Cache cache = new Cache();
 			Date date = new Date();
 			//设置应用设置缓存
@@ -188,7 +189,8 @@ public class InitServlet extends HttpServlet {
 		if(CacheManager.getCacheInfo("clientBean_CACHE")!=null){
 			;
 		}else{
-			List<ClientBean> beanLst= clientService.getAllClient();
+//			List<ClientBean> beanLst= clientService.getAllClient();
+			List<ClientBean> beanLst = new ArrayList<ClientBean>();
 			Cache cache = null;
 			Date date = new Date();
 			List <Cache> beanCacheLst = new ArrayList<Cache>();

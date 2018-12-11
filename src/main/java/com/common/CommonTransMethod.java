@@ -1,7 +1,9 @@
 package com.common;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.cache.CacheManager;
 import com.javabean.ClientBean;
@@ -128,7 +130,7 @@ public class CommonTransMethod {
 		String retStr = "";
 		List<ClientBean> beanLst = null;
 		try{
-			beanLst= clientService.getAllClient();
+//			beanLst= clientService.getClient(new HashMap());
 			for(int i = 0;i<beanLst.size();i++){
 				if(beanLst.get(i).getId() == Integer.parseInt(id)){
 					retStr = beanLst.get(i).getClientName();
@@ -145,7 +147,7 @@ public class CommonTransMethod {
 	public static int createClient(String clientName){
 		int maxId = 0;
 		ClientBean bean = new ClientBean(0,clientName,"","","","","");
-		maxId = clientService.insertClient(bean);
+//		maxId = clientService.insertClient(bean);
 		CacheManager.clearOnly("clientBean_CACHE");
 		return maxId;
 	}
@@ -161,7 +163,7 @@ public class CommonTransMethod {
 		int retStr = 0;
 		List<ClientBean> beanLst = null;
 		try{
-			beanLst= clientService.getAllClient();
+//			beanLst= clientService.getAllClient();
 			for(int i = 0;i<beanLst.size();i++){
 				if(beanLst.get(i).getClientName().equals(clientName)){
 					retStr = beanLst.get(i).getId();
