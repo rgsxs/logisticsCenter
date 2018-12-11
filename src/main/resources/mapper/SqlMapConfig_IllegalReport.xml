@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.IllegalReportDao">
   
     <!-- 获得全查询列表 -->
-    <select id="getAllIllegalReport" resultMap="illegalReportMap">
+    <select id="getAllIllegalReport" resultType="illegalReportEntity">
     select * from illegalReport
   </select>
 
     <!-- 根据用户名获得用户对象 -->
-    <select id="getIllegalReportByName" resultMap="illegalReportMap" parameterType="illegalReportEntity">
+    <select id="getIllegalReportByName" resultType="illegalReportEntity" parameterType="illegalReportEntity">
         select * from illegalReport
         <where>
             <if test="truckNumber != null and truckNumber != ''">
@@ -21,7 +21,7 @@
     </select>
 
     <!-- 根据id获得用户对象 -->
-    <select id="getIllegalReportById" resultMap="illegalReportMap">
+    <select id="getIllegalReportById" resultType="illegalReportEntity">
      select * from illegalReport where id=#{id}
   </select>
 

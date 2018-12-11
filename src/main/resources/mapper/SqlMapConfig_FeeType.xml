@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.logisticscenter.mapper.FeeTypeDao">
   <!-- 获得全查询列表 -->
-  <select id="getAllFeeType" resultMap="feeTypeEntity">
+  <select id="getAllFeeType" resultType="feeTypeEntity">
     select * from feeType
   </select>
   
    <!--  -->
-   <select id="getFeeTypeBy" resultMap="feeTypeEntity" parameterType="feeTypeEntity">
+   <select id="getFeeTypeBy" resultType="feeTypeEntity" parameterType="feeTypeEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from feetype
 	   <where>
 		   <if test="feeName != null and feeName != ''">
@@ -40,7 +40,7 @@
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getFeeTypeById" resultMap="feeTypeEntity">
+    <select id="getFeeTypeById" resultType="feeTypeEntity">
      select * from feeType where id=#{id}
   </select> 
   

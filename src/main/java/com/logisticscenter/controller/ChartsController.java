@@ -39,7 +39,7 @@ public class ChartsController implements Serializable{
 
 
 	@ResponseBody
-	@PostMapping("/getClientChartsByMonth")
+	@GetMapping("/getClientChartsByMonth")
 	public Map getClientChartsByMonth(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {

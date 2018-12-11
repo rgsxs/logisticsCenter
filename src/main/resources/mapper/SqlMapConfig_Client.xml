@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.ClientDao">
   
   <!-- 根据id查询详细 -->
-  <select id="getAllClient" resultMap="clientMap">
+  <select id="getAllClient" resultType="clientEntity">
     select * from clientInfo order by id
   </select>
 
    <!-- 模糊查询客户信息 -->
-   <select id="getClientBy" resultMap="clientMap" parameterType="clientEntity">
+   <select id="getClientBy" resultType="clientEntity" parameterType="clientEntity">
 	select top ${pageSize}* from ( select row_number() over(order by id desc) as rownumber,* from clientInfo
 	   <where>
 		   <if test="clientName != null and clientName != ''">
@@ -24,7 +24,7 @@
   </select>
 
   <!-- 具体查询客户信息 -->
-   <select id="getClientBy2" resultMap="clientMap" parameterType="clientEntity">
+   <select id="getClientBy2" resultType="clientEntity" parameterType="clientEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from clientInfo
 	   <where>
 		   <if test="clientName != null and currentPage != ''">
@@ -65,7 +65,7 @@
   </select>
 
   <!-- 根据id获得用户对象 -->
-    <select id="getClientById" resultMap="clientMap">
+    <select id="getClientById" resultType="clientEntity">
      select * from clientInfo where id= #{id}
   </select>
 

@@ -1,13 +1,5 @@
 package com.logisticscenter.mapper.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.common.ConvertService;
-import com.logisticscenter.mapper.ClientDao;
-import com.logisticscenter.model.ClientEntity;
-import org.springframework.stereotype.Repository;
-
 public class ClientDaoImpl {
 
 //	@Override

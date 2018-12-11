@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.RepairTypeDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllRepairType" resultMap="repairTypeEntity">
+  <select id="getAllRepairType" resultType="repairTypeEntity">
     select * from repairType
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getRepairTypeByName" resultMap="repairTypeEntity" parameterType="repairTypeEntity">
+   <select id="getRepairTypeByName" resultType="repairTypeEntity" parameterType="repairTypeEntity">
 	select * from repairType where
        <where>
            <if test="repairName != null and repairName != ''">
@@ -18,7 +18,7 @@
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getRepairTypeById" resultMap="repairTypeEntity">
+    <select id="getRepairTypeById" resultType="repairTypeEntity">
      select * from repairType where id=#{id}
   </select> 
   

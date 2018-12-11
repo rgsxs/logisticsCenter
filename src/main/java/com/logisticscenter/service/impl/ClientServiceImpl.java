@@ -9,7 +9,6 @@ import com.logisticscenter.mapper.ClientDao;
 import com.logisticscenter.model.ClientEntity;
 import com.logisticscenter.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
