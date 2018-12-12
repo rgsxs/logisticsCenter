@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.GoodsTypeDao">
 
     <!-- 获得全查询列表 -->
-    <select id="getAllGoodsType" resultMap="goodsTypeEntity">
+    <select id="getAllGoodsType" resultType="goodsTypeEntity">
     select * from goodsType
   </select>
 
     <!--  -->
-    <select id="getGoodsTypeBy" resultMap="goodsTypeMap" parameterType="goodsTypeEntity">
+    <select id="getGoodsTypeBy" resultType="goodsTypeEntity" parameterType="goodsTypeEntity">
         select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from goodsType
         <where>
             <if test="goodsName != null and goodsName != ''">
@@ -40,7 +40,7 @@
     </select>
 
     <!-- 根据id获得用户对象 -->
-    <select id="getGoodsTypeById" resultMap="goodsTypeEntity">
+    <select id="getGoodsTypeById" resultType="goodsTypeEntity">
      select * from goodsType where id=#{id}
   </select>
 

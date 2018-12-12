@@ -2,15 +2,10 @@ package com.logisticscenter.service.impl;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
-import com.common.ConvertService;
-import com.javabean.TruckSetBean;
 import com.logisticscenter.mapper.TruckSetDao;
-import com.logisticscenter.model.ClientEntity;
 import com.logisticscenter.model.TruckSetEntity;
 import com.logisticscenter.service.TruckSetService;
-import com.sun.org.apache.bcel.internal.generic.RETURN;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.*;

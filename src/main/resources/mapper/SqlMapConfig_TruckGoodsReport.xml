@@ -3,103 +3,101 @@
 <mapper namespace="com.logisticscenter.mapper.TruckGoodsReportDao">
 
     <!-- 获得全查询列表 -->
-    <select id="getAllTruckGoodsReport" resultMap="truckGoodsReportEntity">
+    <select id="getAllTruckGoodsReport" resultType="truckGoodsReportEntity">
         select * from truckGoodsReport
-        <dynamic prepend="WHERE ">
-            <isNotNull property="value" prepend="AND">
-                reportStatus = $value$
-            </isNotNull>
-        </dynamic>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotNull property="value" prepend="AND">-->
+                <!--reportStatus = $value$-->
+            <!--</isNotNull>-->
+        <!--</dynamic>-->
     </select>
 
     <!-- 根据条件专门费用 -->
-    <select id="getTruckGoodsReportBy" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
-            cacheModel="productCache">
-        <isNotEmpty property="getFeeTypecolumn">
-            select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,*,$getFeeTypecolumn$
-            feeTypeValue from truckGoodsReport
-        </isNotEmpty>
-        <isEmpty property="getFeeTypecolumn">
-            select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,*,id feeTypeValue
-            from truckGoodsReport
-        </isEmpty>
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckNumber">
-                truckNumber=#truckNumber#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="startPlace">
-                startPlace like '%' + #startPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endPlace">
-                endPlace like '%' + #endPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="beginDate">
-                beginDate &gt;= #beginDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endDate">
-                endDate &lt; #endDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="carryNumber">
-                carryNumber like '%' + #carryNumber# + '%'
-            </isNotEmpty>
-            <isLessThan prepend="AND" property="reportStatus" compareValue="3">
-                reportStatus=#reportStatus#
-            </isLessThan>
-            <isGreaterThan prepend="AND" property="driver" compareValue="-1">
-                driver=#driver#
-            </isGreaterThan>
-            <isGreaterThan prepend="AND" property="client" compareValue="-1">
-                client=#client#
-            </isGreaterThan>
-            <isNotEmpty prepend="AND" property="goodsType">
-                ','+goodsType+',' like '%,'+#goodsType#+',%'
-            </isNotEmpty>
-        </dynamic>
-        ) A
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="currentPage">
-                rownumber > $currentPage$
-            </isNotEmpty>
-        </dynamic>
+    <select id="getTruckGoodsReportBy" resultType="truckGoodsReportEntity" parameterType="truckGoodsReportEntity">
+        <!--<isNotEmpty property="getFeeTypecolumn">-->
+            <!--select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,*,$getFeeTypecolumn$-->
+            <!--feeTypeValue from truckGoodsReport-->
+        <!--</isNotEmpty>-->
+        <!--<isEmpty property="getFeeTypecolumn">-->
+            <!--select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,*,id feeTypeValue-->
+            <!--from truckGoodsReport-->
+        <!--</isEmpty>-->
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckNumber">-->
+                <!--truckNumber=#truckNumber#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="startPlace">-->
+                <!--startPlace like '%' + #startPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endPlace">-->
+                <!--endPlace like '%' + #endPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="beginDate">-->
+                <!--beginDate &gt;= #beginDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endDate">-->
+                <!--endDate &lt; #endDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="carryNumber">-->
+                <!--carryNumber like '%' + #carryNumber# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isLessThan prepend="AND" property="reportStatus" compareValue="3">-->
+                <!--reportStatus=#reportStatus#-->
+            <!--</isLessThan>-->
+            <!--<isGreaterThan prepend="AND" property="driver" compareValue="-1">-->
+                <!--driver=#driver#-->
+            <!--</isGreaterThan>-->
+            <!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+                <!--client=#client#-->
+            <!--</isGreaterThan>-->
+            <!--<isNotEmpty prepend="AND" property="goodsType">-->
+                <!--','+goodsType+',' like '%,'+#goodsType#+',%'-->
+            <!--</isNotEmpty>-->
+        <!--</dynamic>-->
+        <!--) A-->
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="currentPage">-->
+                <!--rownumber > $currentPage$-->
+            <!--</isNotEmpty>-->
+        <!--</dynamic>-->
     </select>
 
 
     <!-- 根据条件查询出车信息 -->
-    <select id="gettruckGoodsReportEntityxcelBy" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
-            cacheModel="productCache">
+    <select id="gettruckGoodsReportEntityxcelBy" resultType="truckGoodsReportEntity" parameterType="truckGoodsReportEntity" >
         select * from truckGoodsReport
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckNumber">
-                truckNumber=#truckNumber#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="startPlace">
-                startPlace like '%' + #startPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endPlace">
-                endPlace like '%' + #endPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="beginDate">
-                beginDate &gt;= #beginDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endDate">
-                endDate &lt; #endDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="carryNumber">
-                carryNumber like '%' + #carryNumber# + '%'
-            </isNotEmpty>
-            <isLessThan prepend="AND" property="reportStatus" compareValue="3">
-                reportStatus=#reportStatus#
-            </isLessThan>
-            <isGreaterThan prepend="AND" property="driver" compareValue="-1">
-                driver=#driver#
-            </isGreaterThan>
-            <isGreaterThan prepend="AND" property="client" compareValue="-1">
-                client=#client#
-            </isGreaterThan>
-            <isNotEmpty prepend="AND" property="goodsType">
-                ','+goodsType+',' like '%,'+#goodsType#+',%'
-            </isNotEmpty>
-        </dynamic>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckNumber">-->
+                <!--truckNumber=#truckNumber#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="startPlace">-->
+                <!--startPlace like '%' + #startPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endPlace">-->
+                <!--endPlace like '%' + #endPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="beginDate">-->
+                <!--beginDate &gt;= #beginDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endDate">-->
+                <!--endDate &lt; #endDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="carryNumber">-->
+                <!--carryNumber like '%' + #carryNumber# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isLessThan prepend="AND" property="reportStatus" compareValue="3">-->
+                <!--reportStatus=#reportStatus#-->
+            <!--</isLessThan>-->
+            <!--<isGreaterThan prepend="AND" property="driver" compareValue="-1">-->
+                <!--driver=#driver#-->
+            <!--</isGreaterThan>-->
+            <!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+                <!--client=#client#-->
+            <!--</isGreaterThan>-->
+            <!--<isNotEmpty prepend="AND" property="goodsType">-->
+                <!--','+goodsType+',' like '%,'+#goodsType#+',%'-->
+            <!--</isNotEmpty>-->
+        <!--</dynamic>-->
 
     </select>
 
@@ -107,82 +105,82 @@
     <!-- 根据条件查询出车分页pageTotal -->
     <select id="getTruckGoodsReportByCount" resultType="String" parameterType="truckGoodsReportEntity">
         select count(*) from ( select row_number() over(order by id) as rownumber,* from truckGoodsReport ) A
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckNumber">
-                truckNumber=#truckNumber#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="startPlace">
-                startPlace like '%' + #startPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endPlace">
-                endPlace like '%' + #endPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="beginDate">
-                beginDate &gt;= #beginDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endDate">
-                endDate &lt; #endDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="carryNumber">
-                carryNumber like '%' + #carryNumber# + '%'
-            </isNotEmpty>
-            <isLessThan prepend="AND" property="reportStatus" compareValue="3">
-                reportStatus=#reportStatus#
-            </isLessThan>
-            <isGreaterThan prepend="AND" property="driver" compareValue="-1">
-                driver=#driver#
-            </isGreaterThan>
-            <isGreaterThan prepend="AND" property="client" compareValue="-1">
-                client=#client#
-            </isGreaterThan>
-            <isNotEmpty prepend="AND" property="goodsType">
-                goodsType=#goodsType#
-            </isNotEmpty>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckNumber">-->
+                <!--truckNumber=#truckNumber#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="startPlace">-->
+                <!--startPlace like '%' + #startPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endPlace">-->
+                <!--endPlace like '%' + #endPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="beginDate">-->
+                <!--beginDate &gt;= #beginDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endDate">-->
+                <!--endDate &lt; #endDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="carryNumber">-->
+                <!--carryNumber like '%' + #carryNumber# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isLessThan prepend="AND" property="reportStatus" compareValue="3">-->
+                <!--reportStatus=#reportStatus#-->
+            <!--</isLessThan>-->
+            <!--<isGreaterThan prepend="AND" property="driver" compareValue="-1">-->
+                <!--driver=#driver#-->
+            <!--</isGreaterThan>-->
+            <!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+                <!--client=#client#-->
+            <!--</isGreaterThan>-->
+            <!--<isNotEmpty prepend="AND" property="goodsType">-->
+                <!--goodsType=#goodsType#-->
+            <!--</isNotEmpty>-->
 
-        </dynamic>
+        <!--</dynamic>-->
 
     </select>
 
     <!-- 根据id获得用户对象 -->
-    <select id="getTruckGoodsReportById" resultMap="truckGoodsReportEntity">
+    <select id="getTruckGoodsReportById" resultType="truckGoodsReportEntity">
      select * from truckGoodsReport where id=#id#
   </select>
 
     <!-- 根据查询条件计算费用/盈利/运费的合计 -->
-    <select id="getTruckGoodsReportSum" resultMap="truckGoodsReportSumMap" parameterType="truckGoodsReportEntity" >
+    <select id="getTruckGoodsReportSum" resultType="truckGoodsReportEntity" parameterType="truckGoodsReportEntity" >
         select sum(expensens) expensens,sum(cost) cost ,sum(profit) profit from truckgoodsreport
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckNumber">
-                truckNumber=#truckNumber#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="startPlace">
-                startPlace like '%' + #startPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endPlace">
-                endPlace like '%' + #endPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="beginDate">
-                beginDate &gt;= #beginDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endDate">
-                endDate &lt; #endDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="carryNumber">
-                carryNumber like '%' + #carryNumber# + '%'
-            </isNotEmpty>
-            <isLessThan prepend="AND" property="reportStatus" compareValue="3">
-                reportStatus=#reportStatus#
-            </isLessThan>
-            <isGreaterThan prepend="AND" property="driver" compareValue="-1">
-                driver=#driver#
-            </isGreaterThan>
-            <isGreaterThan prepend="AND" property="client" compareValue="-1">
-                client=#client#
-            </isGreaterThan>
-            <isNotEmpty prepend="AND" property="goodsType">
-                ','+goodsType+',' like '%,'+#goodsType#+',%'
-            </isNotEmpty>
-        </dynamic>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckNumber">-->
+                <!--truckNumber=#truckNumber#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="startPlace">-->
+                <!--startPlace like '%' + #startPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endPlace">-->
+                <!--endPlace like '%' + #endPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="beginDate">-->
+                <!--beginDate &gt;= #beginDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endDate">-->
+                <!--endDate &lt; #endDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="carryNumber">-->
+                <!--carryNumber like '%' + #carryNumber# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isLessThan prepend="AND" property="reportStatus" compareValue="3">-->
+                <!--reportStatus=#reportStatus#-->
+            <!--</isLessThan>-->
+            <!--<isGreaterThan prepend="AND" property="driver" compareValue="-1">-->
+                <!--driver=#driver#-->
+            <!--</isGreaterThan>-->
+            <!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+                <!--client=#client#-->
+            <!--</isGreaterThan>-->
+            <!--<isNotEmpty prepend="AND" property="goodsType">-->
+                <!--','+goodsType+',' like '%,'+#goodsType#+',%'-->
+            <!--</isNotEmpty>-->
+        <!--</dynamic>-->
 
     </select>
 
@@ -321,7 +319,7 @@
    </update>
 
     <!-- 获得全查询列表 -->
-    <select id="getColumnValue" parameterType="java.util.Map" resultMap="feeTypeValueMap" cacheModel="productCache">
+    <select id="getColumnValue" parameterType="java.util.Map" resultType="feeTypeEntity" >
     SELECT feeType=attribute,feeTypeValue=value
 		FROM (select * from truckgoodsreport where id = $reportId$)a
 		  UNPIVOT
@@ -331,41 +329,40 @@
   </select>
 
     <!-- 根据条件查询出车信息 -->
-    <select id="getTruckGoodsReportByImport" resultMap="truckGoodsReportEntity" parameterType="truckGoodsReportEntity"
-            cacheModel="productCache">
+    <select id="getTruckGoodsReportByImport" resultType="truckGoodsReportEntity" parameterType="truckGoodsReportEntity" >
         select * from truckGoodsReport
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckNumber">
-                truckNumber=#truckNumber#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="startPlace">
-                startPlace like '%' + #startPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endPlace">
-                endPlace like '%' + #endPlace# + '%'
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="beginDate">
-                beginDate &gt;= #beginDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="endDate">
-                endDate &lt; #endDate#
-            </isNotEmpty>
-            <isNotEmpty prepend="AND" property="carryNumber">
-                carryNumber like '%' + #carryNumber# + '%'
-            </isNotEmpty>
-            <isLessThan prepend="AND" property="reportStatus" compareValue="3">
-                reportStatus=#reportStatus#
-            </isLessThan>
-            <isGreaterThan prepend="AND" property="driver" compareValue="-1">
-                driver=#driver#
-            </isGreaterThan>
-            <isGreaterThan prepend="AND" property="client" compareValue="-1">
-                client=#client#
-            </isGreaterThan>
-            <isNotEmpty prepend="AND" property="goodsType">
-                ','+goodsType+',' like '%,'+#goodsType#+',%'
-            </isNotEmpty>
-        </dynamic>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckNumber">-->
+                <!--truckNumber=#truckNumber#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="startPlace">-->
+                <!--startPlace like '%' + #startPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endPlace">-->
+                <!--endPlace like '%' + #endPlace# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="beginDate">-->
+                <!--beginDate &gt;= #beginDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="endDate">-->
+                <!--endDate &lt; #endDate#-->
+            <!--</isNotEmpty>-->
+            <!--<isNotEmpty prepend="AND" property="carryNumber">-->
+                <!--carryNumber like '%' + #carryNumber# + '%'-->
+            <!--</isNotEmpty>-->
+            <!--<isLessThan prepend="AND" property="reportStatus" compareValue="3">-->
+                <!--reportStatus=#reportStatus#-->
+            <!--</isLessThan>-->
+            <!--<isGreaterThan prepend="AND" property="driver" compareValue="-1">-->
+                <!--driver=#driver#-->
+            <!--</isGreaterThan>-->
+            <!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+                <!--client=#client#-->
+            <!--</isGreaterThan>-->
+            <!--<isNotEmpty prepend="AND" property="goodsType">-->
+                <!--','+goodsType+',' like '%,'+#goodsType#+',%'-->
+            <!--</isNotEmpty>-->
+        <!--</dynamic>-->
     </select>
 
 
@@ -409,18 +406,18 @@
 
     <!-- 新增预录出车详细信息 -->
     <select id="getTruckGoodsReportDetail" parameterType="truckGoodsReportDetailEntity"
-            resultMap="truckGoodsReportDetailMap" cacheModel="productCache">
+            resultType="truckGoodsReportDetailEntity" >
         select * from truckGoodsReportDetail
-        <dynamic prepend="WHERE ">
-            <isNotEmpty prepend="AND" property="truckOrder">
-                truckOrder = #truckOrder#
-            </isNotEmpty>
+        <!--<dynamic prepend="WHERE ">-->
+            <!--<isNotEmpty prepend="AND" property="truckOrder">-->
+                <!--truckOrder = #truckOrder#-->
+            <!--</isNotEmpty>-->
 
-        </dynamic>
+        <!--</dynamic>-->
     </select>
 
     <!-- 新增预录出车详细信息 -->
-    <select id="getTruckGoodsReportDetailByOrders" resultMap="truckGoodsReportDetailMap">
+    <select id="getTruckGoodsReportDetailByOrders" resultType="truckGoodsReportDetailEntity">
 		select * from truckGoodsReportDetail where truckOrder in ($truckOrders$)
 	</select>
 

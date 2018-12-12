@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.TruckInfoDao">
 
     <!--查询所有车辆信息 -->
-    <select id="getAllTruck" resultMap="truckEntity">
+    <select id="getAllTruck" resultType="truckEntity">
     select a.* from truckInfo a left join commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber
   </select>
 
     <!-- 根据车辆名称查询 -->
-    <select id="getTruckBy" resultMap="truckEntity" parameterType="truckEntity">
+    <select id="getTruckBy" resultType="truckEntity" parameterType="truckEntity">
         select top ${pageSize} * from (select row_number() over(order by a.id desc) as rownumber,a.* from truckInfo a
         left join commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber
         <where>
@@ -66,7 +66,7 @@
     </select>
 
     <!-- 根据id获得用户对象 -->
-    <select id="getTruckById" resultMap="truckEntity">
+    <select id="getTruckById" resultType="truckEntity">
      select * from truckInfo where id=#{id}
   </select>
 

@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.CommercialDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllCommercial" resultMap="commercialEntity">
+  <select id="getAllCommercial" resultType="commercialEntity">
     select * from commercialInsurance
   </select>
   
    <!--  -->
-   <select id="getCommercialBy" resultMap="commercialEntity" parameterType="commercialEntity">
+   <select id="getCommercialBy" resultType="commercialEntity" parameterType="commercialEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from commercialInsurance
 	   <where>
 		   <if test="truckNumber != null and truckNumber != ''">
@@ -48,7 +48,7 @@
   </select>
 
   <!-- 根据id获得车辆商业险 -->
-    <select id="getCommercialById" resultMap="commercialEntity">
+    <select id="getCommercialById" resultType="commercialEntity">
      select * from commercialInsurance where id={id}
   </select>
 
@@ -77,7 +77,7 @@
    </update>
    
    <!-- 根据id获得车辆商业险 -->
-    <select id="getWarnCommercial" resultMap="commercialMap" parameterType="string">
+    <select id="getWarnCommercial" resultType="commercialEntity" parameterType="string">
      select * from commercialInsurance where (startDate &lt; ${days} and enddate &gt; ${days})
   </select> 
    

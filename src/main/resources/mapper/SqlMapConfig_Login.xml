@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.logisticscenter.mapper.SystemInfoDao">
   <!-- 获得全查询列表 -->
-  <select id="getAllSystem" resultMap="systemInfoEntity">
+  <select id="getAllSystem" resultType="systemInfoEntity">
     select * from adminInfo
   </select>
   
    <!-- 根据用户名获得用户对象 -->
-   <select id="getSystemByName" resultMap="systemInfoEntity">
+   <select id="getSystemByName" resultType="systemInfoEntity">
      select * from adminInfo where
 	   <where>
 		   <if test="lastname != null and lastname != ''">
@@ -17,7 +17,7 @@
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getSystemById" resultMap="systemInfoEntity">
+    <select id="getSystemById" resultType="systemInfoEntity">
      select * from adminInfo where loginid=#{loginid}
   </select> 
   

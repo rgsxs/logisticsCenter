@@ -3,12 +3,12 @@
 <mapper namespace="com.logisticscenter.mapper.CompulsoryDao">
   
   <!-- 获得全查询列表 -->
-  <select id="getAllCompulsory" resultMap="compulsoryMap">
+  <select id="getAllCompulsory" resultType="compulsoryEntity">
     select * from compulsoryInsurance
   </select>
   
    <!--  -->
-   <select id="getCompulsoryBy" resultMap="compulsoryMap" parameterType="compulsoryEntity">
+   <select id="getCompulsoryBy" resultType="compulsoryEntity" parameterType="compulsoryEntity">
 	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from compulsoryInsurance
 	   <where>
 		   <if test="truckNumber != null and truckNumber != ''">
@@ -47,7 +47,7 @@
   </select> 
   
   <!-- 根据id获得车辆商业险 -->
-    <select id="getCompulsoryById" resultMap="compulsoryEntity">
+    <select id="getCompulsoryById" resultType="compulsoryEntity">
      select * from compulsoryInsurance where id=#{id}
   </select> 
   
@@ -81,7 +81,7 @@
       where id=#id#
    </update>
     <!-- 根据id获得车辆商业险 -->
-    <select id="getWarnCompulsory" resultMap="compulsoryEntity" parameterType="string">
+    <select id="getWarnCompulsory" resultType="compulsoryEntity" parameterType="string">
      select * from compulsoryInsurance where (startDate &lt; ${days} and enddate &gt; ${days})
   </select> 
 </mapper>
