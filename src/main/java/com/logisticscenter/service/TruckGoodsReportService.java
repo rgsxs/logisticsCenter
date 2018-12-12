@@ -42,6 +42,8 @@ public interface TruckGoodsReportService {
 	public abstract List<FeeTypeValueBean> getColumnValue(String reportId, String columnName);
 	
 	/**
+	 *
+	 *
 	 * 插入车辆出车货物类型分类详细
 	 * @param insertInfo
 	 * @return
