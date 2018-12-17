@@ -2,7 +2,7 @@ package com.logisticscenter.controller;
 
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.Result;
-import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
+//import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
 import com.common.ConvertService;
 import com.javabean.ImageFileBean;
 import com.logisticscenter.service.ImageFileService;
@@ -48,79 +48,79 @@ public class TestController {
 //		}catch(Exception e){
 //			e.printStackTrace();
 //		}
-		try {
-			Result result = new AspriseScanUI().setRequest(
-					  Request.fromJson("{" +
-					    "  \"twain_cap_setting\" : {" +
-					    "    \"ICAP_PIXEXELTYPE\" : \"TWPT_RGB\"," +
-					    "    \"ICAP_SUPPORPORTEDSIZES\" : \"TWSS_USLESLETTER\"" +
-					    "  }," +
-					    "  \"output_settings\" : [ {" +
-					    "    \"type\" : \"save\"," +
-					    "    \"format\" : \"jpg\"," +
-					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
-					    "  }, {"+
-					    "    \"type\" : \"save-thumbnail\"," +
-					    "    \"format\" : \"jpg\"," +
-					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
-					    "  } ]" +
-					    "}")
-					  ).showDialog(null, "Scan", true, null); // owner can be null
-
-			List<File> files  = null;
-			//List<File> files = result.getImageFiles(); // Gets files
-			File file = null;
-			ApplicationContext context2 = new ClassPathXmlApplicationContext("applicationContext_bean.xml");
-			ApplicationContext context1 = new ClassPathXmlApplicationContext(new String[] { "applicationContext_bean.xml" });
-			ImageFileService imageFileService = (ImageFileService) context1.getBean("imageFileService");
-			//设置目录
-			String dateTemp=ConvertService.getDate();;
-			String root = "D:\\temp\\"+dateTemp;
-			File fileRoot = new File(root);
-			if(!fileRoot.isDirectory()){
-				fileRoot.mkdirs();
-			}
-			String realName = "";
-			for(int i = 0;i<files.size();i++){
-				//获得唯一序列号
-				InputStream is = new FileInputStream(files.get(i));
-				realName = files.get(i).getName();
-				//String fileArr[] = fileFileName[i].split("\\.");
-				//String fileName = fileArr[0];
-				//String suffix = fileArr[1];
-				//String contentType = fileContentType[i];
-				//String realName = idGenerator.next();
-				OutputStream os = new FileOutputStream(new File(root, realName));
-				
-				
-				//因为file是存放在临时文件夹的文件，我们可以将其文件名和文件路径打印出来，看和之前的fileFileName是否相同
-				System.out.println("file: " + files.get(i).getName());
-				System.out.println("file: " + files.get(i).getPath());
-				
-				byte[] buffer = new byte[500];
-				int length = 0;
-				
-				while(-1 != (length = is.read(buffer, 0, buffer.length)))
-				{
-					os.write(buffer);
-				}
-				
-				os.close();
-				is.close();
-				ImageFileBean insertInfo = new ImageFileBean();
-				insertInfo.setImageFileName(realName);
-				insertInfo.setFilerealpath(root);
-				insertInfo.setImagefiletype("");
-				insertInfo.setDownloads(0);
-				insertInfo.setImagefileused(0);
-				insertInfo.setIszip("");
-				String retId = imageFileService.insertImageFile(insertInfo)+"";
-				System.out.println("retId==="+retId);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} // owner can be null
+//		try {
+//			Result result = new AspriseScanUI().setRequest(
+//					  Request.fromJson("{" +
+//					    "  \"twain_cap_setting\" : {" +
+//					    "    \"ICAP_PIXEXELTYPE\" : \"TWPT_RGB\"," +
+//					    "    \"ICAP_SUPPORPORTEDSIZES\" : \"TWSS_USLESLETTER\"" +
+//					    "  }," +
+//					    "  \"output_settings\" : [ {" +
+//					    "    \"type\" : \"save\"," +
+//					    "    \"format\" : \"jpg\"," +
+//					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
+//					    "  }, {"+
+//					    "    \"type\" : \"save-thumbnail\"," +
+//					    "    \"format\" : \"jpg\"," +
+//					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
+//					    "  } ]" +
+//					    "}")
+//					  ).showDialog(null, "Scan", true, null); // owner can be null
+//
+//			List<File> files  = null;
+//			//List<File> files = result.getImageFiles(); // Gets files
+//			File file = null;
+//			ApplicationContext context2 = new ClassPathXmlApplicationContext("applicationContext_bean.xml");
+//			ApplicationContext context1 = new ClassPathXmlApplicationContext(new String[] { "applicationContext_bean.xml" });
+//			ImageFileService imageFileService = (ImageFileService) context1.getBean("imageFileService");
+//			//设置目录
+//			String dateTemp=ConvertService.getDate();;
+//			String root = "D:\\temp\\"+dateTemp;
+//			File fileRoot = new File(root);
+//			if(!fileRoot.isDirectory()){
+//				fileRoot.mkdirs();
+//			}
+//			String realName = "";
+//			for(int i = 0;i<files.size();i++){
+//				//获得唯一序列号
+//				InputStream is = new FileInputStream(files.get(i));
+//				realName = files.get(i).getName();
+//				//String fileArr[] = fileFileName[i].split("\\.");
+//				//String fileName = fileArr[0];
+//				//String suffix = fileArr[1];
+//				//String contentType = fileContentType[i];
+//				//String realName = idGenerator.next();
+//				OutputStream os = new FileOutputStream(new File(root, realName));
+//
+//
+//				//因为file是存放在临时文件夹的文件，我们可以将其文件名和文件路径打印出来，看和之前的fileFileName是否相同
+//				System.out.println("file: " + files.get(i).getName());
+//				System.out.println("file: " + files.get(i).getPath());
+//
+//				byte[] buffer = new byte[500];
+//				int length = 0;
+//
+//				while(-1 != (length = is.read(buffer, 0, buffer.length)))
+//				{
+//					os.write(buffer);
+//				}
+//
+//				os.close();
+//				is.close();
+//				ImageFileBean insertInfo = new ImageFileBean();
+//				insertInfo.setImageFileName(realName);
+//				insertInfo.setFilerealpath(root);
+//				insertInfo.setImagefiletype("");
+//				insertInfo.setDownloads(0);
+//				insertInfo.setImagefileused(0);
+//				insertInfo.setIszip("");
+//				String retId = imageFileService.insertImageFile(insertInfo)+"";
+//				System.out.println("retId==="+retId);
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} // owner can be null
 		}
 	
 	public static void setMap( Map oldMap){
