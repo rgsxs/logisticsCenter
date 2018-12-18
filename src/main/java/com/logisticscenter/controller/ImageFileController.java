@@ -3,7 +3,7 @@ package com.logisticscenter.controller;
 import com.asprise.imaging.core.Request;
 import com.asprise.imaging.core.Result;
 
-import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
+//import com.asprise.imaging.scan.ui.workbench.AspriseScanUI;
 import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.general.BaseBean;
@@ -422,91 +422,91 @@ public class ImageFileController implements Serializable{
 		bs.writeLog("1111111111");
 	//输出Excel文件
 		Map retResult = new HashMap();
-		try {
+//		try {
 
-			//参照http://asprise.com/scan2/docs/html/scan-dsl-spec.html#dsl-i18n
-			Result result = new AspriseScanUI().setRequest(
-					  Request.fromJson("{" +
-					    "  \"twain_cap_setting\" : {" +
-					    "    \"ICAP_PIXEXELTYPE\" : \"TWPT_RGB\"," +
-					    "    \"ICAP_SUPPORPORTEDSIZES\" : \"TWSS_USLESLETTER\"" +
-					    "  }," +
-					    "  \"i18n\" : {" +
-					    "    \"lang\" : \"zh\"" +
-					    "  }," +
-					    "  \"output_settings\" : [ {" +
-					    "    \"type\" : \"save\"," +
-					    "    \"format\" : \"jpg\"," +
-					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
-					    "  }, {"+
-					    "    \"type\" : \"save-thumbnail\"," +
-					    "    \"format\" : \"jpg\"," +
-					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
-					    "  } ]" +
-					    "}")
-					  ).showDialog(null, "启动扫描仪", true, null); // owner can be null
-
-			List<File> files = result.getImageFiles(); // Gets files
-			File file = null;
-			//设置目录
-			String dateTemp=ConvertService.getDate();;
-			String root = "D:\\temp\\"+dateTemp;
-			File fileRoot = new File(root);
-			if(!fileRoot.isDirectory()){
-				fileRoot.mkdirs();
-			}
-			String realName = "";
-			String accessorys = "";
-			String fileNames = "";
-			for(int i = 0;i<files.size();i++){
-				//获得唯一序列号
-				InputStream is = new FileInputStream(files.get(i));
-				realName = files.get(i).getName();
-				//String fileArr[] = fileFileName[i].split("\\.");
-				//String fileName = fileArr[0];
-				//String suffix = fileArr[1];
-				String contentType = "image/jpeg";
-				//String realName = idGenerator.next();
-				OutputStream os = new FileOutputStream(new File(root, realName));
-				
-				
-				//因为file是存放在临时文件夹的文件，我们可以将其文件名和文件路径打印出来，看和之前的fileFileName是否相同
-				System.out.println("file: " + files.get(i).getName());
-				System.out.println("file: " + files.get(i).getPath());
-				
-				byte[] buffer = new byte[500];
-				int length = 0;
-				
-				while(-1 != (length = is.read(buffer, 0, buffer.length)))
-				{
-					os.write(buffer);
-				}
-				
-				os.close();
-				is.close();
-				ImageFileBean insertInfo = new ImageFileBean();
-				insertInfo.setImageFileName(realName);
-				insertInfo.setFilerealpath(root);
-				insertInfo.setImagefiletype("");
-				insertInfo.setDownloads(0);
-				insertInfo.setImagefileused(0);
-				insertInfo.setIszip("");
-				accessorys += ","+imageFileService.insertImageFile(insertInfo);
-				fileNames += ","+realName;
-			}
-			if(!accessorys.equals("")){
-				accessorys = accessorys.substring(1);
-			}
-			if(!fileNames.equals("")){
-				fileNames = fileNames.substring(1);
-			}
-			retResult.put("fileNames", fileNames);
-			retResult.put("accessorys", accessorys);
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			//参照http://asprise.com/scan2/docs/html/scan-dsl-spec.html#dsl-i18n
+//			Result result = new AspriseScanUI().setRequest(
+//					  Request.fromJson("{" +
+//					    "  \"twain_cap_setting\" : {" +
+//					    "    \"ICAP_PIXEXELTYPE\" : \"TWPT_RGB\"," +
+//					    "    \"ICAP_SUPPORPORTEDSIZES\" : \"TWSS_USLESLETTER\"" +
+//					    "  }," +
+//					    "  \"i18n\" : {" +
+//					    "    \"lang\" : \"zh\"" +
+//					    "  }," +
+//					    "  \"output_settings\" : [ {" +
+//					    "    \"type\" : \"save\"," +
+//					    "    \"format\" : \"jpg\"," +
+//					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
+//					    "  }, {"+
+//					    "    \"type\" : \"save-thumbnail\"," +
+//					    "    \"format\" : \"jpg\"," +
+//					    "    \"save_path\" : \".\\\\${TMS}-thumb${EXT}\"" +
+//					    "  } ]" +
+//					    "}")
+//					  ).showDialog(null, "启动扫描仪", true, null); // owner can be null
+//
+//			List<File> files = result.getImageFiles(); // Gets files
+//			File file = null;
+//			//设置目录
+//			String dateTemp=ConvertService.getDate();;
+//			String root = "D:\\temp\\"+dateTemp;
+//			File fileRoot = new File(root);
+//			if(!fileRoot.isDirectory()){
+//				fileRoot.mkdirs();
+//			}
+//			String realName = "";
+//			String accessorys = "";
+//			String fileNames = "";
+//			for(int i = 0;i<files.size();i++){
+//				//获得唯一序列号
+//				InputStream is = new FileInputStream(files.get(i));
+//				realName = files.get(i).getName();
+//				//String fileArr[] = fileFileName[i].split("\\.");
+//				//String fileName = fileArr[0];
+//				//String suffix = fileArr[1];
+//				String contentType = "image/jpeg";
+//				//String realName = idGenerator.next();
+//				OutputStream os = new FileOutputStream(new File(root, realName));
+//
+//
+//				//因为file是存放在临时文件夹的文件，我们可以将其文件名和文件路径打印出来，看和之前的fileFileName是否相同
+//				System.out.println("file: " + files.get(i).getName());
+//				System.out.println("file: " + files.get(i).getPath());
+//
+//				byte[] buffer = new byte[500];
+//				int length = 0;
+//
+//				while(-1 != (length = is.read(buffer, 0, buffer.length)))
+//				{
+//					os.write(buffer);
+//				}
+//
+//				os.close();
+//				is.close();
+//				ImageFileBean insertInfo = new ImageFileBean();
+//				insertInfo.setImageFileName(realName);
+//				insertInfo.setFilerealpath(root);
+//				insertInfo.setImagefiletype("");
+//				insertInfo.setDownloads(0);
+//				insertInfo.setImagefileused(0);
+//				insertInfo.setIszip("");
+//				accessorys += ","+imageFileService.insertImageFile(insertInfo);
+//				fileNames += ","+realName;
+//			}
+//			if(!accessorys.equals("")){
+//				accessorys = accessorys.substring(1);
+//			}
+//			if(!fileNames.equals("")){
+//				fileNames = fileNames.substring(1);
+//			}
+//			retResult.put("fileNames", fileNames);
+//			retResult.put("accessorys", accessorys);
+//
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		return retResult;
 	}
 	
