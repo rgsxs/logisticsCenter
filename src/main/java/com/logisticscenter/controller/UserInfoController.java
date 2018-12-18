@@ -3,10 +3,12 @@ package com.logisticscenter.controller;
 import com.cache.CacheManager;
 import com.javabean.ClientBean;
 import com.logisticscenter.service.ClientService;
+import com.util.ParamUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.PrintWriter;
 import java.io.Serializable;
@@ -31,15 +33,17 @@ public class UserInfoController implements Serializable{
 	public UserInfoController(){
 		
 	}
-	
+
+	@Autowired
 	private ClientService clientService;
 
 
-	@SuppressWarnings("unchecked")
-	public Map selectAllClient(){
+	@ResponseBody
+	@PostMapping("/selectAllClient")
+	public Map selectAllClient(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,12 +89,13 @@ public class UserInfoController implements Serializable{
 //		}//返回json对象
 //		return null;
 	}
-	
-	
-	public Map addClient(){
+
+	@ResponseBody
+	@PostMapping("/addClient")
+	public Map addClient(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.putAll(clientService.insertClient(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -125,11 +130,13 @@ public class UserInfoController implements Serializable{
 //		CacheManager.clearOnly("clientBean_CACHE");
 //		return "success";
 	}
-	
-	public Map updateClient(){
+
+	@ResponseBody
+	@PostMapping("/updateClient")
+	public Map updateClient(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.putAll(clientService.updateClient(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,11 +261,13 @@ public class UserInfoController implements Serializable{
 //		}//返回json对象
 //		return null;
 	}
-	
-	public Map deleteClient(){
+
+	@ResponseBody
+	@PostMapping("/deleteClient")
+	public Map deleteClient(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.putAll(clientService.deleteClient(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -27,6 +27,7 @@ public class ClientServiceImpl implements ClientService {
 				entityList.add((ClientEntity)cacheList.get(i).getValue());
 			}
 		}else{
+			entityList = clientDao.getAllClient();
 			Cache cache = null;
 			Date date = new Date();
 			List <Cache> beanCacheLst = new ArrayList<Cache>();
@@ -80,8 +81,10 @@ public class ClientServiceImpl implements ClientService {
 		clientE.setCreateDate(ConvertService.getDate());
 		clientE.setCreateTime(ConvertService.getTime());
 		int maxId = clientDao.insertClient(clientE);
+		int c     = clientE.getId();
 		CacheManager.clearOnly("clientBean_CACHE");
 		retResult.put("id",maxId);
+		retResult.put("c",c);
 		return retResult;
 	}
 
@@ -91,6 +94,7 @@ public class ClientServiceImpl implements ClientService {
 		int count=0;
 		Map retResult = new HashMap();
 		ClientEntity clientE = new ClientEntity();
+		clientE.setId(Integer.parseInt((String)params.get("id")));
 		clientE.setClientName((String)params.get("clientName"));
 		clientE.setContant((String)params.get("contant"));
 		clientE.setMobile((String)params.get("mobile"));
@@ -109,7 +113,7 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Map deleteClient(Map<String, Object> params) {
 		Map retResult = new HashMap();
-		int count = clientDao.deleteClient((String)params.get("ids"));
+		int count = clientDao.deleteClient(Arrays.asList((String[])params.get("id")));
 		retResult.put("count",count);
 		return retResult;
 		
