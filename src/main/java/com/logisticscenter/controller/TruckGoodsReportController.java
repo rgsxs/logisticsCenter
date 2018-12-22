@@ -30,14 +30,14 @@ import java.util.Map;
 @Controller
 @RestController
 @RequestMapping(value = "/api/truckGoodsReport")
-public class TGoodsReportController implements Serializable{
+public class TruckGoodsReportController implements Serializable{
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	public TGoodsReportController(){
+	public TruckGoodsReportController(){
 		
 	}
 	
@@ -82,7 +82,7 @@ public class TGoodsReportController implements Serializable{
 	private String partnerCarry;
 	//车牌号码
 	private String truckNumber;
-	
+
 	//预录发货订单号
 	private int reportId;
 	//发车起始地
@@ -146,15 +146,15 @@ public class TGoodsReportController implements Serializable{
 	private String getFeeTypeColumn;
 	//拼接的更新费用类型SQL
 	private String feeTypecolumnSqlUpd;
-	
+
 	//预录新增页面多条增加货物类型用
 	private String goodsTypeRow;
 	//pageSize
 	private String pageSize;
-	
+
 	//currentPage
 	private String currentPage;
-	
+
 	public int getId() {
 		return id;
 	}
@@ -186,7 +186,7 @@ public class TGoodsReportController implements Serializable{
 	public void setPackageFlg(String packageFlg) {
 		this.packageFlg = packageFlg;
 	}
-	
+
 	public BigDecimal getPackagePrice() {
 		return packagePrice;
 	}
@@ -300,7 +300,7 @@ public class TGoodsReportController implements Serializable{
 		this.client = client;
 	}
 
-	
+
 	public int getPrepaidFlg() {
 		return prepaidFlg;
 	}
@@ -357,7 +357,7 @@ public class TGoodsReportController implements Serializable{
 		this.laterReason = laterReason;
 	}
 
-	
+
 
 	public BigDecimal getRealCarry() {
 		return realCarry;
@@ -414,7 +414,7 @@ public class TGoodsReportController implements Serializable{
 	public void setWorkPlace(String workPlace) {
 		this.workPlace = workPlace;
 	}
-	
+
 	public String getAccessorys() {
 		return accessorys;
 	}
@@ -462,7 +462,7 @@ public class TGoodsReportController implements Serializable{
 	public void setCustomerOrder(String customerOrder) {
 		this.customerOrder = customerOrder;
 	}
-	
+
 
 	public String getSettlement() {
 		return settlement;
