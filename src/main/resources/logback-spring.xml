@@ -7,12 +7,12 @@
         </encoder>
         <!-- 日志级别过滤器 -->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <!-- 过滤的级别 -->
-            <level>WARN</level>
-            <!-- 匹配时的操作：接收（记录） -->
-            <onMatch>ACCEPT</onMatch>
-            <!-- 不匹配时的操作：拒绝（不记录） -->
-            <onMismatch>DENY</onMismatch>
+            <!--&lt;!&ndash; 过滤的级别 &ndash;&gt;-->
+            <!--<level>WARN</level>-->
+            <!--&lt;!&ndash; 匹配时的操作：接收（记录） &ndash;&gt;-->
+            <!--<onMatch>ACCEPT</onMatch>-->
+            <!--&lt;!&ndash; 不匹配时的操作：拒绝（不记录） &ndash;&gt;-->
+            <!--<onMismatch>DENY</onMismatch>-->
         </filter>
     </appender>
 

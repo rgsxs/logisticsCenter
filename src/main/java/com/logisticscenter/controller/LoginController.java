@@ -55,7 +55,7 @@ public class LoginController implements Serializable{
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
-			apidatas.put("api_status", false);
+			apidatas.put("api_status", true);
 			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
 		}
 		return apidatas;
