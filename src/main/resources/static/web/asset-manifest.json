@@ -80,10 +80,10 @@
   "/index.html": "/web/index.html",
   "/favicon.png": "/web/favicon.png",
   "/icons/icon-128x128.png": "/web/icons/icon-128x128.png",
-  "/icons/icon-192x192.png": "/web/icons/icon-192x192.png",
   "/icons/icon-512x512.png": "/web/icons/icon-512x512.png",
+  "/icons/icon-192x192.png": "/web/icons/icon-192x192.png",
   "/manifest.json": "/web/manifest.json",
   "/pwacompat.min.js": "/web/pwacompat.min.js",
-  "/precache-manifest.49512cc62e3ff9c78ec28aae939973ef.js": "/web/precache-manifest.49512cc62e3ff9c78ec28aae939973ef.js",
+  "/precache-manifest.7059b240cdf6803f30e41d5ed970dc8d.js": "/web/precache-manifest.7059b240cdf6803f30e41d5ed970dc8d.js",
   "/service-worker.js": "/web/service-worker.js"
 }
