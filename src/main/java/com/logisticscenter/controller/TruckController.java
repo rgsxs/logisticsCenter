@@ -5,13 +5,16 @@ import com.common.CommonTransMethod;
 import com.common.ConvertService;
 import com.javabean.TruckBean;
 import com.logisticscenter.service.TruckService;
+import com.util.ParamUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
@@ -27,276 +30,41 @@ public class TruckController implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Autowired
 	private TruckService truckService;
 	
 	private CommonTransMethod commonTransMethod;
-	
-	//id
-	private int id;
-	
-	//车牌号码
-	private String  truckNumber ;
-	
-	//户主
-	private String  truckOwner ;
-	
-	//车牌型号
-	private String  truckBrand ;
-	
-	//车辆名称
-	private String  truckName ;
-	
-	//司机联系方式
-	private String  contactNumber ;
-	
-	//车辆类型
-	private int  truckType ;
-	
-	//司机
-	private int  driver ;
-	
-	//车辆颜色
-	private String  truckColor ;
-	
-	//车辆长度
-	private String  trucklength ;
-	
-	//车辆宽度
-	private String  truckWidth ;
-	
-	//车辆高度
-	private String  truckHeight ;
-	
-	//标准载重
-	private String  standardWeight ;
-	
-	//驾驶证号
-	private String  driverLicense ;
-	
-	//发动机号
-	private String  engineNumber ;
-	
-	//生产日期
-	private String  madeDate ;
-	
-	//买进日期
-	private String  buyDate ;
-	
-	//原值
-	private String  worth ;
-	
-	//买进价格
-	private String  buyCost ;
-	
-	//备注
-	private String  remark ;
-	
-	//查询用买进时间段(开始时间)
-	private String buyStartDate;
-	
-	//查询用买进时间段(开始时间)
-	private String buyEndDate;
-	
-	private boolean status ;
-	
-	//pageSize
-	private String pageSize;
-	
-	//currentPage
-	private String currentPage;
-	
-	public String getPageSize() {
-		return pageSize;
-	}
-	public void setPageSize(String pageSize) {
-		this.pageSize = pageSize;
-	}
-	public String getCurrentPage() {
-		return currentPage;
-	}
-	public void setCurrentPage(String currentPage) {
-		this.currentPage = currentPage;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getTruckNumber() {
-		return truckNumber;
-	}
-	public void setTruckNumber(String truckNumber) {
-		this.truckNumber = truckNumber;
-	}
-	public String getTruckOwner() {
-		return truckOwner;
-	}
-	public void setTruckOwner(String truckOwner) {
-		this.truckOwner = truckOwner;
-	}
-	public String getTruckBrand() {
-		return truckBrand;
-	}
-	public void setTruckBrand(String truckBrand) {
-		this.truckBrand = truckBrand;
-	}
-	public String getTruckName() {
-		return truckName;
-	}
-	public void setTruckName(String truckName) {
-		this.truckName = truckName;
-	}
-	public String getContactNumber() {
-		return contactNumber;
-	}
-	public void setContactNumber(String contactNumber) {
-		this.contactNumber = contactNumber;
-	}
-	public int getTruckType() {
-		return truckType;
-	}
-	public void setTruckType(int truckType) {
-		this.truckType = truckType;
-	}
-	public int getDriver() {
-		return driver;
-	}
-	public void setDriver(int driver) {
-		this.driver = driver;
-	}
-	public String getTruckColor() {
-		return truckColor;
-	}
-	public void setTruckColor(String truckColor) {
-		this.truckColor = truckColor;
-	}
-	public String getDriverLicense() {
-		return driverLicense;
-	}
-	public void setDriverLicense(String driverLicense) {
-		this.driverLicense = driverLicense;
-	}
-	public String getEngineNumber() {
-		return engineNumber;
-	}
-	public void setEngineNumber(String engineNumber) {
-		this.engineNumber = engineNumber;
-	}
-	public String getMadeDate() {
-		return madeDate;
-	}
-	public void setMadeDate(String madeDate) {
-		this.madeDate = madeDate;
-	}
-	public String getBuyDate() {
-		return buyDate;
-	}
-	public void setBuyDate(String buyDate) {
-		this.buyDate = buyDate;
-	}
-	public String getRemark() {
-		return remark;
-	}
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
-	public TruckService getTruckService() {
-		return truckService;
-	}
-	
-	public String getTrucklength() {
-		return trucklength;
-	}
-	public void setTrucklength(String trucklength) {
-		this.trucklength = trucklength;
-	}
-	public String getTruckWidth() {
-		return truckWidth;
-	}
-	public void setTruckWidth(String truckWidth) {
-		this.truckWidth = truckWidth;
-	}
-	public String getTruckHeight() {
-		return truckHeight;
-	}
-	public void setTruckHeight(String truckHeight) {
-		this.truckHeight = truckHeight;
-	}
-	public String getStandardWeight() {
-		return standardWeight;
-	}
-	public void setStandardWeight(String standardWeight) {
-		this.standardWeight = standardWeight;
-	}
-	public String getWorth() {
-		return worth;
-	}
-	public void setWorth(String worth) {
-		this.worth = worth;
-	}
-	public String getBuyCost() {
-		return buyCost;
-	}
-	public void setBuyCost(String buyCost) {
-		this.buyCost = buyCost;
-	}
-	
-	public String getBuyStartDate() {
-		return buyStartDate;
-	}
-	public void setBuyStartDate(String buyStartDate) {
-		this.buyStartDate = buyStartDate;
-	}
-	public String getBuyEndDate() {
-		return buyEndDate;
-	}
-	public void setBuyEndDate(String buyEndDate) {
-		this.buyEndDate = buyEndDate;
-	}
-	public boolean getStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-	public void setTruckService(TruckService truckService) {
-		this.truckService = truckService;
-	}
-	
-	public CommonTransMethod getCommonTransMethod() {
-		return commonTransMethod;
-	}
-	public void setCommonTransMethod(CommonTransMethod commonTransMethod) {
-		this.commonTransMethod = commonTransMethod;
-	}
+
 	public TruckController(){
 		
 	}
 	
-	public String addTruck(){
-		TruckBean truckBean = new TruckBean(id,truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,trucklength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark);
-		int maxId = truckService.insertTruck(truckBean);
-		id = maxId;
-		this.status = maxId>0?true:false;
-		CacheManager.clearOnly("truckBean_CACHE");
-		return "success";
-	}
-	
-	public String addTruck1(){
-		TruckBean truckBean = new TruckBean(id,truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,trucklength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark);
-		int maxId = truckService.insertTruck(truckBean);
-		id = maxId;
-		this.status = maxId>0?true:false;
-		CacheManager.clearOnly("truckBean_CACHE");
-		return "success";
-	}
-	
-	public Map selectAllTruck(){
+	public Map addTruck(){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+//			apidatas.putAll(truckService.insertTruck(ParamUtil.request2Map(request)));
+			apidatas.put("api_status", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			apidatas.put("api_status", false);
+			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
+		}
+		return apidatas;
+
+//		TruckBean truckBean = new TruckBean(id,truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,trucklength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark);
+//		int maxId = truckService.insertTruck(truckBean);
+//		id = maxId;
+//		this.status = maxId>0?true:false;
+//		CacheManager.clearOnly("truckBean_CACHE");
+//		return "success";
+	}
+
+	@ResponseBody
+	@PostMapping("/selectTruck")
+	public Map selectTruck(HttpServletRequest request , HttpServletResponse response){
+		Map<String, Object> apidatas = new HashMap<String, Object>();
+		try {
+			apidatas.putAll(truckService.getTruck(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -504,13 +272,26 @@ public class TruckController implements Serializable{
 //		}//返回json对象
 //		return null;
 	}
-	
-	public String updateTruck(){
-		TruckBean truckBean = new TruckBean(id,truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,trucklength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark);
-		int maxId = truckService.updateTruck(truckBean);
-		this.status = maxId > 0?true:false;
-		CacheManager.clearOnly("driverBean_CACHE");
-		return "success";
+
+
+	public Map updateTruck(){
+		Map<String, Object> apidatas = new HashMap<String, Object>();
+		try {
+//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.put("api_status", true);
+			CacheManager.clearOnly("driverEntity_CACHE");
+		} catch (Exception e) {
+			e.printStackTrace();
+			apidatas.put("api_status", false);
+			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
+		}
+		return apidatas;
+
+//		TruckBean truckBean = new TruckBean(id,truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,trucklength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark);
+//		int maxId = truckService.updateTruck(truckBean);
+//		this.status = maxId > 0?true:false;
+//		CacheManager.clearOnly("driverBean_CACHE");
+//		return "success";
 	}
 	
 	public Map deleteTruck(){

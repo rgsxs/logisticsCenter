@@ -4,6 +4,7 @@ export default [
     path: '/user',
     component: '../layouts/UserLayout',
     routes: [
+      { path: '/', redirect: '/user/login' },
       { path: '/user', redirect: '/user/login' },
       { path: '/user/login', component: './User/Login' },
       { path: '/user/register', component: './User/Register' },
@@ -18,7 +19,7 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/analysis' },
+      { path: '/dashboard', redirect: '/dashboard/analysis' },
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -136,6 +137,23 @@ export default [
           },
         ],
       },
+
+
+      // searchTruck
+      {
+        path: '/truck',
+        icon: 'table',
+        name: 'truck',
+        routes: [
+          {
+            path: '/truck/searchTruck',
+            name: 'searchTruck',
+            component: './Truck/SearchTruck',
+          },
+        ],
+      },
+
+
       {
         path: '/profile',
         name: 'profile',

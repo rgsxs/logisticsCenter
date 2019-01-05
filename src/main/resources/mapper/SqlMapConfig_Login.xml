@@ -17,7 +17,7 @@
   </select> 
   
   <!-- 根据id获得用户对象 -->
-    <select id="getSystemById" resultType="systemInfoEntity">
+    <select id="getSystemInfo" resultType="systemInfoEntity">
      select * from adminInfo where loginid=#{loginid}
   </select> 
   

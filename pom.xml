@@ -87,6 +87,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- 配置gson -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2.4</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/com.asprise.imaging/java-scanner-access-twain -->
 		<dependency>

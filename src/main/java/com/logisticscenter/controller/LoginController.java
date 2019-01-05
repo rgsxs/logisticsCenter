@@ -2,6 +2,8 @@ package com.logisticscenter.controller;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.javabean.SystemInfoBean;
 import com.javabean.TruckSetBean;
 import com.logisticscenter.service.LoginService;
@@ -15,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,6 +52,7 @@ public class LoginController implements Serializable{
 	public Map signIn(HttpServletRequest request , HttpServletResponse response){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
+
 			apidatas.putAll(loginService.getSystemInfo(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
@@ -110,6 +112,26 @@ public class LoginController implements Serializable{
 //			e.printStackTrace();
 //		}//返回json对象
 	}
+
+	/**
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("/currentUser")
+	public Map currentUser(HttpServletRequest request , HttpServletResponse response){
+		Map<String, Object> apidatas = new HashMap<String, Object>();
+		try {
+			apidatas.putAll(loginService.getSystemInfo(ParamUtil.request2Map(request)));
+			apidatas.put("api_status", true);
+			apidatas.put("status", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			apidatas.put("api_status", true);
+			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
+		}
+		return apidatas;
+	}
+
 
 
 }

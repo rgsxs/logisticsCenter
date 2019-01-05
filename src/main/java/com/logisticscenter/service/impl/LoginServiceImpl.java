@@ -45,22 +45,25 @@ public class LoginServiceImpl implements LoginService {
 		systemEntity.setLoginid(loginid);
 		systemEntity.setPassword(password);
 		Cache cache = CacheManager.getCacheInfo("truckSettingBean_CACHE");
-		TruckSetBean bean=(TruckSetBean)cache.getValue();
+		if(cache != null){
+			TruckSetBean bean=(TruckSetBean)cache.getValue();
 //		boolean isLogin = getIsLogin(loginid);
-		boolean isLogin = false;
-		if(!isLogin){
-			Map <String,SystemInfoEntity> systemMap = new HashMap<String,SystemInfoEntity>();
-			systemMap.put(loginid,systemEntity);
-			systemInfo.add(systemMap);
-		}
-		int reLogin = bean.getReLogin();
-		if(reLogin == 1 && isLogin){
+			boolean isLogin = false;
+			if(!isLogin){
+				Map <String,SystemInfoEntity> systemMap = new HashMap<String,SystemInfoEntity>();
+				systemMap.put(loginid,systemEntity);
+				systemInfo.add(systemMap);
+			}
+			int reLogin = bean.getReLogin();
+			if(reLogin == 1 && isLogin){
 
+			}
 		}
+
 		//获取输出流，然后使用
 		PrintWriter out = null;
 		try {
-			SystemInfoEntity systemInfoEntity = systemDao.getSystemInfo((String)params.get("id"));
+			SystemInfoEntity systemInfoEntity = systemDao.getSystemInfo((String)params.get("loginId"));
 			Map result = new HashMap();
 			int status = 0;
 			if(systemInfoEntity.getPassword().equals(password)){
@@ -71,6 +74,7 @@ public class LoginServiceImpl implements LoginService {
 				status = 2;
 			}
 			retResult.put("status",status);
+			retResult.put("currentAuthority",loginid);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

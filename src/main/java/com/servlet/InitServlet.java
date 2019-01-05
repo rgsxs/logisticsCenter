@@ -5,10 +5,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
+import java.util.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -19,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
+import com.logisticscenter.model.TruckEntity;
 import com.logisticscenter.service.*;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -256,19 +254,20 @@ public class InitServlet extends HttpServlet {
 		
 		//设置缓存<司机设置缓存>
 		truckService = (TruckService) context1.getBean("truckService"); 
-		if (CacheManager.getCacheInfo("truckBean_CACHE")!=null){
+		if (CacheManager.getCacheInfo("truckEntity_CACHE")!=null){
 			;
 		}else{
-			List<TruckBean> beanLst= truckService.getAllTruck();
+			Map truckInfoMap= truckService.getTruck(new HashMap());
+			List<TruckEntity> entityList = (List<TruckEntity>)truckInfoMap.get("data");
 			Cache cache = null;
 			Date date = new Date();
 			List <Cache> beanCacheLst = new ArrayList<Cache>();
 			//货物类型List设置缓存
-			for(int i = 0;i<beanLst.size();i++){
+			for(int i = 0;i<entityList.size();i++){
 				cache = new Cache();
-				cache.setKey(beanLst.get(i).getId()+"");
+				cache.setKey(entityList.get(i).getId()+"");
 				cache.setTimeOut(date.getTime());
-				cache.setValue(beanLst.get(i));
+				cache.setValue(entityList.get(i));
 				beanCacheLst.add(cache);
 			}
 			CacheManager.putCacheList("truckBean_CACHE", beanCacheLst);

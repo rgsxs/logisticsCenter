@@ -13,6 +13,7 @@ import com.javabean.GoodsTypeBean;
 import com.javabean.ImageFileBean;
 import com.javabean.TruckBean;
 import com.javabean.TruckGoodsOrderDetailBean;
+import com.logisticscenter.model.TruckEntity;
 import com.logisticscenter.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -278,11 +279,12 @@ public class CommonTransMethod {
 		if("".equals(id) || id == null || id.equals("0")){
 			return "";
 		}
-		List<TruckBean> beanLst= truckService.getAllTruck();
+		Map truckInfoMap= truckService.getTruck(new HashMap());
+		List<TruckEntity> entityList = (List<TruckEntity>)truckInfoMap.get("data");
 		try{
-			for(int i = 0;i<beanLst.size();i++){
-				if(beanLst.get(i).getId()== Integer.parseInt(id)){
-					retStr = beanLst.get(i).getTruckNumber();
+			for(int i = 0;i<entityList.size();i++){
+				if(entityList.get(i).getId()== Integer.parseInt(id)){
+					retStr = entityList.get(i).getTruckNumber();
 					break;
 				}
 			}
@@ -302,11 +304,12 @@ public class CommonTransMethod {
 		if("".equals(truckNmuber) || truckNmuber == null ){
 			return 0;
 		}
-		List<TruckBean> beanLst= truckService.getAllTruck();
+		Map truckInfoMap= truckService.getTruck(new HashMap());
+		List<TruckEntity> entityList = (List<TruckEntity>)truckInfoMap.get("data");
 		try{
-			for(int i = 0;i<beanLst.size();i++){
-				if(beanLst.get(i).getTruckNumber().equals(truckNmuber)){
-					retStr = beanLst.get(i).getId();
+			for(int i = 0;i<entityList.size();i++){
+				if(entityList.get(i).getTruckNumber().equals(truckNmuber)){
+					retStr = entityList.get(i).getId();
 					break;
 				}
 			}

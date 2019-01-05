@@ -17,7 +17,7 @@ public interface TruckInfoDao {
 	
 	public abstract String getTruckInfoCount(TruckEntity selectInfo);
 	
-	public abstract List<TruckEntity> getAllTruck();
+	public abstract List<TruckEntity> getTruck();
 	
 	public abstract int deleteTruck(String id);
 	

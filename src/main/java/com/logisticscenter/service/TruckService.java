@@ -1,8 +1,10 @@
 package com.logisticscenter.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.javabean.TruckBean;
+import com.logisticscenter.model.TruckEntity;
 
 public interface TruckService {
 	
@@ -14,7 +16,7 @@ public interface TruckService {
 	
 	public abstract String getTruckInfoCount(TruckBean selectInfo);
 	
-	public abstract List<TruckBean> getAllTruck();
+	public abstract Map getTruck(Map params);
 	
 	public abstract int deleteTruck(String id);
 	

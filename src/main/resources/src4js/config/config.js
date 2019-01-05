@@ -1,9 +1,9 @@
 // https://umijs.org/config/
 import os from 'os';
+import slash from 'slash2';
 import pageRoutes from './router.config';
 import webpackPlugin from './plugin.config';
 import defaultSettings from '../src/defaultSettings';
-import slash from 'slash2';
 
 const plugins = [
   [
@@ -63,6 +63,11 @@ export default {
   define: {
     APP_TYPE: process.env.APP_TYPE || '',
   },
+  // 生成的index.html文件里面引用资源的前缀
+  publicPath:'/web/',
+  // 生成的根目录相对路径
+  outputPath :'../static/web/',
+  history:'hash',
   // 路由配置
   routes: pageRoutes,
   // Theme for antd

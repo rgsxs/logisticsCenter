@@ -3,7 +3,7 @@
 <mapper namespace="com.logisticscenter.mapper.TruckInfoDao">
 
     <!--查询所有车辆信息 -->
-    <select id="getAllTruck" resultType="truckEntity">
+    <select id="getTruck" resultType="truckEntity">
     select a.* from truckInfo a left join commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber
   </select>
 
