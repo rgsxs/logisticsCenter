@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.ImageFileDao">
+  
+  <!-- 根据id获得上传文件信息 -->
+    <select id="getImageFileBy" resultType="imageFileEntity">
+     select * from imageFile where id in( ${ids} )
+    </select>
+  
+  <!-- 插入上传文件信息 -->
+	<insert id="insertImageFile" parameterType="imageFileEntity">
+		insert into imageFile (
+			imagefilename,
+			imagefiletype,
+			imagefileused,
+			filerealpath,
+			iszip,
+			downloads,
+			createDate,
+			createTime
+		)values(
+			#{imageFileName},
+			#{imagefiletype},
+			#{imagefileused},
+			#{filerealpath},
+			#{iszip},
+			#{downloads},
+			#{createDate},
+			#{createTime}
+		)
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			SELECT max(id) as id from imageFile
+		</selectKey>
+  </insert> 
+  
+</mapper>

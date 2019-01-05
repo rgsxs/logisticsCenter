@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.TruckFeeInfoDao">
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllTruckFeeInfo" resultType="truckFeeInfoEntity">
+    select * from truckFeeInfo
+  </select>
+  
+   <!-- 根据用户名获得用户对象 -->
+   <select id="getTruckFeeInfoByName" resultType="truckFeeInfoEntity" parameterType="truckFeeInfoEntity">
+	select * from truckFeeInfo
+	   <where>
+		   <if test="name != null and name != ''">
+			   name=#name#
+		   </if>
+	   </where>
+  </select> 
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getTruckFeeInfoById" resultType="truckFeeInfoEntity">
+     select * from truckFeeInfo where id=#id#
+  </select> 
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertTruckFeeInfo" parameterType="truckFeeInfoEntity">
+      insert into truckFeeInfo (carryNumber,truckNumber,expensens,oilCost,towinigCost,roadCost,repairCost,leadWayCost,tireCost,otherCost,allowance,total,createDate,createTime) 
+      values (#carryNumber#,#truckNumber#,#expensens#,#oilCost#,#towinigCost#,#roadCost#,#repairCost#,#leadWayCost#,#tireCost#,#otherCost#,#allowance#,#total#,#createDate#,#createTime#)
+      <selectKey resultType="int" keyProperty="id" order="AFTER">
+			SELECT max(id) as id from truckFeeInfo
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteTruckFeeInfo">
+     delete from truckFeeInfo where id=#id#
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateTruckFeeInfo" parameterType="truckFeeInfoEntity">
+      update truckFeeInfo set truckNumber=#truckNumber# where id=#id#
+   </update>
+</mapper>

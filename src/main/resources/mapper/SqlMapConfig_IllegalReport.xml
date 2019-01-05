@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.IllegalReportDao">
+  
+    <!-- 获得全查询列表 -->
+    <select id="getAllIllegalReport" resultType="illegalReportEntity">
+    select * from illegalReport
+  </select>
+
+    <!-- 根据用户名获得用户对象 -->
+    <select id="getIllegalReportByName" resultType="illegalReportEntity" parameterType="illegalReportEntity">
+        select * from illegalReport
+        <where>
+            <if test="truckNumber != null and truckNumber != ''">
+                truckNumber=#{truckNumber}
+            </if>
+            <if test="illegalNumber != null and illegalNumber != ''">
+                illegalNumber=#{illegalNumber}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据id获得用户对象 -->
+    <select id="getIllegalReportById" resultType="illegalReportEntity">
+     select * from illegalReport where id=#{id}
+  </select>
+
+    <!-- 新增用户对象 -->
+    <insert id="insertIllegalReport" parameterType="illegalReportEntity">
+        insert into illegalReport
+        (truckNumber,illegalNumber,illegalType,illegalCost,driver,illegalDate,illegalReason,insuranceCost,result,illegalRemind,remark)
+        values
+        (
+        #{truckNumber},
+        #{illegalNumber},
+        #{illegalType},
+        #{illegalCost},
+        #{driver},
+        #{illegalDate},
+        #{illegalReason},
+        #{insuranceCost},
+        #{result},
+        #{illegalRemind},
+        #{remark}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT max(id) as id from illegalReport
+        </selectKey>
+    </insert>
+
+    <!-- 删除用户对象 -->
+    <delete id="deleteIllegalReport">
+     delete from illegalReport where id=#{id}
+   </delete>
+
+    <!-- 更新用户对象 -->
+    <update id="updateIllegalReport" parameterType="illegalReportEntity">
+      update illegalReport set illegalNumber=#{illegalNumber} where id=#{id}
+   </update>
+</mapper>

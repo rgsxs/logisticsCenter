@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.DriverInfoDao">
+  
+  <!-- 获得全查询列表 -->
+  <select id="getAllDriver" resultType="driverInfoEntity">
+    select * from driverInfo order by id
+  </select>
+  
+   <!--  -->
+   <select id="getDriverBy" resultType="driverInfoEntity" parameterType="driverInfoEntity">
+	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo
+	   <where>
+		   <if test="name != null and name != ''">
+			   name like '%' + #{name} +  '%'
+		   </if>
+	   </where>
+	) A
+	   <where>
+		   <if test="currentPage != null and currentPage != ''">
+			   rownumber > ${currentPage}
+		   </if>
+	   </where>
+  </select> 
+  
+  <!--  -->
+   <select id="getDriverBy2" resultType="driverInfoEntity" parameterType="driverInfoEntity">
+	select top ${pageSize} * from ( select row_number() over(order by id desc) as rownumber,* from driverInfo
+	   <where>
+		   <if test="name != null and name != ''">
+			   name like '%' + #{name} +  '%'
+		   </if>
+	   </where>
+	) A
+	   <where>
+		   <if test="currentPage != null and currentPage != ''">
+			   rownumber > ${currentPage}
+		   </if>
+	   </where>
+  </select> 
+  
+   <!--  -->
+   <select id="getDriverByCount" resultType="string" parameterType="driverInfoEntity">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
+	   <where>
+		   <if test="name != null and name != ''">
+			   name like '%' + #{name} +  '%'
+		   </if>
+	   </where>
+  </select> 
+  
+  <!--  -->
+   <select id="getDriverBy2Count" resultType="string" parameterType="driverInfoEntity">
+	select count(*) from ( select row_number() over(order by id desc) as rownumber,* from driverInfo ) A
+	   <where>
+		   <if test="name != null and name != ''">
+			   name like '%' + #{name} +  '%'
+		   </if>
+	   </where>
+  </select> 
+  
+  <!-- 根据id获得用户对象 -->
+    <select id="getDriverById" resultType="driverInfoEntity">
+     select * from driverInfo where id=#{id}   </select>
+  
+   <!-- 新增用户对象 -->
+   <insert id="insertDriver" parameterType="driverInfoEntity">
+      insert into driverInfo (
+	   name,
+	   sex,
+	   nativePlace,
+	   education,
+	   birthday,
+	   age,
+	   address,
+	   contactNmuber,
+	   mobile,
+	   idNumber,
+	   startWorkDate,
+	   driverLicense,
+	   truckNumber,
+	   appraise,
+	   salary,
+	   remark,
+	   job,
+	   createDate,
+	   createTime) 
+      values (
+	   #{name}, 
+	   #{sex}, 
+	   #{nativePlace}, 
+	   #{education}, 
+	   #{birthday}, 
+	   #{age}, 
+	   #{address}, 
+	   #{contactNmuber}, 
+	   #{mobile}, 
+	   #{idNumber}, 
+	   #{startWorkDate}, 
+	   #{driverLicense}, 
+	   #{truckNumber}, 
+	   #{appraise}, 
+	   #{salary}, 
+	   #{remark}, 
+	   #{job}, 
+	   #{createDate}, 
+	   #{createTime}
+	   )
+      <selectKey resultType="int" keyProperty="id" order="AFTER">    
+			SELECT max(id) as id from driverInfo
+		</selectKey>
+   </insert>
+   
+   <!-- 删除用户对象 -->
+   <delete id="deleteDriver" parameterType="java.util.List">
+	delete from driverInfo  WHERE ID in
+	   <foreach item="item" index="index" collection="list"
+				open="(" separator="," close=")">
+		   #{item}
+	   </foreach>
+   </delete>
+   
+   <!-- 更新用户对象 -->
+   <update id="updateDriver" parameterType="driverInfoEntity">
+      update driverInfo set 
+		  name= #{name}, 
+		  sex= #{sex}, 
+		  nativePlace= #{nativePlace}, 
+		  education= #{education}, 
+		  birthday= #{birthday}, 
+		  age= #{age}, 
+		  address= #{address}, 
+		  contactNmuber= #{contactNmuber}, 
+		  mobile= #{mobile}, 
+		  idNumber= #{idNumber}, 
+		  startWorkDate= #{startWorkDate}, 
+		  driverLicense= #{driverLicense}, 
+		  truckNumber= #{truckNumber}, 
+		  appraise= #{appraise}, 
+		  salary= #{salary}, 
+		  remark= #{remark}, 
+		  job= #{job}, 
+		  editDate= #{editDate}, 
+		  editTime= #{editTime}
+	  where
+		  id= #{id}
+	</update>
+</mapper>

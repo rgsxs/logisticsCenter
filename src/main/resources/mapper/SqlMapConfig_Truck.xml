@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.TruckInfoDao">
+
+    <!--查询所有车辆信息 -->
+    <select id="getTruck" resultType="truckEntity">
+    select a.* from truckInfo a left join commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber
+  </select>
+
+    <!-- 根据车辆名称查询 -->
+    <select id="getTruckBy" resultType="truckEntity" parameterType="truckEntity">
+        select top ${pageSize} * from (select row_number() over(order by a.id desc) as rownumber,a.* from truckInfo a
+        left join commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber
+        <where>
+            <if test="truckNumber != null and truckNumber != ''">
+                a.truckNumber like '%' + #{truckNumber}+ '%'
+            </if>
+            <if test="driver > 0">
+                a.driver = #{driver#
+            </if>
+            <if test="truckBrand != null and truckBrand != ''">
+                a.truckBrand like '%' + #{truckBrand}+ '%'
+            </if>
+            <if test="engineNumber != null and engineNumber != ''">
+                a.engineNumber like '%' + #{engineNumber}+ '%'
+            </if>
+            <if test="buyStartDate != null and buyStartDate != ''">
+                a.buyDate &gt; #{buyStartDate}
+            </if>
+            <if test="buyEndDate != null and buyEndDate != ''">
+                a.buyDate &lt; #{buyEndDate}
+            </if>
+        </where>
+        ) d
+        <where>
+            <if test="currentPage != null and currentPage != ''">
+                rownumber > ${currentPage}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据车辆名称查询 -->
+    <select id="getTruckByCount" resultType="String" parameterType="truckEntity">
+        select count(*) from (select row_number() over(order by a.id desc) as rownumber,a.* from truckInfo a left join
+        commercialInsurance b on a.id=b.truckNumber left join compulsoryInsurance c on a.id = c.truckNumber ) d
+        <where>
+            <if test="truckNumber != null and truckNumber != ''">
+                a.truckNumber like '%' + #{truckNumber}+ '%'
+            </if>
+            <if test="driver > 0">
+                a.driver = #{driver#
+            </if>
+            <if test="truckBrand != null and truckBrand != ''">
+                a.truckBrand like '%' + #{truckBrand}+ '%'
+            </if>
+            <if test="engineNumber != null and engineNumber != ''">
+                a.engineNumber like '%' + #{engineNumber}+ '%'
+            </if>
+            <if test="buyStartDate != null and buyStartDate != ''">
+                a.buyDate &gt; #{buyStartDate}
+            </if>
+            <if test="buyEndDate != null and buyEndDate != ''">
+                a.buyDate &lt; #{buyEndDate}
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据id获得用户对象 -->
+    <select id="getTruckById" resultType="truckEntity">
+     select * from truckInfo where id=#{id}
+  </select>
+
+    <!-- 新增用户对象 -->
+    <insert id="insertTruck" parameterType="truckEntity">
+        insert into truckInfo
+        (truckNumber,truckOwner,truckBrand,truckName,contactNumber,truckType,driver,truckColor,truckLength,truckWidth,truckHeight,standardWeight,driverLicense,engineNumber,madeDate,buyDate,worth,buyCost,remark)
+        values (
+        #{truckNumber},
+        #{truckOwner},
+        #{truckBrand},
+        #{truckName},
+        #{contactNumber},
+        #{truckType},
+        #{driver},
+        #{truckColor},
+        #{truckLength},
+        #{truckWidth},
+        #{truckHeight},
+        #{standardWeight},
+        #{driverLicense},
+        #{engineNumber},
+        #{madeDate},
+        #{buyDate},
+        #{worth},
+        #{buyCost},
+        #{remark}
+        )
+        <selectKey resultType="int" keyProperty="id" order="AFTER">
+            SELECT max(id) as id from truckInfo
+        </selectKey>
+    </insert>
+
+    <!-- 删除用户对象 -->
+    <delete id="deleteTruck" parameterType="java.util.List">
+        delete from truckInfo WHERE ID in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{{item}
+        </foreach>
+    </delete>
+
+    <!-- 更新用户对象 -->
+    <update id="updateTruck" parameterType="truckEntity">
+		update truckInfo set
+			truckNumber= #{truckNumber},
+			truckOwner= #{truckOwner},
+			truckBrand= #{truckBrand},
+			truckName= #{truckName},
+			contactNumber= #{contactNumber},
+			truckType= #{truckType},
+			driver= #{driver},
+			truckColor= #{truckColor},
+			truckLength= #{truckLength},
+			truckWidth= #{truckWidth},
+			truckHeight= #{truckHeight},
+			standardWeight= #{standardWeight},
+			driverLicense= #{driverLicense},
+			engineNumber= #{engineNumber},
+			madeDate= #{madeDate},
+			buyDate= #{buyDate},
+			worth= #{worth},
+			buyCost= #{buyCost},
+			remark= #{remark}
+		where id= #{id}
+   </update>
+</mapper>

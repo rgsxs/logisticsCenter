@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.logisticscenter.mapper.TruckGoodsOrderDao">
+	<!-- 新增预录出车信息 -->
+	<insert id="insertTruckGoodsOrderTaker" parameterType="truckGoodsOrderTakerEntity">
+		insert into truckGoodsOrderTaker (
+			goodsType,
+			beginDate,
+			client,
+			deleteFlg,
+			packageFlg,
+			packagePrice,
+			startPlace,
+			endPlace,
+			orderStatus,
+			workPlace,
+			createDate,
+			createTime,
+			editDate,
+			editTime
+		) 
+		values 
+		(
+			#goodsType#,
+			#beginDate#,
+			#client#,
+			#deleteFlg#,
+			#packageFlg#,
+			#packagePrice#,
+			#startPlace#,
+			#endPlace#,
+			#orderStatus#,
+			#workPlace#,
+			#createDate#,
+			#createTime#,
+			#editDate#,
+			#editTime#
+		)
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			SELECT max(id) as id from truckGoodsOrderTaker
+		</selectKey>
+	</insert>
+	
+	<!-- 新增预录出车详细信息 -->
+	<insert id="insertTruckGoodsOrderDetail" parameterType="truckGoodsOrderDetailEntity">
+		insert into truckGoodsOrderDetail (
+			reportId,
+			goodsType,
+			deleteFlg,
+			price,
+			realCarry,
+			invoiceFlg,
+			startPlace,
+			endPlace,
+			createDate,
+			createTime,
+			editDate,
+			editTime
+		) 
+		values 
+		(
+			#reportId#,
+			#goodsType#,
+			#deleteFlg#,
+			#price#,
+			#realCarry#,
+			#invoiceFlg#,
+			#startPlace#,
+			#endPlace#,
+			#createDate#,
+			#createTime#,
+			#editDate#,
+			#editTime#
+		)
+		<selectKey resultType="int" keyProperty="id" order="AFTER">
+			SELECT max(id) as id from truckGoodsOrderDetail
+		</selectKey>
+	</insert>
+	
+	
+	<!-- 根据条件查询出车预录信息 -->
+	<select id="getTruckGoodsOrderTaker" resultType="truckGoodsOrderTakerEntity" parameterType="truckGoodsOrderTakerEntity">
+		select top $pageSize$ * from ( select row_number() over(order by id desc) as rownumber,* from truckGoodsOrderTaker 
+		<!--<dynamic prepend="WHERE ">-->
+			<!--<isEqual prepend="AND" property="orderStatus" compareValue="0">-->
+				<!--(orderStatus = 0 or orderStatus is null)-->
+			<!--</isEqual>-->
+			<!--<isGreaterThan prepend="AND" property="orderStatus" compareValue="0">-->
+				<!--orderStatus = #orderStatus#-->
+			<!--</isGreaterThan>-->
+			<!--<isNotEmpty prepend="AND" property="beginDate">-->
+				<!--beginDate &gt; #beginDate#-->
+			<!--</isNotEmpty>-->
+			<!--<isGreaterThan prepend="AND" property="client" compareValue="0">-->
+				<!--client=#client#-->
+			<!--</isGreaterThan>-->
+			<!--<isGreaterThan prepend="AND" property="goodsType" compareValue="0">-->
+				<!--goodsType=#goodsType#-->
+			<!--</isGreaterThan>-->
+		<!--</dynamic>-->
+		<!--) A-->
+		<!--<dynamic prepend="WHERE ">-->
+			<!--<isNotEmpty prepend="AND" property="currentPage">-->
+				<!--rownumber > $currentPage$-->
+			<!--</isNotEmpty>-->
+		<!--</dynamic>-->
+	</select>
+	
+	<!-- 根据条件查询出车预录详细信息 -->
+	<select id="getTruckGoodsOrderDetail" resultType="truckGoodsOrderDetailEntity" parameterType="truckGoodsOrderDetailEntity">
+		select * from truckGoodsOrderDetail 
+		<!--<dynamic prepend="WHERE ">-->
+			<!--<isNotEmpty prepend="AND" property="deleteFlg">-->
+				<!--deleteFlg = #deleteFlg#-->
+			<!--</isNotEmpty>-->
+			<!--<isNotEmpty prepend="AND" property="reportId">-->
+				<!--reportId = #reportId#-->
+			<!--</isNotEmpty>-->
+			<!--<isNotEmpty prepend="AND" property="goodsTypes">-->
+				<!--goodsType in ($goodsTypes$)-->
+			<!--</isNotEmpty>-->
+			<!--<isNotEmpty prepend="AND" property="startPlace">-->
+				<!--startPlace like '%' + #startPlace# +  '%' -->
+			<!--</isNotEmpty>-->
+			<!--<isNotEmpty prepend="AND" property="endPlace">-->
+				<!--endPlace like '%' + #endPlace# +  '%' -->
+			<!--</isNotEmpty>-->
+		<!--</dynamic>-->
+	</select>  
+	
+  <!-- 根据条件查询出车分页pageTotal -->
+	<select id="getTruckGoodsOrderByCount" resultType="String" parameterType="truckGoodsOrderTakerEntity">
+		select count(*) from ( select row_number() over(order by id) as rownumber,* from truckGoodsOrderTaker ) A
+		<!--<dynamic prepend="WHERE ">-->
+			<!--<isEqual prepend="AND" property="orderStatus" compareValue="0">-->
+				<!--(orderStatus = 0 or orderStatus is null)-->
+			<!--</isEqual>-->
+			<!--<isGreaterThan prepend="AND" property="orderStatus" compareValue="0">-->
+				<!--orderStatus = #orderStatus#-->
+			<!--</isGreaterThan>-->
+			<!--<isNotEmpty prepend="AND" property="deleteFlg">-->
+				<!--deleteFlg = #deleteFlg#-->
+			<!--</isNotEmpty>-->
+			<!--<isNotEmpty prepend="AND" property="beginDate">-->
+				<!--beginDate &gt; #beginDate#-->
+			<!--</isNotEmpty>-->
+			<!--<isGreaterThan prepend="AND" property="client" compareValue="-1">-->
+				<!--client=#client#-->
+			<!--</isGreaterThan>-->
+			<!--<isGreaterThan prepend="AND" property="goodsType" compareValue="-1">-->
+				<!--goodsType=#goodsType#-->
+			<!--</isGreaterThan>-->
+		<!--</dynamic>-->
+	</select> 
+  
+  <!-- 根据id获得预录出车信息-->
+	<select id="getTruckGoodsOrderTakerById" resultType="truckGoodsOrderTakerEntity">
+		select * from truckGoodsOrderTaker where id=#id#
+	</select> 
+	
+	<!-- 根据reportID获得预录出车信息-->
+	<select id="getTruckGoodsOrderDetailByReprotId" resultType="truckGoodsOrderDetailEntity">
+		select * from truckGoodsOrderDetail where reportId in ($reportId$) and deleteFlg = 0 order by createdate desc,createtime desc
+	</select>
+	
+   <!-- 删除预录信息 -->
+	<update id="deleteTruckGoodsOrderTaker" parameterType="java.util.List">
+		update truckGoodsOrderTaker set deleteFlg = 1 ,orderStatus =2
+		<!--<iterate prepend="WHERE" open="(" close=")"-->
+			<!--conjunction="OR">-->
+			<!--id=#idLst[]#-->
+		<!--</iterate>-->
+	</update>
+	
+	<!-- 删除预录详细信息 -->
+	<update id="deleteTruckGoodsOrderDetail" parameterType="java.util.List">
+		update truckGoodsOrderDetail set deleteFlg = 1 
+		<!--<iterate prepend="WHERE" open="(" close=")"-->
+			<!--conjunction="OR">-->
+			<!--reportId=#idLst[]#-->
+		<!--</iterate>-->
+	</update>
+   
+   <!-- 更新预录出车信息 -->
+   <update id="updateTruckGoodsOrderTaker" parameterType="truckGoodsOrderTakerEntity">
+		update truckGoodsOrderTaker set 
+			goodsType='$goodsType$',
+			beginDate=#beginDate#,
+			client=#client#,
+			packageFlg=#packageFlg#,
+			packagePrice=#packagePrice#,
+			startPlace=#startPlace#,
+			endPlace=#endPlace#,
+			workPlace=#workPlace#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+   
+   <!-- 更新预录出车详细信息 -->
+   <update id="updateTruckGoodsOrderDetail" parameterType="truckGoodsOrderDetailEntity">
+		update truckGoodsOrderDetail set 
+			goodsType=#goodsType#,
+			price=#price#,
+			realCarry=#realCarry#,
+			invoiceFlg=#invoiceFlg#,
+			startPlace=#startPlace#,
+			endPlace=#endPlace#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+   
+   <!-- 更新预录出车详细信息 -->
+   <update id="updateTruckGoodsOrderStatus" parameterType="truckGoodsOrderTakerEntity">
+		update truckGoodsOrderTaker set 
+			orderStatus=#orderStatus#,
+			editDate=#editDate#,
+			editTime=#editTime#
+		 where id=#id#
+   </update>
+</mapper>
