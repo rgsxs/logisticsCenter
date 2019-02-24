@@ -1,6 +1,6 @@
 package com.logisticscenter.model;
 
-public class SystemInfoEntity {
+public class LoginInfoEntity {
 	private int id;
 	//登录ID
 	private String loginid;

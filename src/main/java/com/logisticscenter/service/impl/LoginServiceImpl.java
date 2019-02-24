@@ -1,37 +1,41 @@
 package com.logisticscenter.service.impl;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
-import com.common.ConvertService;
-import com.javabean.SystemInfoBean;
-import com.javabean.TruckSetBean;
-import com.logisticscenter.mapper.SystemInfoDao;
-import com.logisticscenter.model.SystemInfoEntity;
+import com.common.consatnt.CacheConstant;
+import com.common.consatnt.SessionConstant;
+import com.logisticscenter.mapper.LoginInfoDao;
+import com.logisticscenter.mapper.TruckSetDao;
+import com.logisticscenter.model.LoginInfoEntity;
+import com.logisticscenter.model.TruckSetEntity;
 import com.logisticscenter.service.LoginService;
 import com.util.Utils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class LoginServiceImpl implements LoginService {
 
-	private static List<Map<String,SystemInfoEntity>> systemInfo = new ArrayList<Map<String,SystemInfoEntity>>();
+	private static List<Map<String,LoginInfoEntity>> systemInfo = new ArrayList<Map<String,LoginInfoEntity>>();
 
 	@Autowired
-	SystemInfoDao systemDao;
+	LoginInfoDao loginInfoDao;
+
+	@Autowired
+	TruckSetDao truckSetDao;
 
 	@Override
 	public Map deleteSystemInfo(Map<String, Object> params) {
 		Map retResult = new HashMap();
 		String id = Utils.null2String((String)params.get("id"),"-1");
-		systemDao.deleteSystemInfo(id);
+		loginInfoDao.deleteSystemInfo(id);
 		return retResult;
 	}
 
@@ -40,37 +44,17 @@ public class LoginServiceImpl implements LoginService {
 		Map retResult = new HashMap();
 		String loginid = (String)params.get("loginId");
 		String password = (String)params.get("password");
-		//获得是否可以重复登录
-		SystemInfoEntity systemEntity = new SystemInfoEntity();
-		systemEntity.setLoginid(loginid);
-		systemEntity.setPassword(password);
-		Cache cache = CacheManager.getCacheInfo("truckSettingBean_CACHE");
-		if(cache != null){
-			TruckSetBean bean=(TruckSetBean)cache.getValue();
-//		boolean isLogin = getIsLogin(loginid);
-			boolean isLogin = false;
-			if(!isLogin){
-				Map <String,SystemInfoEntity> systemMap = new HashMap<String,SystemInfoEntity>();
-				systemMap.put(loginid,systemEntity);
-				systemInfo.add(systemMap);
-			}
-			int reLogin = bean.getReLogin();
-			if(reLogin == 1 && isLogin){
-
-			}
-		}
-
-		//获取输出流，然后使用
-		PrintWriter out = null;
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 		try {
-			SystemInfoEntity systemInfoEntity = systemDao.getSystemInfo((String)params.get("loginId"));
+			LoginInfoEntity loginInfoEntity = loginInfoDao.getSystemInfo((String)params.get("loginId"));
 			Map result = new HashMap();
 			int status = 0;
-			if(systemInfoEntity.getPassword().equals(password)){
-				status = 0;
-			}else if(!systemInfoEntity.getPassword().equals(password)){
+			if(loginInfoEntity.getPassword().equals(password)){
+				status = setUserBeanCacheAndSession(request,loginInfoEntity);
+
+			}else if(!loginInfoEntity.getPassword().equals(password)){
 				status = 1;
-			}else if("".equals(systemInfoEntity.getPassword())){
+			}else if("".equals(loginInfoEntity.getPassword())){
 				status = 2;
 			}
 			retResult.put("status",status);
@@ -85,40 +69,95 @@ public class LoginServiceImpl implements LoginService {
 
 	@Override
 	public Map updateSystemInfo(Map<String, Object> params) {
-//		SystemInfoEntity systemE = new SystemInfoEntity();
+//		LoginInfoEntity systemE = new LoginInfoEntity();
 //		systemDao.updateSystemInfo(systemE);
 		return null;
 	}
 	
 	@Override
 	public Map updateAllSystemInfo(Map<String, Object> params) {
-//		SystemInfoEntity systemE = new SystemInfoEntity();
+//		LoginInfoEntity systemE = new LoginInfoEntity();
 //		systemDao.updateAllSystemInfo(systemE);
 		return null;
 	}
 
 	@Override
 	public Map insertSystemInfo(Map<String, Object> params) {
-//		SystemInfoEntity systemE = (SystemInfoEntity) ConvertService.convertBeanToEntity(insertInfo, new SystemInfoEntity());
+//		LoginInfoEntity systemE = (LoginInfoEntity) ConvertService.convertBeanToEntity(insertInfo, new LoginInfoEntity());
 //		systemDao.insertSystemInfo(systemE);
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 	/**
-	 * @param loginId
+	 * 设置缓存
+	 * @param request
+	 * @return
+	 */
+	private int setUserBeanCacheAndSession(HttpServletRequest request,LoginInfoEntity loginInfoEntity){
+		int status = 0;
+		//获得是否可以重复登录
+		Cache cache = CacheManager.getCacheInfo(CacheConstant.TRUCKSET_BEAN_CACHE);
+		TruckSetEntity truckSetEntity = new TruckSetEntity();
+		Date date = new Date();
+		if(cache == null){
+			truckSetEntity = truckSetDao.getTruckSet();
+			cache = new Cache();
+			cache.setKey(CacheConstant.TRUCKSET_BEAN);
+			cache.setTimeOut(date.getTime());
+			cache.setValue(truckSetEntity);
+			CacheManager.putCache(CacheConstant.TRUCKSET_BEAN_CACHE, cache);
+		}else{
+			truckSetEntity = (TruckSetEntity)cache.getValue();
+		}
+
+
+		//设置登陆缓存
+		cache = new Cache();
+		cache.setKey(CacheConstant.USER_BEAN);
+		cache.setTimeOut(date.getTime());
+		cache.setValue(loginInfoEntity);
+		CacheManager.putCache(CacheConstant.USER_BEAN_CACHE, cache);
+		//检查是否允许重复登陆
+		int reLogin = truckSetEntity.getReLogin();
+		//预留接口:是否允许重复登陆
+		if(reLogin == 1){
+			status = getIsLogin(request);
+		}
+		//设置session
+		if(status > -1){
+			setLoginSession(request,loginInfoEntity);
+		}
+
+		return status;
+	}
+
+	/**
+	 * 是否已经登录
+	 * @param request
+	 * @return
+	 */
+	private int getIsLogin(HttpServletRequest request){
+		HttpSession session = request.getSession(true);
+		LoginInfoEntity loginInfoEntity = (LoginInfoEntity)session.getAttribute(SessionConstant.USER_SESSION);
+		if(loginInfoEntity == null){
+			return 0;
+		}else{
+			return -1;
+		}
+
+	}
+
+
+	/**
+	 * 设置登陆session
+	 * @param request
 	 * @return 是否已经登录
 	 */
-	private Map getIsLogin(String loginid){
-		return null;
-//		for(int i=0;i <systemInfo.size();i++){
-//			Map<String,SystemInfoBean> systemMap = systemInfo.get(i);
-//			for(String key : systemMap.keySet()){
-//				if(key.equals(loginId)){
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
+	public void setLoginSession(HttpServletRequest request,LoginInfoEntity loginInfoEntity){
+		HttpSession session = request.getSession();
+		session.setAttribute(SessionConstant.USER_SESSION,loginInfoEntity);
+
 	}
 
 }
