@@ -57,6 +57,8 @@ public class CommonTransMethod {
 	//图片文件service注入
 	@Autowired
 	public static ImageFileService imageFileService;
+	@Autowired
+	public static TruckSetService truckSetService;
 
 
 	/**

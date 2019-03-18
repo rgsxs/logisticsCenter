@@ -10,6 +10,16 @@ export async function selectTruck(params) {
   });
 }
 
+export async function getAdvancedForm(params) {
+  return request('/api/truck/getAdvancedForm', {
+    method: 'POST',
+    body: {
+      ...params,
+      method: 'getAdvancedForm',
+    },
+  });
+}
+
 export async function deleteTruck(params) {
   return request('/api/truck/deleteTruck', {
     method: 'POST',

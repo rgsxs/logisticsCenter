@@ -3,6 +3,7 @@ package com.logisticscenter.controller;
 import com.cache.CacheManager;
 import com.javabean.DriverInfoBean;
 import com.logisticscenter.service.DriverService;
+import com.util.ParamUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class DriverController implements Serializable{
 	public Map selectDriver(HttpServletRequest request){
 		Map<String, Object> apidatas = new HashMap<String, Object>();
 		try {
-//			apidatas.putAll(clientService.getClient(ParamUtil.request2Map(request)));
+			apidatas.putAll(driverService.getDriverInfo(ParamUtil.request2Map(request)));
 			apidatas.put("api_status", true);
 		} catch (Exception e) {
 			e.printStackTrace();

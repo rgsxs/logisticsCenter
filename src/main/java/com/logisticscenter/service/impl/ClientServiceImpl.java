@@ -160,8 +160,8 @@ public class ClientServiceImpl implements ClientService {
 	@Override
 	public Map deleteClient(Map<String, Object> params) {
 		Map retResult = new HashMap();
-		int count = clientDao.deleteClient(Arrays.asList((String[])params.get("id")));
-		retResult.put("count",count);
+//		int count = clientDao.deleteClient(Arrays.asList((String[])params.get("id")));
+//		retResult.put("count",count);
 		return retResult;
 
 	}

@@ -72,6 +72,21 @@ public class TruckController implements Serializable{
 			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
 		}
 		return apidatas;
+	}
+
+	@ResponseBody
+	@PostMapping("/getAdvancedForm")
+	public Map getAdvancedForm(HttpServletRequest request , HttpServletResponse response){
+		Map<String, Object> apidatas = new HashMap<String, Object>();
+		try {
+			apidatas.putAll(truckService.getAdvancedForm(ParamUtil.request2Map(request)));
+			apidatas.put("api_status", true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			apidatas.put("api_status", false);
+			apidatas.put("api_errormsg", "catch exception : " + e.getMessage());
+		}
+		return apidatas;
 
 //		HttpServletResponse response =   ServletActionContext.getResponse();
 //		List<TruckBean> beanLst= truckService.getAllTruck();

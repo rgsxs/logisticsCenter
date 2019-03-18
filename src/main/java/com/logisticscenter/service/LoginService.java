@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.javabean.SystemInfoBean;
 
+import javax.servlet.http.HttpServletRequest;
+
 public interface LoginService {
 	
 	public abstract Map insertSystemInfo(Map<String, Object> params);
@@ -16,5 +18,6 @@ public interface LoginService {
 	public abstract Map updateSystemInfo(Map<String, Object> params);
 	
 	public abstract Map updateAllSystemInfo(Map<String, Object> params);
+
 
 }
