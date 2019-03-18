@@ -23,7 +23,8 @@ import {
 } from 'antd';
 import StandardTable from '@/components/StandardTable';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
-
+import FormUtils from '@/components/FormUtils';
+// import { getFormItem } from '@/utils/formUtils';
 import styles from './SearchTruck.less';
 
 const FormItem = Form.Item;
@@ -275,7 +276,7 @@ class UpdateForm extends PureComponent {
 /* eslint react/no-multi-comp:0 */
 @connect(({ truck, loading }) => ({
   truck,
-  loading: loading.models.truck,
+  loading: loading.effects['truck/search'],
 }))
 @Form.create()
 class SearchTruck extends PureComponent {
@@ -351,7 +352,10 @@ class SearchTruck extends PureComponent {
     console.log('searchtruck didmount')
     const { dispatch } = this.props;
     dispatch({
-      type: 'truck/fetch',
+      type: 'truck/search',
+    });
+    dispatch({
+      type: 'truck/getAdvancedForm',
     });
   }
 
@@ -376,7 +380,7 @@ class SearchTruck extends PureComponent {
     }
 
     dispatch({
-      type: 'truck/fetch',
+      type: 'truck/search',
       payload: params,
     });
   };
@@ -388,7 +392,7 @@ class SearchTruck extends PureComponent {
       formValues: {},
     });
     dispatch({
-      type: 'truck/fetch',
+      type: 'truck/search',
       payload: {},
     });
   };
@@ -448,7 +452,7 @@ class SearchTruck extends PureComponent {
       });
 
       dispatch({
-        type: 'truck/fetch',
+        type: 'truck/search',
         payload: values,
       });
     });
@@ -495,128 +499,22 @@ class SearchTruck extends PureComponent {
     this.handleUpdateModalVisible();
   };
 
-  renderSimpleForm() {
-    const {
-      form: { getFieldDecorator },
-    } = this.props;
-    return (
-      <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="车牌">
-              {getFieldDecorator('truckNumber')(<Input placeholder="请输入车牌" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="驾驶员">
-              {getFieldDecorator('driver')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <span className={styles.submitButtons}>
-              <Button type="primary" htmlType="submit">
-                查询
-              </Button>
-              <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-                重置
-              </Button>
-              <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-                展开 <Icon type="down" />
-              </a>
-            </span>
-          </Col>
-        </Row>
-      </Form>
-    );
-  }
-
   renderAdvancedForm() {
     const {
-      form: { getFieldDecorator },
+      truck: { advancedForm },
     } = this.props;
     return (
-      <Form onSubmit={this.handleSearch} layout="inline">
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="车牌">
-              {getFieldDecorator('truckNumber')(<Input placeholder="请输入车牌" />)}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="驾驶员">
-              {getFieldDecorator('driver')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="购买日期">
-              {getFieldDecorator('buyDate')(<InputNumber style={{ width: '100%' }} />)}
-            </FormItem>
-          </Col>
-        </Row>
-        <Row gutter={{ md: 8, lg: 24, xl: 48 }}>
-          <Col md={8} sm={24}>
-            <FormItem label="更新日期">
-              {getFieldDecorator('date')(
-                <DatePicker.RangePicker style={{ width: '100%' }}  format={'YYYY/MM/DD'}/>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="车辆品牌">
-              {getFieldDecorator('truckBrand')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-          <Col md={8} sm={24}>
-            <FormItem label="发动机号">
-              {getFieldDecorator('engineNumber')(
-                <Select placeholder="请选择" style={{ width: '100%' }}>
-                  <Option value="0">关闭</Option>
-                  <Option value="1">运行中</Option>
-                </Select>
-              )}
-            </FormItem>
-          </Col>
-        </Row>
-        <div style={{ overflow: 'hidden' }}>
-          <div style={{ float: 'right', marginBottom: 24 }}>
-            <Button type="primary" htmlType="submit">
-              查询
-            </Button>
-            <Button style={{ marginLeft: 8 }} onClick={this.handleFormReset}>
-              重置
-            </Button>
-            <a style={{ marginLeft: 8 }} onClick={this.toggleForm}>
-              收起 <Icon type="up" />
-            </a>
-          </div>
-        </div>
-      </Form>
+       <div>{getFormItem(advancedForm,this.props.form,this.state.expandForm,this.handleSearch,this.handleFormReset,this.toggleForm) }</div>
     );
   }
 
   renderForm() {
-    const { expandForm } = this.state;
-    return expandForm ? this.renderAdvancedForm() : this.renderSimpleForm();
+    return this.renderAdvancedForm();
   }
 
   render() {
     const {
-      truck: { data },
+      truck: { data,advancedForm },
       loading,
     } = this.props;
     console.log('searchtruck render')
@@ -640,7 +538,13 @@ class SearchTruck extends PureComponent {
       <PageHeaderWrapper title="查询车辆">
         <Card bordered={false}>
           <div className={styles.tableList}>
-            <div className={styles.tableListForm}>{this.renderForm()}</div>
+            {/* <div className={styles.tableListForm}>{this.renderForm()}</div> */}
+            <div className={styles.tableListForm}>
+              {<FormUtils 
+              data={advancedForm}
+              />}
+            </div>
+            
             <div className={styles.tableListOperator}>
               <Button icon="plus" type="primary" onClick={() => this.handleModalVisible(true)}>
                 新建

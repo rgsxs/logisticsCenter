@@ -1,8 +1,6 @@
 package com.logisticscenter.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import com.cache.Cache;
 import com.cache.CacheManager;
@@ -20,6 +18,13 @@ public class DriverServiceImpl implements DriverService {
 
 	@Autowired
 	DriverInfoDao driverInfoDao;
+
+	@Override
+	public Map getDriverInfo(Map params) {
+		Map retMap = new HashMap();
+		retMap.put("driver",driverInfoDao.getDriverInfo((String)params.get("id")));
+		return retMap;
+	}
 
 	@Override
 	public int deleteDriverInfo(String id) {

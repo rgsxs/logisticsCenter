@@ -24,4 +24,7 @@ public interface TruckService {
 	
 	public abstract void updateAllTruck(TruckBean updateInfo);
 
+	public abstract Map getAdvancedForm(Map params);
+
+
 }

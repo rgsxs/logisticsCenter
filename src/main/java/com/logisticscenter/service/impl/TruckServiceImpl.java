@@ -5,8 +5,11 @@ import java.util.*;
 import com.cache.Cache;
 import com.cache.CacheManager;
 import com.common.ConvertService;
+import com.common.consatnt.CacheConstant;
 import com.javabean.TruckBean;
+import com.logisticscenter.mapper.DriverInfoDao;
 import com.logisticscenter.mapper.TruckInfoDao;
+import com.logisticscenter.model.DriverInfoEntity;
 import com.logisticscenter.model.TruckEntity;
 import com.logisticscenter.service.TruckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +22,13 @@ public class TruckServiceImpl implements TruckService {
 	@Autowired
 	TruckInfoDao truckDao;
 
+	@Autowired
+	DriverInfoDao driverDao;
+
 	@Override
 	public int deleteTruck(String id) {
 		int count =  truckDao.deleteTruck(id);
 		return count;
-		
 	}
 
 	@Override
@@ -117,6 +122,52 @@ public class TruckServiceImpl implements TruckService {
 		retMap.put("list",entityList);
 
 		
+		return retMap;
+	}
+
+	@Override
+	public  Map getAdvancedForm(Map params){
+		Map retMap = new HashMap();
+		List itemList = new ArrayList();
+		Map itemChild = new HashMap();
+		//车牌
+		itemChild.put("type","input");
+		itemChild.put("placeholder","请输入车牌");
+		itemChild.put("label","车牌");
+		itemChild.put("key","truckNumber");
+		itemChild.put("rules",new ArrayList());
+		itemList.add(itemChild);
+		//驾驶员
+		List<Cache> cacheList = CacheManager.getCacheListInfo(CacheConstant.Driver_BEAN_CACHE);
+		List<DriverInfoEntity> entityList = new ArrayList<DriverInfoEntity>();
+		if(cacheList!=null && cacheList.size()>0){
+			for(int i =0;i<cacheList.size();i++){
+				entityList.add((DriverInfoEntity)cacheList.get(i).getValue());
+			}
+		}else{
+			entityList = driverDao.getDriverInfo(new HashMap());
+			Cache cache = null;
+			Date date = new Date();
+			List <Cache> beanCacheLst = new ArrayList<Cache>();
+//			//货物类型设置缓存
+//			for(int i = 0;i<entityList.size();i++){
+//				cache = new Cache();
+//				cache.setKey(entityList.get(i).getId()+"");
+//				cache.setTimeOut(date.getTime());
+//				cache.setValue(entityList.get(i));
+//				beanCacheLst.add(cache);
+//			}
+			CacheManager.putCacheList(CacheConstant.Driver_BEAN_CACHE, beanCacheLst);
+		}
+		itemChild = new HashMap();
+		itemChild.put("type","select");
+		itemChild.put("label","车牌");
+		itemChild.put("key","driver");
+		itemChild.put("option","driver");
+		itemChild.put("rules",new ArrayList());
+		itemList.add(itemChild);
+
+		retMap.put("item",itemList);
 		return retMap;
 	}
 

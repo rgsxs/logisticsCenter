@@ -4,29 +4,29 @@ import { parse } from 'url';
 let tableListDataSource = [];
 for (let i = 0; i < 46; i += 1) {
   tableListDataSource.push({
-    key: i,
-        truckNumber: `TradeCode ${i}`,
-        truckOwner: '曲丽丽',
-        truckBrand: Math.floor(Math.random() * 10) % 2,
-        truckName:'',
-        contactNumber:'',
-        truckType:'',
-        driver:'',
-        truckColor:'',
-        trucklength:'',
-        truckWidth:'',
-        truckHeight:'',
-        standardWeight:'',
-        driverLicense:'',
-        engineNumber:'',
-        madeDate: new Date(),
-        buyDate: new Date(),
-        worth:'',
-        buyCost:'',
+      key: i,
+      truckNumber: `TradeCode ${i}`,
+      truckOwner: '曲丽丽',
+      truckBrand: Math.floor(Math.random() * 10) % 2,
+      truckName:'',
+      contactNumber:'',
+      truckType:'',
+      driver:'',
+      truckColor:'',
+      trucklength:'',
+      truckWidth:'',
+      truckHeight:'',
+      standardWeight:'',
+      driverLicense:'',
+      engineNumber:'',
+      madeDate: new Date(),
+      buyDate: new Date(),
+      worth:'',
+      buyCost:'',
   });
 }
 
-function getRule(req, res, u) {
+function selectTruck(req, res, u) {
   let url = u;
   if (!url || Object.prototype.toString.call(url) !== '[object String]') {
     url = req.url; // eslint-disable-line
@@ -74,7 +74,6 @@ function getRule(req, res, u) {
       current: parseInt(params.currentPage, 10) || 1,
     },
   };
-
   return res.json(result);
 }
 
@@ -139,9 +138,25 @@ function postRule(req, res, u, b) {
   return res.json(result);
 }
 
+function getAdvancedForm(req, res, u, b){
+  let itemChilds = [];
+  let children = [];
+  for (let i = 10; i < 36; i++) {
+    children.push({key:i,value:`驾驶员${i}`});
+  }
+  itemChilds.push({type:'input',label:'车牌',key:'truckNumber',rules: [],placeholder:'请输入车牌'});
+  itemChilds.push({type:'select',label:'驾驶员',key:'driver',options:children,isMulti:true});
+  itemChilds.push({type:'rangePicker',label:'购买日期',key:'buyDate',placeholder:'购买日期'});
+  itemChilds.push({type:'input',label:'驾驶员4',key:'driver4'});
+  let advancedForm={
+    item:itemChilds
+  }
+  return res.json(advancedForm);
+}
 export default {
-  'POST /api/truck/selectTruck': getRule,
+  'POST /api/truck/selectTruck': selectTruck,
   'POST /api/truck/deleteTruck': postRule,
   'POST /api/truck/addTruck': postRule,
   'POST /api/truck/updateTruck': postRule,
+  'POST /api/truck/getAdvancedForm': getAdvancedForm,
 };

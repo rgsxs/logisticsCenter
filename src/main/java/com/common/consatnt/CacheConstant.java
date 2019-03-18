@@ -7,4 +7,5 @@ public class CacheConstant {
     //应用设置用truckSetEntity
     public static final String TRUCKSET_BEAN = "truckSet_bean";
     public static final String TRUCKSET_BEAN_CACHE = "truckSet_bean_cache";
+    public static final String Driver_BEAN_CACHE = "driver_bean_cache";
 }

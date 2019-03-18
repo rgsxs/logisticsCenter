@@ -1,4 +1,4 @@
-import { selectTruck, deleteTruck, addTruck, updateTruck } from '@/services/truck';
+import { selectTruck,getAdvancedForm, deleteTruck, addTruck, updateTruck } from '@/services/truck';
 
 export default {
   namespace: 'truck',
@@ -8,13 +8,21 @@ export default {
       list: [],
       pagination: {},
     },
+    advancedForm: {}
   },
 
   effects: {
-    *fetch({ payload }, { call, put }) {
+    *search({ payload }, { call, put }) {
       const response = yield call(selectTruck, payload);
       yield put({
         type: 'save',
+        payload: response,
+      });
+    },
+    *getAdvancedForm({ payload }, { call, put }) {
+      const response = yield call(getAdvancedForm, payload);
+      yield put({
+        type: 'saveAdvancedForm',
         payload: response,
       });
     },
@@ -49,6 +57,12 @@ export default {
       return {
         ...state,
         data: action.payload,
+      };
+    },
+    saveAdvancedForm(state, action) {
+      return {
+        ...state,
+        advancedForm: action.payload,
       };
     },
   },
