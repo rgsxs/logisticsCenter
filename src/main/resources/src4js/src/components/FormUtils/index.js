@@ -48,6 +48,10 @@ class FormUtils extends React.PureComponent {
     handleFormReset = ()=>{
         this.props.form.resetFields();
     }
+     getFormFieldsValue = ()=>{
+        const { form } = this.props;
+        return form.getFieldsValue();
+    }
     render(){
         console.log('formUtils render')
         const {form , data, buttons} = this.props;
@@ -55,18 +59,12 @@ class FormUtils extends React.PureComponent {
         const {expandForm} = this.state;
         let formItems = [];
         return <div>
-        <Form  layout="inline">
-          <Row >
-            <Col md={8} sm={24} offset={20}>
+        <Form  horizontal className="ant-advanced-search-form">
+          <Row gutter={16}>
+            <Col style={{ textAlign: 'right' }}>
                 {buttons&&buttons.map(data => {
                 return (
                     <span
-                    style={{
-                        display: "inline-block",
-                        lineHeight: "28px",
-                        verticalAlign: "middle",
-                        marginLeft: 10
-                    }}
                     >
                     {data}
                     </span>
@@ -82,15 +80,15 @@ class FormUtils extends React.PureComponent {
                 
               </Col>
             </Row>
-            {<Row gutter={{ md: 8, lg: 24, xl: 48 }}>
+            {<Row gutter={16}>
             {data && data.item && data.item.map((item,index) => {
               if(expandForm===false && index > 2){
                 return;
               }
               if(item.type==='input'){
                   return (
-                      <Col md={8} sm={24}>
-                      <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={item.label}>
+                      <Col sm={8}>
+                      <FormItem labelCol={{ span: 10 }} wrapperCol={{ span: 14 }} label={item.label}>
                           {form.getFieldDecorator(item.key, {
                           rules: item.rules&&item.rules,
                           })(<Input placeholder={item.placeholder} />)}
@@ -100,8 +98,8 @@ class FormUtils extends React.PureComponent {
               }
               if(item.type==='select'){
                 return (
-                    <Col md={8} sm={24}>
-                    <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={item.label}>
+                    <Col sm={8}>
+                    <FormItem labelCol={{ span: 10 }} wrapperCol={{ span: 14 }} label={item.label}>
                         {form.getFieldDecorator(item.key, {
                         rules: item.rules&&item.rules,
                         })(<Select 
@@ -121,8 +119,8 @@ class FormUtils extends React.PureComponent {
               }
               if(item.type==='datePicker'){
                 return (
-                    <Col md={8} sm={24}>
-                    <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={item.label}>
+                    <Col sm={8}>
+                    <FormItem labelCol={{ span: 10 }} wrapperCol={{ span: 14 }} label={item.label}>
                         {form.getFieldDecorator(item.key, {
                         rules: item.rules&&item.rules,
                         })(<DatePicker
@@ -135,8 +133,8 @@ class FormUtils extends React.PureComponent {
               }
               if(item.type==='rangePicker'){
                 return (
-                    <Col md={8} sm={24}>
-                    <FormItem labelCol={{ span: 5 }} wrapperCol={{ span: 15 }} label={item.label}>
+                    <Col sm={8}>
+                    <FormItem labelCol={{ span: 10 }} wrapperCol={{ span: 14 }} label={item.label}>
                         {form.getFieldDecorator(item.key, {
                         rules: item.rules&&item.rules,
                         })(<RangePicker

@@ -512,6 +512,16 @@ class SearchTruck extends PureComponent {
     return this.renderAdvancedForm();
   }
 
+  getAdvanceBtn=()=>{
+    let btns=[];
+    btns.push(
+      <Button type="primary" onClick={() => console.log(this.form.getFormFieldsValue())}>
+         查询
+      </Button>
+    )
+    return btns
+  }
+
   render() {
     const {
       truck: { data,advancedForm },
@@ -541,7 +551,9 @@ class SearchTruck extends PureComponent {
             {/* <div className={styles.tableListForm}>{this.renderForm()}</div> */}
             <div className={styles.tableListForm}>
               {<FormUtils 
+              wrappedComponentRef={(form) => this.form = form}
               data={advancedForm}
+              buttons={this.getAdvanceBtn()}
               />}
             </div>
             

@@ -147,7 +147,9 @@ function getAdvancedForm(req, res, u, b){
   itemChilds.push({type:'input',label:'车牌',key:'truckNumber',rules: [],placeholder:'请输入车牌'});
   itemChilds.push({type:'select',label:'驾驶员',key:'driver',options:children,isMulti:true});
   itemChilds.push({type:'rangePicker',label:'购买日期',key:'buyDate',placeholder:'购买日期'});
-  itemChilds.push({type:'input',label:'驾驶员4',key:'driver4'});
+  itemChilds.push({type:'input',label:'驾驶',key:'driver4'});
+  itemChilds.push({type:'input',label:'驾驶',key:'driver4'});
+  itemChilds.push({type:'input',label:'驾驶',key:'driver4'});
   let advancedForm={
     item:itemChilds
   }
